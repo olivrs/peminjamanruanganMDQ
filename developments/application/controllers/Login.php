@@ -23,13 +23,24 @@ class Login extends CI_Controller
 				  `level` varchar(20) NOT NULL,
 				  PRIMARY KEY (`username`)
 				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+			}
 
-				$this->db->query("INSERT IGNORE INTO `tb_user` VALUES 
-				('123123','123','$2y$10$JKNonUItvDfJy4Ff3tI4be5XLhdQmanAwbsE1xcfSSGvrS.o2tNr6','Resepsionis'),
-				('nawal','nawwal fadhil ','$2y$10$Rzn1gkMhhpBjS4n7Tbccruye0TkrigeXFrb74CZL2h58/MHqcUxOa','Pengguna'),
-				('operator','Operator Resepsionis','$2y$10$Rzn1gkMhhpBjS4n7Tbccruye0TkrigeXFrb74CZL2h58/MHqcUxOa','Resepsionis'),
-				('resepsionis','Resepsionis Medquest','$2y$10$Rzn1gkMhhpBjS4n7Tbccruye0TkrigeXFrb74CZL2h58/MHqcUxOa','Resepsionis'),
-				('ryan','Ryan','$2y$10$Rzn1gkMhhpBjS4n7Tbccruye0TkrigeXFrb74CZL2h58/MHqcUxOa','Admin');");
+			// Ensure standard default users exist with valid bcrypt hash
+			$check_ryan = $this->db->get_where('tb_user', array('username' => 'ryan'))->row_array();
+			if (empty($check_ryan) || ! password_verify('123123', $check_ryan['password']))
+			{
+				$default_pass = password_hash('123123', PASSWORD_DEFAULT);
+				$default_users = array(
+					array('username' => 'ryan', 'fullname' => 'Ryan', 'password' => $default_pass, 'level' => 'Admin'),
+					array('username' => 'operator', 'fullname' => 'Operator Resepsionis', 'password' => $default_pass, 'level' => 'Resepsionis'),
+					array('username' => 'resepsionis', 'fullname' => 'Resepsionis Medquest', 'password' => $default_pass, 'level' => 'Resepsionis'),
+					array('username' => 'nawal', 'fullname' => 'nawwal fadhil', 'password' => $default_pass, 'level' => 'Pengguna'),
+					array('username' => '123123', 'fullname' => '123', 'password' => $default_pass, 'level' => 'Resepsionis')
+				);
+				foreach ($default_users as $u)
+				{
+					$this->db->replace('tb_user', $u);
+				}
 			}
 
 			if ( ! $this->db->table_exists('tb_ruangan'))
