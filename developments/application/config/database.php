@@ -89,7 +89,7 @@ $db['default'] = array(
 	'char_set' => 'utf8',
 	'dbcollat' => 'utf8_general_ci',
 	'swap_pre' => '',
-	'encrypt' => FALSE,
+	'encrypt' => ((getenv('DB_SSL') === 'true' || getenv('DB_PORT') == 4000 || (getenv('DB_HOST') && strpos(getenv('DB_HOST'), 'tidb') !== false)) ? array('ssl_verify' => FALSE) : FALSE),
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),
