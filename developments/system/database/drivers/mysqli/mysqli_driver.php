@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * CodeIgniter
  *
@@ -179,8 +179,11 @@ class CI_DB_mysqli_driver extends CI_DB {
 		if ($this->_mysqli->real_connect($hostname, $this->username, $this->password, $this->database, $port, $socket, $client_flags))
 		{
 			// Prior to version 5.7.3, MySQL silently downgrades to an unencrypted connection if SSL setup fails
+			// Skip this check for mysqlnd (PHP 8+) and TiDB Cloud - mysqlnd handles SSL natively
+			$is_mysqlnd = (strpos($this->_mysqli->client_info, 'mysqlnd') !== FALSE);
 			if (
-				($client_flags & MYSQLI_CLIENT_SSL)
+				! $is_mysqlnd
+				&& ($client_flags & MYSQLI_CLIENT_SSL)
 				&& version_compare($this->_mysqli->client_info, '5.7.3', '<=')
 				&& empty($this->_mysqli->query("SHOW STATUS LIKE 'ssl_cipher'")->fetch_object()->Value)
 			)
