@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Flowchart Peminjaman Ruang Meeting</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    body {
+      background-color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 30px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h2 {
+      color: #1e293b;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+    .mermaid {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+  <h2>PT Medquest Jaya Global - Flowchart Peminjaman Ruang Meeting</h2>
+  <div class="mermaid">
+flowchart TD
+    A([Mulai]) --> B[Buka halaman Login]
+    B --> C{Username & password valid?}
+    C -- Tidak --> B
+    C -- Ya --> D{Level akun?}
+    D -- Pengguna --> E[Menu Pengguna:<br/>Beranda, Daftar Ruang,<br/>Ketersediaan, Data Peminjaman]
+    D -- Admin --> F[Menu Admin:<br/>+ Akun Pengguna, Data Ruang,<br/>Riwayat Akses, Laporan]
+
+    E --> G[Ketersediaan Ruangan:<br/>pilih tanggal & ruang]
+    G --> H[Tampil slot 08:00 - 16:00]
+    H --> I{Slot tersedia?}
+    I -- "Sudah dipesan / waktu lewat" --> G
+    I -- Tersedia --> J[Klik slot, form pengajuan terbuka]
+    J --> K[Isi nama, departemen,<br/>telepon, agenda meeting]
+    K --> L{Validasi server:<br/>tanggal, jam, ruang, slot masih kosong?}
+    L -- Gagal --> G
+    L -- Lolos --> M[(Simpan di tb_peminjaman<br/>status = Menunggu)]
+
+    M --> N[Admin melihat badge<br/>pengajuan Menunggu]
+    F --> N
+    N --> O{Keputusan admin}
+    O -- Setujui --> P[(Status = Disetujui<br/>waktu_penyetujuan terisi)]
+    O -- Batalkan --> Q[(Status = Dibatalkan<br/>slot dibebaskan)]
+    P --> R[Meeting berlangsung]
+    R --> S[Admin klik Selesaikan]
+    S --> T[(Status = Selesai<br/>waktu_pengembalian terisi)]
+    T --> U[Laporan Peminjaman<br/>per rentang tanggal]
+    Q --> U
+    U --> V([Selesai])
+  </div>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+  </script>
+</body>
+</html>

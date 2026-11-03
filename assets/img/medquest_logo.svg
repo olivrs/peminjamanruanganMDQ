@@ -1,0 +1,18 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 80" width="210" height="40">
+  <defs>
+    <linearGradient id="mqGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+  </defs>
+  <!-- Medical Cross / Shield Tech Emblem -->
+  <g transform="translate(10, 10)">
+    <rect x="0" y="0" width="60" height="60" rx="14" fill="url(#mqGrad)" />
+    <!-- Modern Tech Medical Plus -->
+    <path d="M 30 15 L 30 45 M 15 30 L 45 30" stroke="#ffffff" stroke-width="6" stroke-linecap="round" />
+    <circle cx="30" cy="30" r="4" fill="#38bdf8" />
+  </g>
+  <!-- Typography -->
+  <text x="85" y="38" font-family="'Segoe UI', 'Montserrat', Arial, sans-serif" font-size="24" font-weight="900" letter-spacing="1" fill="#0f172a">MEDQUEST</text>
+  <text x="86" y="58" font-family="'Segoe UI', Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="2" fill="#0284c7">JAYA GLOBAL</text>
+</svg>
