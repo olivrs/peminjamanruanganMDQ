@@ -18,10 +18,10 @@ class Dashboard extends CI_Controller
 		}
 
 		// Memanggil Model
-		$this->load->model('model_user');
-		$this->load->model('model_ruangan');
-		$this->load->model('model_peminjaman');
-		$this->load->model('model_tap');
+		$this->load->model('Model_User', 'model_user');
+		$this->load->model('Model_Ruangan', 'model_ruangan');
+		$this->load->model('Model_Peminjaman', 'model_peminjaman');
+		$this->load->model('Model_Tap', 'model_tap');
 	}
 
 	public function index()

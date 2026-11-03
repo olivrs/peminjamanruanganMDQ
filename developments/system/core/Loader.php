@@ -329,12 +329,31 @@ class CI_Loader {
 		{
 			foreach ($this->_ci_model_paths as $mod_path)
 			{
-				if ( ! file_exists($mod_path.'models/'.$path.$model.'.php'))
+				$filepath = $mod_path.'models/'.$path.$model.'.php';
+				if ( ! file_exists($filepath))
 				{
-					continue;
+					$found_file = FALSE;
+					$dir = $mod_path.'models/'.$path;
+					if (is_dir($dir) && ($dh = opendir($dir)))
+					{
+						while (($file = readdir($dh)) !== FALSE)
+						{
+							if (strcasecmp($file, $model.'.php') === 0)
+							{
+								$filepath = $dir.$file;
+								$found_file = TRUE;
+								break;
+							}
+						}
+						closedir($dh);
+					}
+					if ( ! $found_file)
+					{
+						continue;
+					}
 				}
 
-				require_once($mod_path.'models/'.$path.$model.'.php');
+				require_once($filepath);
 				if ( ! class_exists($model, FALSE))
 				{
 					throw new RuntimeException($mod_path."models/".$path.$model.".php exists, but doesn't declare class ".$model);
