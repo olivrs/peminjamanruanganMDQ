@@ -1,4 +1,4 @@
-﻿<!-- Menubar Resepsionis / Operator -->
+<!-- Menubar Resepsionis / Operator -->
 <ul>
 	<li <?php if($hal == "Beranda") echo "class='active'"; ?>>
 		<a href="<?php echo base_url('dashboard'); ?>">Beranda</a>

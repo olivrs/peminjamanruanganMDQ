@@ -1,4 +1,4 @@
-﻿<!-- Dropdown Profil -->
+<!-- Dropdown Profil -->
 <div>
 	<a class="dropdown-info" id="dropdown-info" data-toggle="dropdown" style="cursor:pointer;">
 		Halo, <?php echo $this->session->userdata('namalengkap'); ?> <span class="lnr lnr-chevron-down"></span>

@@ -1,4 +1,4 @@
-﻿<!-- Menubar Pengguna -->
+<!-- Menubar Pengguna -->
 <ul>
 	<li <?php if($hal == "Beranda") echo "class='active'"; ?>>
 		<a href="<?php echo base_url('dashboard'); ?>"><!-- <span class="lnr lnr-home"></span> -->Beranda</a>

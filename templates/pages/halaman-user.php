@@ -1,4 +1,4 @@
-﻿<!-- Tabel Data User [Awal] -->
+<!-- Tabel Data User [Awal] -->
 <table>
 	<tr>
 		<th>No.</th>
