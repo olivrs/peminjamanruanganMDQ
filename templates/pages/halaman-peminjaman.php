@@ -522,7 +522,7 @@ if (!empty($tb_idpinjam)) {
 					<li>
 						<div><i class="lnr lnr-text-format"></i></div><input type="text" name="keterangan" placeholder="Agenda / Keperluan meeting" maxlength="100" required />
 					</li>
-					<br /><hr />
+					<hr />
 					<li>
 						<input type="submit" name="tombol_tambah" value="Ajukan Booking Ruangan" />
 					</li>
