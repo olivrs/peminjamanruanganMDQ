@@ -2,7 +2,7 @@
 	.beranda-hero {
 		background: linear-gradient(130deg, #002b80 0%, #0059fb 58%, #2ea3f2 100%);
 		border-radius: 16px;
-		padding: 32px 36px;
+		padding: 22px 30px;
 		color: #ffffff;
 		margin-bottom: 22px;
 		box-shadow: 0 14px 32px -8px rgba(0, 89, 251, 0.32);
@@ -27,19 +27,19 @@
 	}
 	.hero-text h2 {
 		font-family: 'Open Sans', sans-serif;
-		font-size: 27px;
+		font-size: 23px;
 		font-weight: 800;
 		margin-top: 0;
-		margin-bottom: 8px;
+		margin-bottom: 6px;
 		letter-spacing: -0.4px;
 		color: #ffffff;
 	}
 	.hero-text p {
-		font-size: 14px;
+		font-size: 13px;
 		color: #e0f2fe;
 		max-width: 600px;
-		margin-bottom: 20px;
-		line-height: 1.65;
+		margin-bottom: 14px;
+		line-height: 1.55;
 	}
 	.hero-actions {
 		display: flex;
@@ -50,11 +50,11 @@
 	.hero-actions .btn-cta {
 		background: #ffffff;
 		color: #0059fb;
-		padding: 11px 22px;
+		padding: 9px 18px;
 		border-radius: 8px;
 		font-weight: 800;
 		text-decoration: none;
-		font-size: 13.5px;
+		font-size: 12.5px;
 		display: inline-flex;
 		align-items: center;
 		box-shadow: 0 6px 16px rgba(0, 20, 60, 0.2);
@@ -69,11 +69,11 @@
 		background: rgba(255, 255, 255, 0.12);
 		border: 1px solid rgba(255, 255, 255, 0.35);
 		color: #ffffff;
-		padding: 10px 18px;
+		padding: 8px 16px;
 		border-radius: 8px;
 		font-weight: 700;
 		text-decoration: none;
-		font-size: 13px;
+		font-size: 12.5px;
 		display: inline-flex;
 		align-items: center;
 		transition: all 0.2s ease;
@@ -92,12 +92,12 @@
 		backdrop-filter: blur(10px);
 		border: 1px solid rgba(255, 255, 255, 0.25);
 		border-radius: 12px;
-		padding: 16px 22px;
+		padding: 12px 18px;
 		text-align: center;
-		min-width: 115px;
+		min-width: 105px;
 	}
 	.stat-number {
-		font-size: 28px;
+		font-size: 24px;
 		font-weight: 800;
 		color: #ffffff;
 		line-height: 1;
@@ -116,7 +116,7 @@
 		background: #ffffff;
 		border: 1px solid #e2e8f0;
 		border-radius: 14px;
-		padding: 18px 24px 20px 24px;
+		padding: 24px 28px 26px 28px;
 		margin-top: 36px;
 		margin-bottom: 12px;
 		box-shadow: 0 4px 12px rgba(0, 40, 120, 0.04);
@@ -126,7 +126,7 @@
 		align-items: center;
 		justify-content: center;
 		gap: 18px;
-		margin-bottom: 14px;
+		margin-bottom: 18px;
 	}
 	.mq-quest-line {
 		flex: 1;
@@ -137,7 +137,7 @@
 	.mq-quest-heading {
 		margin: 0;
 		font-family: 'Roboto', 'Open Sans', sans-serif;
-		font-size: 15px;
+		font-size: 17px;
 		font-weight: 700;
 		color: #262626;
 		letter-spacing: 0.2px;
@@ -172,21 +172,21 @@
 		transform: translateY(-3px);
 	}
 	.mq-quest-img {
-		width: 64px;
-		height: 64px;
+		width: 80px;
+		height: 80px;
 		object-fit: contain;
-		margin-bottom: 8px;
+		margin-bottom: 10px;
 		filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.06));
 	}
 	.mq-quest-text {
 		font-family: 'Roboto', 'Open Sans', sans-serif;
-		font-size: 9.5px;
+		font-size: 11px;
 		font-weight: 700;
 		color: #4a5568;
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
-		line-height: 1.35;
-		max-width: 165px;
+		line-height: 1.4;
+		max-width: 190px;
 	}
 
 	/* Analytics Section Styling */
@@ -344,7 +344,7 @@
 	.room-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-		gap: 24px;
+		gap: 20px;
 		margin-bottom: 25px;
 	}
 	.room-card {
@@ -364,7 +364,7 @@
 	}
 	/* Room Slider / Carousel */
 	.room-slider {
-		height: 170px;
+		height: 220px;
 		width: 100%;
 		position: relative;
 		overflow: hidden;
@@ -521,35 +521,35 @@
 		font-weight: 700;
 	}
 	.room-body {
-		padding: 18px;
+		padding: 22px 22px 20px 22px;
 		flex-grow: 1;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
 	}
 	.room-name {
-		font-size: 16.5px;
+		font-size: 18.5px;
 		font-weight: 800;
 		color: #1e293b;
-		margin-bottom: 4px;
+		margin-bottom: 6px;
 	}
 	.room-info {
-		font-size: 12px;
+		font-size: 13px;
 		color: #64748b;
-		margin-bottom: 16px;
+		margin-bottom: 20px;
 	}
 	.room-footer {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding-top: 12px;
+		padding-top: 14px;
 		border-top: 1px solid #f1f5f9;
 	}
 	.room-status {
 		display: inline-flex;
 		align-items: center;
 		gap: 6px;
-		font-size: 12px;
+		font-size: 13px;
 		font-weight: 700;
 		color: #059669;
 		transition: all 0.25s ease;
@@ -572,9 +572,9 @@
 		background: #f0f6ff;
 		color: #0059fb;
 		border: 1px solid #bfdbfe;
-		padding: 6px 14px;
+		padding: 7px 15px;
 		border-radius: 6px;
-		font-size: 12px;
+		font-size: 12.5px;
 		font-weight: 700;
 		text-decoration: none;
 		transition: all 0.2s;
