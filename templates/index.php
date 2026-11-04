@@ -65,7 +65,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="col-sm-1 col-sm-1-offset"></div>
 			<div class="col-sm-10 title-pg">
 				<div class="main-title">
-					<span class="mq-breadcrumb-label">PT MEDQUEST JAYA GLOBAL &middot; INTERNAL PORTAL</span>
 					<div class="mq-page-heading"><?php echo $hal; ?></div>
 				</div>
 
