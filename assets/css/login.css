@@ -148,6 +148,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .mq-login-badge {
@@ -166,12 +168,13 @@ body {
 
 .gambar-login p {
     color: #fff;
-    text-align: left;
+    text-align: center;
     font-family: 'Open Sans', 'Pembuka', sans-serif;
-    font-size: 40px;
+    font-size: 38px;
     font-weight: 800;
-    line-height: 44px;
-    margin: 0 0 16px 0;
+    line-height: 1.25;
+    margin: 0;
+    letter-spacing: -0.5px;
 }
 
 .mq-login-caption {

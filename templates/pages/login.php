@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/login.css'); ?>?v=2.2">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/login.css'); ?>?v=2.3">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	<link rel="icon" href="<?php echo base_url('assets/img/logo_medquest.png'); ?>">
 	<script src="<?php echo base_url('assets/js/jquery-3.3.1.min.js'); ?>"></script>
@@ -43,12 +43,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<!-- Kolom Gambar Selamat Datang -->
 				<div class="gambar-login">
 					<p>Selamat <br><b>datang<font color="#ffc000">.</font></b></p>
-					<div class="mq-login-caption" style="text-align: center; margin-top: 18px;">
-						<div style="font-size: 13.5px; font-weight: 700; letter-spacing: 0.5px; color: #ffffff; text-align: center;">PT Medquest Jaya Global</div>
-						<div style="margin-top: 8px; text-align: center;">
-							<img src="<?php echo base_url('assets/img/quest_horizontal.png'); ?>" alt="Medquest Core Values (Q.U.E.S.T)" style="max-width: 135px; height: auto; display: inline-block; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.35));">
-						</div>
-					</div>
 				</div>
 				
 				<!-- Form Login -->
