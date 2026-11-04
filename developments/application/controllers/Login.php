@@ -165,7 +165,7 @@ class Login extends CI_Controller
 		}
 		else
 		{
-			echo "<script>alert('Login khusus Superadmin & Resepsionis. Username atau password tidak sesuai!'); window.location.href='" . base_url('login') . "';</script>";
+			echo "<script>alert('Login khusus Admin. Username atau password tidak sesuai!'); window.location.href='" . base_url('login') . "';</script>";
 		}
 	}
 }

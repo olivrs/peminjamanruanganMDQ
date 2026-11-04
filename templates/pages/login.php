@@ -42,7 +42,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="col-sm-8 kotak-login clearfix">
 				<!-- Kolom Gambar Selamat Datang -->
 				<div class="gambar-login">
-					<div class="mq-login-badge">CORPORATE PORTAL &middot; EST. 2004</div>
 					<p>Selamat <br><b>datang<font color="#ffc000">.</font></b></p>
 					<div class="mq-login-caption">
 						<strong>PT Medquest Jaya Global</strong><br>
@@ -54,19 +53,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<!-- Form Login -->
 				<div class="login-form">
 					<img src="<?php echo base_url('assets/img/logo_medquest.png'); ?>" alt="PT Medquest Jaya Global">
-					<h3>Login Petugas</h3>
-					<p class="mq-login-sub">Khusus Superadmin &amp; Resepsionis &middot; PT Medquest Jaya Global</p>
+					<h3>Login Admin</h3>
 
 					<?php echo form_open('login/proses'); ?>
 					<ul>
 						<li>
-							<input type="text" name="username" placeholder="Username Superadmin / Resepsionis" required />
+							<input type="text" name="username" placeholder="Username" required />
 						</li>
 						<li>
 							<input type="password" name="password" placeholder="Kata sandi (Password)" required />
 						</li>
 						<li>
-							<input type="submit" name="tombol_login" value="Masuk Mode Petugas" />
+							<input type="submit" name="tombol_login" value="Masuk" />
 						</li>
 						<li style="margin-top: 10px;">
 							<a href="<?php echo base_url('dashboard'); ?>" style="font-size:12.5px; font-weight:700; color:#0059fb; text-decoration:none;"><i class="fas fa-arrow-left" style="margin-right:4px;"></i> Kembali ke Halaman Booking Ruangan (Tanpa Login)</a>
