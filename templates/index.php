@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<a href="<?php echo base_url('dashboard'); ?>" class="mq-logo-link">
 					<img src="<?php echo base_url('assets/img/logo_medquest.png'); ?>" alt="PT Medquest Jaya Global" class="mq-logo-img">
 					<span class="mq-brand-divider"></span>
-					<span class="mq-brand-subtitle">Room Booking<br><small>Corporate Portal</small></span>
+					<span class="mq-brand-subtitle">Room Booking</span>
 				</a>
 			</div>
 			<nav class="menubar"><?php echo $menubar; ?></nav>
@@ -174,7 +174,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
 					<div class="mq-operational-box">
 						<strong><i class="fas fa-building"></i> Operational Office:</strong>
-						<p>Wisma 77 Tower 1, 8th Fl, Jl. Letjen S. Parman Kav. 77, Slipi, Jakarta Barat 11410</p>
+						<p>Menara Salemba Lt. 6 Zona 1, Jl. Salemba Raya No. 5 – 5A, Jakarta Pusat 10440</p>
 					</div>
 					<div class="mq-footer-socials">
 						<a href="https://www.instagram.com/medquest_id/" target="_blank" rel="noopener" title="Instagram"><i class="fab fa-instagram"></i></a>
