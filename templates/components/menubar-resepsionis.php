@@ -12,7 +12,7 @@
 		</a>
 	</li>
 	<li <?php if($hal == "Riwayat Akses Ruangan") echo "class='active'"; ?>>
-		<a href="<?php echo base_url('dashboard/akses-ruangan'); ?>">Riwayat Akses Ruang Meeting</a>
+		<a href="<?php echo base_url('dashboard/akses-ruangan'); ?>">Riwayat Akses Ruangan</a>
 	</li>
 </ul>
 <script>

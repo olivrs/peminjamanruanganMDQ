@@ -1,18 +1,24 @@
 <!-- Area Pengguna / Akses Petugas (Superadmin & Resepsionis) -->
 <?php if ($this->session->userdata('status-masuk') == 'masuk' && in_array($this->session->userdata('level'), array('Admin', 'Resepsionis'), TRUE)): ?>
-<div>
-	<a class="dropdown-info" id="dropdown-info" data-toggle="dropdown" style="cursor:pointer;">
+<?php 
+	$nama = $this->session->userdata('namalengkap');
+	// Hapus duplikasi kurung role jika namalengkap di database sudah mengandung (Superadmin)/(Admin)/(Resepsionis)
+	$nama = trim(preg_replace('/\s*\((?:Superadmin|Admin|Resepsionis)\)\s*/i', '', $nama));
+	$role = $this->session->userdata('level') == 'Admin' ? 'Superadmin' : 'Resepsionis';
+?>
+<div class="dropdown">
+	<a class="dropdown-info" id="dropdown-info" data-toggle="dropdown" style="cursor:pointer;" title="<?php echo htmlspecialchars($nama) . ' (' . $role . ')'; ?>">
 		<i class="fas fa-user-shield" style="color:#0059fb; margin-right:5px;"></i>
-		<?php echo htmlspecialchars($this->session->userdata('namalengkap')); ?>
-		<small style="color:#0059fb; font-weight:700;">(<?php echo $this->session->userdata('level') == 'Admin' ? 'Superadmin' : 'Resepsionis'; ?>)</small>
-		<span class="lnr lnr-chevron-down"></span>
+		<span><?php echo htmlspecialchars($nama); ?></span>
+		<small style="color:#0059fb; font-weight:700; margin-left:4px;">(<?php echo $role; ?>)</small>
+		<span class="lnr lnr-chevron-down" style="margin-left:4px;"></span>
 	</a>
 	
-	<div class="dropdown-menu info-content" aria-labelledby="dropdown-info">
-		<a class="" href="<?php echo base_url('dashboard/panduan'); ?>">
+	<div class="dropdown-menu info-content dropdown-menu-right" aria-labelledby="dropdown-info">
+		<a class="dropdown-item" href="<?php echo base_url('dashboard/panduan'); ?>">
 			<span class="lnr lnr-book"></span>&nbsp;&nbsp;Buku Panduan
 		</a>
-		<a class="" href="<?php echo base_url('dashboard/logout'); ?>">
+		<a class="dropdown-item" href="<?php echo base_url('dashboard/logout'); ?>">
 			<span class="lnr lnr-power-switch"></span>&nbsp;&nbsp;Keluar
 		</a>
 	</div>
