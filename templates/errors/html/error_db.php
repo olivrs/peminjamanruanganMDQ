@@ -5,6 +5,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
 <meta charset="utf-8">
 <title>Database Error</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style type="text/css">
 
 ::selection { background-color: #E13300; color: white; }
@@ -13,7 +16,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 body {
 	background-color: #fff;
 	margin: 40px;
-	font: 13px/20px normal Helvetica, Arial, sans-serif;
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	font-size: 13px;
+	line-height: 20px;
 	color: #4F5155;
 }
 

@@ -10,9 +10,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<title><?php echo $hal; ?> · Peminjaman Ruang Meeting - PT Medquest Jaya Global</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/login.css'); ?>?v=2.3">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/login.css'); ?>?v=2.4">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	<link rel="icon" href="<?php echo base_url('assets/img/logo_medquest.png'); ?>">
 	<script src="<?php echo base_url('assets/js/jquery-3.3.1.min.js'); ?>"></script>

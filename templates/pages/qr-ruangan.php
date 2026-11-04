@@ -3,11 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title><?php echo $hal; ?> · PT Medquest Jaya Global</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
 	<style>
 		body {
 			background: #f1f5f9;
-			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 			display: flex;
 			align-items: center;
 			justify-content: center;

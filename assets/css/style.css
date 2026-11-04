@@ -1,33 +1,15 @@
 @charset "utf-8";
 
-@font-face {
-    font-family: 'Utama';
-    src: url('../fonts/aller.woff2') format('woff2'),
-         url('../fonts/aller.woff') format('woff'),
-         url('../fonts/aller.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Utama 2';
-    src: url('../fonts/lato.woff2') format('woff2'),
-         url('../fonts/lato.woff') format('woff'),
-         url('../fonts/lato.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Judul Halaman';
-    src: url('../fonts/advent.woff2') format('woff2'),
-         url('../fonts/advent.woff') format('woff'),
-         url('../fonts/advent.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
+/* =========================================================
+   TYPOGRAPHY HARMONIZATION (Official PT Medquest Jaya Global)
+   Primary Font: 'Open Sans', Helvetica, Arial, sans-serif
+   Accent/Numbers: 'Roboto', 'Open Sans', Helvetica, Arial, sans-serif
+   ========================================================= */
 
 :root {
+    --mq-font-primary: 'Open Sans', Helvetica, Arial, sans-serif;
+    --mq-font-heading: 'Open Sans', Helvetica, Arial, sans-serif;
+    --mq-font-secondary: 'Roboto', 'Open Sans', Helvetica, Arial, sans-serif;
     --mq-primary: #0059fb;
     --mq-primary-dark: #0041b8;
     --mq-footer-bg: #0159fa;
@@ -43,11 +25,21 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+}
+
+/* Universal Typography Harmonization with medquest.co.id */
+body,
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+p, a, label, input, select, textarea, button,
+table, th, td,
+.btn, .badge, .form-control, .modal-title, .modal-body, .nav, .navbar, .dropdown-menu {
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
 body {
     color: var(--mq-text-body);
-    font-family: 'Open Sans', 'Roboto', 'Utama 2', Arial, sans-serif;
     font-size: 14px;
     line-height: 1.65;
     background-color: var(--mq-bg-soft);

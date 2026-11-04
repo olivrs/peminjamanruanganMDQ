@@ -1,34 +1,19 @@
 @charset "utf-8";
 
-@font-face {
-    font-family: 'Utama';
-    src: url('../fonts/aller.woff2') format('woff2'),
-         url('../fonts/aller.woff') format('woff'),
-         url('../fonts/aller.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Pembuka';
-    src: url('../fonts/cooperhewitt-book.woff2') format('woff2'),
-         url('../fonts/cooperhewitt-book.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Judul Login';
-    src: url('../fonts/comfortaa.woff2') format('woff2'),
-         url('../fonts/comfortaa.woff') format('woff'),
-         url('../fonts/comfortaa.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
+/* =========================================================
+   TYPOGRAPHY HARMONIZATION (Official PT Medquest Jaya Global)
+   Primary Font: 'Open Sans', Helvetica, Arial, sans-serif
+   ========================================================= */
 
 * {
     padding: 0;
     margin: 0;
+}
+
+html, body,
+h1, h2, h3, h4, h5, h6,
+p, a, label, input, select, textarea, button {
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
 html, body {
@@ -48,10 +33,11 @@ a:hover {
 
 body {
     color: #334155;
-    font-family: 'Open Sans', 'Roboto', 'Utama', sans-serif;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 21px;
     background: linear-gradient(135deg, #eef4ff 0%, #f8fafd 55%, #e0ecff 100%);
+    -webkit-font-smoothing: antialiased;
 }
 
 .mq-login-topbar {
@@ -169,7 +155,7 @@ body {
 .gambar-login p {
     color: #fff;
     text-align: center;
-    font-family: 'Open Sans', 'Pembuka', sans-serif;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
     font-size: 38px;
     font-weight: 800;
     line-height: 1.25;
@@ -217,7 +203,7 @@ body {
 
 .login-form h3 {
     color: #1e293b;
-    font-family: 'Open Sans', 'Judul Login', sans-serif;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
     font-weight: 800;
     font-size: 20px;
     line-height: 26px;

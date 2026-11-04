@@ -5,6 +5,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Laporan Peminjaman Ruang Meeting - PT Medquest Jaya Global</title>
 	<link rel="icon" href="<?php echo base_url('assets/img/logo_medquest.png'); ?>">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 	<style>
 		@page {
 			size: A4 landscape;
@@ -12,7 +15,7 @@
 		}
 		* {
 			box-sizing: border-box;
-			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 		}
 		body {
 			background: #f8fafc;
