@@ -24,3 +24,4 @@ $route['dashboard/kalender-ics/(:any)']    = 'dashboard/kalender_ics/$1';
 $route['dashboard/ekspor-excel']          = 'dashboard/ekspor_excel';
 $route['dashboard/cetak-laporan']         = 'dashboard/cetak_laporan';
 $route['dashboard/panduan'] = 'dashboard/panduan';
+$route['dashboard/status-ruangan-realtime'] = 'dashboard/status_ruangan_realtime';

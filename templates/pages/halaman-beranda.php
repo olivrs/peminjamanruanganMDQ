@@ -421,12 +421,21 @@
 		font-size: 12px;
 		font-weight: 700;
 		color: #059669;
+		transition: all 0.25s ease;
+	}
+	.room-status.status-busy {
+		color: #dc2626;
 	}
 	.room-status-dot {
 		width: 8px;
 		height: 8px;
 		border-radius: 50%;
 		background: #10b981;
+		transition: all 0.25s ease;
+	}
+	.room-status-dot.dot-busy {
+		background: #ef4444;
+		box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
 	}
 	.btn-book {
 		background: #f0f6ff;
@@ -659,8 +668,13 @@
 				<div class="room-info">PT Medquest Jaya Global &middot; Lantai Operasional</div>
 			</div>
 			<div class="room-footer">
-				<div class="room-status">
-					<span class="room-status-dot"></span> <?php echo $r['status']; ?>
+				<?php 
+					$isBusy = !empty($r['is_busy']);
+					$statusLabel = isset($r['status_realtime']) ? $r['status_realtime'] : $r['status'];
+				?>
+				<div class="room-status <?php echo $isBusy ? 'status-busy' : ''; ?>" data-room-id="<?php echo $r['id_ruangan']; ?>" data-room-name="<?php echo htmlspecialchars($r['nama_ruangan']); ?>">
+					<span class="room-status-dot <?php echo $isBusy ? 'dot-busy' : ''; ?>"></span>
+					<span class="room-status-text"><?php echo $statusLabel; ?></span>
 				</div>
 				<a href="<?php echo base_url('dashboard/ketersediaan-ruangan?ruangan=' . rawurlencode($r['nama_ruangan'])); ?>" class="btn-book">
 					Pilih Slot &rarr;
@@ -701,3 +715,36 @@
 		</div>
 	</div>
 </div>
+
+<script>
+(function() {
+	function syncRealtimeRoomStatus() {
+		fetch('<?php echo base_url("dashboard/status-ruangan-realtime"); ?>')
+			.then(function(res) { return res.json(); })
+			.then(function(data) {
+				if (!Array.isArray(data)) return;
+				data.forEach(function(room) {
+					var el = document.querySelector('.room-status[data-room-id="' + room.id_ruangan + '"]');
+					if (!el) return;
+					var dot = el.querySelector('.room-status-dot');
+					var text = el.querySelector('.room-status-text');
+
+					if (room.is_busy) {
+						el.classList.add('status-busy');
+						if (dot) dot.classList.add('dot-busy');
+					} else {
+						el.classList.remove('status-busy');
+						if (dot) dot.classList.remove('dot-busy');
+					}
+					if (text) {
+						text.textContent = room.status;
+					}
+				});
+			})
+			.catch(function(err) {});
+	}
+
+	// Update berkala setiap 30 detik untuk mendeteksi perubahan jadwal real-time
+	setInterval(syncRealtimeRoomStatus, 30000);
+})();
+</script>

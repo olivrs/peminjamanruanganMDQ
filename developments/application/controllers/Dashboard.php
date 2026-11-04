@@ -118,7 +118,39 @@ class Dashboard extends CI_Controller
 		$this->model_peminjaman->auto_cancel_no_show();
 
 		$halaman['hal'] = "Beranda";
+		date_default_timezone_set('Asia/Jakarta');
+		$today = date('Y-m-d');
+		$now_time = date('H:i:s');
+
 		$rooms = $this->model_ruangan->tampil()->result_array();
+
+		// Evaluasi status ruangan secara real-time pada jam saat ini
+		foreach ($rooms as &$r) {
+			if ($r['status'] == 'Tersedia') {
+				// Cek apakah ada jadwal meeting yang sedang aktif di ruangan ini pada jam saat membuka website
+				$active_meeting = $this->db
+					->where('ruangan_dipinjam', $r['nama_ruangan'])
+					->where('tanggal_meeting', $today)
+					->where('jam_meeting <=', $now_time)
+					->where("ADDTIME(jam_meeting, '01:00:00') >", $now_time)
+					->where_not_in('status_pinjam', array('Dibatalkan', 'Selesai'))
+					->get('tb_peminjaman')
+					->row_array();
+
+				if ($active_meeting) {
+					$r['status_realtime'] = 'Sedang Digunakan';
+					$r['is_busy'] = true;
+				} else {
+					$r['status_realtime'] = 'Tersedia';
+					$r['is_busy'] = false;
+				}
+			} else {
+				$r['status_realtime'] = $r['status'];
+				$r['is_busy'] = false;
+			}
+		}
+		unset($r);
+
 		$halaman['rooms'] = $rooms;
 		$halaman['total_ruangan'] = count($rooms);
 		$halaman['booking_hari_ini'] = $this->db
@@ -1327,5 +1359,50 @@ class Dashboard extends CI_Controller
 		$this->model_peminjaman->auto_cancel_no_show();
 		$halaman['hal'] = "Buku Panduan";
 		$this->template->utama('pages/halaman-panduan', $halaman);
+	}
+
+	public function status_ruangan_realtime()
+	{
+		date_default_timezone_set('Asia/Jakarta');
+		$today = date('Y-m-d');
+		$now_time = date('H:i:s');
+
+		$rooms = $this->model_ruangan->tampil()->result_array();
+		$result = array();
+
+		foreach ($rooms as $r) {
+			$status_text = $r['status'];
+			$is_busy = false;
+
+			if ($r['status'] == 'Tersedia') {
+				$active_meeting = $this->db
+					->where('ruangan_dipinjam', $r['nama_ruangan'])
+					->where('tanggal_meeting', $today)
+					->where('jam_meeting <=', $now_time)
+					->where("ADDTIME(jam_meeting, '01:00:00') >", $now_time)
+					->where_not_in('status_pinjam', array('Dibatalkan', 'Selesai'))
+					->get('tb_peminjaman')
+					->row_array();
+
+				if ($active_meeting) {
+					$status_text = 'Sedang Digunakan';
+					$is_busy = true;
+				} else {
+					$status_text = 'Tersedia';
+					$is_busy = false;
+				}
+			}
+
+			$result[] = array(
+				'id_ruangan'   => $r['id_ruangan'],
+				'nama_ruangan' => $r['nama_ruangan'],
+				'status'       => $status_text,
+				'is_busy'      => $is_busy
+			);
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($result));
 	}
 }
