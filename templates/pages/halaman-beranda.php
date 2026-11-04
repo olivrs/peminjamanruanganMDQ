@@ -25,25 +25,11 @@
 		background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 70%);
 		pointer-events: none;
 	}
-	.hero-kicker {
-		display: inline-flex;
-		align-items: center;
-		gap: 6px;
-		background: rgba(255, 255, 255, 0.16);
-		border: 1px solid rgba(255, 255, 255, 0.28);
-		color: #ffffff;
-		font-size: 11px;
-		font-weight: 800;
-		text-transform: uppercase;
-		letter-spacing: 0.8px;
-		padding: 4px 12px;
-		border-radius: 20px;
-		margin-bottom: 10px;
-	}
 	.hero-text h2 {
 		font-family: 'Open Sans', sans-serif;
 		font-size: 27px;
 		font-weight: 800;
+		margin-top: 0;
 		margin-bottom: 8px;
 		letter-spacing: -0.4px;
 		color: #ffffff;
@@ -463,7 +449,6 @@
 <!-- Banner Hero Medquest -->
 <div class="beranda-hero">
 	<div class="hero-text">
-		<div class="hero-kicker"><i class="fas fa-hospital-symbol"></i> PT Medquest Jaya Global &middot; Corporate Facility</div>
 		<h2>Selamat Datang, <?php echo htmlspecialchars($this->session->userdata('namalengkap')); ?></h2>
 		<p>Sistem Manajemen &amp; Peminjaman Ruang Meeting Terintegrasi PT Medquest Jaya Global. Cek ketersediaan ruang meeting, sinkronkan ke kalender kerja, atau lakukan verifikasi check-in QR langsung.</p>
 		<div class="hero-actions">
