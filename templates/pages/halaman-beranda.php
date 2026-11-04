@@ -116,8 +116,9 @@
 		background: #ffffff;
 		border: 1px solid #e2e8f0;
 		border-radius: 14px;
-		padding: 16px 24px 18px 24px;
-		margin-bottom: 26px;
+		padding: 18px 24px 20px 24px;
+		margin-top: 36px;
+		margin-bottom: 12px;
 		box-shadow: 0 4px 12px rgba(0, 40, 120, 0.04);
 	}
 	.mq-quest-separator {
@@ -482,36 +483,6 @@
 	</div>
 </div>
 
-<!-- Medquest Core Values (Q.U.E.S.T) Section ala medquest.co.id (Compact) -->
-<div class="mq-quest-strip">
-	<div class="mq-quest-separator">
-		<span class="mq-quest-line"></span>
-		<h4 class="mq-quest-heading">Core Values</h4>
-		<span class="mq-quest-line"></span>
-	</div>
-	<div class="mq-quest-grid">
-		<div class="mq-quest-item">
-			<img src="<?php echo base_url('assets/img/quest_q.png'); ?>" class="mq-quest-img" alt="Q - Quality First">
-			<div class="mq-quest-text">QUALITY FIRST</div>
-		</div>
-		<div class="mq-quest-item">
-			<img src="<?php echo base_url('assets/img/quest_u.png'); ?>" class="mq-quest-img" alt="U - Understanding Business & Partner's Need">
-			<div class="mq-quest-text">UNDERSTANDING BUSINESS &amp; PARTNER'S NEED</div>
-		</div>
-		<div class="mq-quest-item">
-			<img src="<?php echo base_url('assets/img/quest_e.png'); ?>" class="mq-quest-img" alt="E - Enhance Continuous Improvement">
-			<div class="mq-quest-text">ENHANCE CONTINUOUS IMPROVEMENT</div>
-		</div>
-		<div class="mq-quest-item">
-			<img src="<?php echo base_url('assets/img/quest_s.png'); ?>" class="mq-quest-img" alt="S - Strive For Excellence">
-			<div class="mq-quest-text">STRIVE FOR EXCELLENCE</div>
-		</div>
-		<div class="mq-quest-item">
-			<img src="<?php echo base_url('assets/img/quest_t.png'); ?>" class="mq-quest-img" alt="T - Thankful Attitude">
-			<div class="mq-quest-text">THANKFUL ATTITUDE</div>
-		</div>
-	</div>
-</div>
 
 <?php if($this->session->userdata('level') == 'Admin'): ?>
 <!-- ========================================== -->
@@ -698,4 +669,35 @@
 		</div>
 	</div>
 	<?php endforeach; ?>
+</div>
+
+<!-- Medquest Core Values (Q.U.E.S.T) Section ala medquest.co.id (Paling Bawah Sebelum Footer) -->
+<div class="mq-quest-strip">
+	<div class="mq-quest-separator">
+		<span class="mq-quest-line"></span>
+		<h4 class="mq-quest-heading">Core Values</h4>
+		<span class="mq-quest-line"></span>
+	</div>
+	<div class="mq-quest-grid">
+		<div class="mq-quest-item">
+			<img src="<?php echo base_url('assets/img/quest_q.png'); ?>" class="mq-quest-img" alt="Q - Quality First">
+			<div class="mq-quest-text">QUALITY FIRST</div>
+		</div>
+		<div class="mq-quest-item">
+			<img src="<?php echo base_url('assets/img/quest_u.png'); ?>" class="mq-quest-img" alt="U - Understanding Business & Partner's Need">
+			<div class="mq-quest-text">UNDERSTANDING BUSINESS &amp; PARTNER'S NEED</div>
+		</div>
+		<div class="mq-quest-item">
+			<img src="<?php echo base_url('assets/img/quest_e.png'); ?>" class="mq-quest-img" alt="E - Enhance Continuous Improvement">
+			<div class="mq-quest-text">ENHANCE CONTINUOUS IMPROVEMENT</div>
+		</div>
+		<div class="mq-quest-item">
+			<img src="<?php echo base_url('assets/img/quest_s.png'); ?>" class="mq-quest-img" alt="S - Strive For Excellence">
+			<div class="mq-quest-text">STRIVE FOR EXCELLENCE</div>
+		</div>
+		<div class="mq-quest-item">
+			<img src="<?php echo base_url('assets/img/quest_t.png'); ?>" class="mq-quest-img" alt="T - Thankful Attitude">
+			<div class="mq-quest-text">THANKFUL ATTITUDE</div>
+		</div>
+	</div>
 </div>
