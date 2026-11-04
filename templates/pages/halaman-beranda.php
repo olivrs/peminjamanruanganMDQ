@@ -362,20 +362,171 @@
 		box-shadow: 0 16px 32px -10px rgba(0, 89, 251, 0.18);
 		border-color: #0059fb;
 	}
-	.room-img-wrapper {
+	/* Room Slider / Carousel */
+	.room-slider {
 		height: 170px;
 		width: 100%;
-		overflow: hidden;
 		position: relative;
+		overflow: hidden;
+		background: #f8fafc;
+		border-top-left-radius: 14px;
+		border-top-right-radius: 14px;
+		user-select: none;
 	}
-	.room-img-wrapper img {
+	.room-slider-track {
+		display: flex;
 		width: 100%;
 		height: 100%;
-		object-fit: cover;
+		transition: transform 0.38s cubic-bezier(0.25, 1, 0.5, 1);
+		will-change: transform;
+	}
+	.room-slide {
+		flex: 0 0 100%;
+		width: 100%;
+		height: 100%;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+	.room-slide img {
+		width: 100%;
+		height: 100%;
+		display: block;
 		transition: transform 0.4s ease;
 	}
-	.room-card:hover .room-img-wrapper img {
+	.room-slide img.img-dummy {
+		object-fit: contain;
+		padding: 22px;
+		opacity: 0.8;
+	}
+	.room-slide img.img-real {
+		object-fit: cover;
+	}
+	.room-card:hover .room-slide img.img-real {
 		transform: scale(1.05);
+	}
+
+	/* Tombol Geser Prev & Next */
+	.room-slider-btn {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.9);
+		backdrop-filter: blur(4px);
+		border: 1px solid rgba(226, 232, 240, 0.9);
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #1e293b;
+		font-size: 11px;
+		cursor: pointer;
+		z-index: 12;
+		opacity: 0.75;
+		transition: all 0.2s ease;
+		padding: 0;
+		outline: none;
+	}
+	.room-slider-btn.prev-btn {
+		left: 8px;
+	}
+	.room-slider-btn.next-btn {
+		right: 8px;
+	}
+	.room-card:hover .room-slider-btn,
+	.room-slider:hover .room-slider-btn {
+		opacity: 1;
+		background: #ffffff;
+		box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16);
+	}
+	.room-slider-btn:hover {
+		background: #0059fb !important;
+		color: #ffffff !important;
+		border-color: #0059fb !important;
+		transform: translateY(-50%) scale(1.12);
+		box-shadow: 0 4px 10px rgba(0, 89, 251, 0.35);
+	}
+	.room-slider-btn:active {
+		transform: translateY(-50%) scale(0.95);
+	}
+
+	/* Counter Badge Kiri Atas (1/3) */
+	.room-photo-counter {
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		background: rgba(15, 23, 42, 0.65);
+		backdrop-filter: blur(4px);
+		color: #ffffff;
+		padding: 3px 8px;
+		border-radius: 12px;
+		font-size: 10.5px;
+		font-weight: 700;
+		letter-spacing: 0.5px;
+		z-index: 11;
+		pointer-events: none;
+		display: flex;
+		align-items: center;
+		gap: 3px;
+	}
+
+	/* Slide Angle Subtitle (Bawah) */
+	.room-photo-caption {
+		position: absolute;
+		bottom: 22px;
+		left: 50%;
+		transform: translateX(-50%);
+		background: rgba(255, 255, 255, 0.92);
+		backdrop-filter: blur(4px);
+		border: 1px solid rgba(226, 232, 240, 0.9);
+		color: #475569;
+		padding: 2px 9px;
+		border-radius: 10px;
+		font-size: 9.5px;
+		font-weight: 700;
+		white-space: nowrap;
+		pointer-events: none;
+		z-index: 10;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+	}
+
+	/* Dots Navigation */
+	.room-slider-dots {
+		position: absolute;
+		bottom: 7px;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		z-index: 11;
+	}
+	.room-slider-dot {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: rgba(148, 163, 184, 0.6);
+		cursor: pointer;
+		transition: all 0.25s ease;
+	}
+	.room-slider-dot.active {
+		width: 16px;
+		border-radius: 10px;
+		background: #0059fb;
+		box-shadow: 0 1px 4px rgba(0, 89, 251, 0.4);
+	}
+	.room-slider-dot:hover:not(.active) {
+		background: #64748b;
+	}
+	@media (max-width: 768px) {
+		.room-slider-btn {
+			opacity: 0.85;
+		}
 	}
 	.room-tag {
 		position: absolute;
@@ -647,20 +798,84 @@
 
 <div class="room-grid">
 	<?php 
-		// Mapping foto ruangan (sementara default dummy, bisa diisi path foto jika sudah tersedia)
-		$roomImages = array(
-			// Contoh: 'R001' => 'assets/img/foto_r001.jpg',
+		// Mapping galeri foto per ruangan (masing-masing 3 foto berbeda)
+		// Jika nanti sudah ada foto asli ruangan, cukup letakkan file di assets/img/rooms/ atau ubah path di bawah ini:
+		$roomGalleries = array(
+			'Pulau Jawa' => array(
+				array('path' => 'assets/img/rooms/pulau_jawa_1.png', 'label' => 'Tampak Depan'),
+				array('path' => 'assets/img/rooms/pulau_jawa_2.png', 'label' => 'Area Meja & Kursi'),
+				array('path' => 'assets/img/rooms/pulau_jawa_3.png', 'label' => 'Smart TV & Fasilitas'),
+			),
+			'Pulau Bali' => array(
+				array('path' => 'assets/img/rooms/pulau_bali_1.png', 'label' => 'Tampak Depan'),
+				array('path' => 'assets/img/rooms/pulau_bali_2.png', 'label' => 'Area Meja & Kursi'),
+				array('path' => 'assets/img/rooms/pulau_bali_3.png', 'label' => 'Smart TV & Fasilitas'),
+			),
+			'Pulau Papua' => array(
+				array('path' => 'assets/img/rooms/pulau_papua_1.png', 'label' => 'Tampak Depan'),
+				array('path' => 'assets/img/rooms/pulau_papua_2.png', 'label' => 'Area Meja & Kursi'),
+				array('path' => 'assets/img/rooms/pulau_papua_3.png', 'label' => 'Smart TV & Fasilitas'),
+			),
+			'Pulau Sumatra' => array(
+				array('path' => 'assets/img/rooms/pulau_sumatra_1.png', 'label' => 'Tampak Depan'),
+				array('path' => 'assets/img/rooms/pulau_sumatra_2.png', 'label' => 'Area Meja & Kursi'),
+				array('path' => 'assets/img/rooms/pulau_sumatra_3.png', 'label' => 'Smart TV & Fasilitas'),
+			),
+			'Pulau Kalimantan' => array(
+				array('path' => 'assets/img/rooms/pulau_kalimantan_1.png', 'label' => 'Tampak Depan'),
+				array('path' => 'assets/img/rooms/pulau_kalimantan_2.png', 'label' => 'Area Meja & Kursi'),
+				array('path' => 'assets/img/rooms/pulau_kalimantan_3.png', 'label' => 'Smart TV & Fasilitas'),
+			),
 		);
 	?>
 	<?php foreach ($rooms as $r): ?>
 	<?php 
-		$img = isset($roomImages[$r['id_ruangan']]) ? $roomImages[$r['id_ruangan']] : 'assets/img/room_dummy.png';
-		$is_dummy = ($img == 'assets/img/room_dummy.png');
+		$roomName = $r['nama_ruangan'];
+		$photos = isset($roomGalleries[$roomName]) ? $roomGalleries[$roomName] : (
+			isset($roomGalleries[$r['id_ruangan']]) ? $roomGalleries[$r['id_ruangan']] : array(
+				array('path' => 'assets/img/rooms/default_1.png', 'label' => 'Tampak Depan'),
+				array('path' => 'assets/img/rooms/default_2.png', 'label' => 'Area Meja & Kursi'),
+				array('path' => 'assets/img/rooms/default_3.png', 'label' => 'Smart TV & Fasilitas'),
+			)
+		);
+		$totalPhotos = count($photos);
 	?>
 	<div class="room-card">
-		<div class="room-img-wrapper" style="<?php if($is_dummy) echo 'background: #f8fafc; display: flex; align-items: center; justify-content: center;'; ?>">
-			<img src="<?php echo base_url($img); ?>" alt="<?php echo $r['nama_ruangan']; ?>" style="<?php echo $is_dummy ? 'object-fit: contain; padding: 22px; opacity: 0.75;' : 'object-fit: cover;'; ?>">
+		<div class="room-slider" data-room-id="<?php echo $r['id_ruangan']; ?>" data-current-index="0" data-total-slides="<?php echo $totalPhotos; ?>">
+			<div class="room-slider-track">
+				<?php foreach ($photos as $pIdx => $photo): ?>
+				<?php 
+					$pPath = is_array($photo) ? $photo['path'] : $photo;
+					$pLabel = is_array($photo) ? $photo['label'] : 'Foto ' . ($pIdx + 1);
+					$isDummy = (strpos($pPath, 'room_dummy') !== false || strpos($pPath, 'rooms/') !== false);
+				?>
+				<div class="room-slide">
+					<img src="<?php echo base_url($pPath); ?>" alt="<?php echo htmlspecialchars($r['nama_ruangan'] . ' - ' . $pLabel); ?>" class="<?php echo $isDummy ? 'img-dummy' : 'img-real'; ?>">
+					<div class="room-photo-caption"><i class="fas fa-camera" style="margin-right:4px; opacity:0.75;"></i> <?php echo $pLabel; ?></div>
+				</div>
+				<?php endforeach; ?>
+			</div>
+
+			<!-- Tag Kapasitas (Kanan Atas) -->
 			<div class="room-tag"><i class="fas fa-users" style="margin-right:4px;"></i> <?php echo $r['kapasitas']; ?> Orang</div>
+
+			<!-- Counter Foto (Kiri Atas) -->
+			<div class="room-photo-counter"><i class="far fa-images" style="font-size:9.5px;"></i> <span class="counter-curr">1</span>/<span class="counter-total"><?php echo $totalPhotos; ?></span></div>
+
+			<!-- Tombol Navigasi Geser (Prev & Next) -->
+			<button type="button" class="room-slider-btn prev-btn" aria-label="Foto Sebelumnya" onclick="slideRoomPhoto(this, -1, event)">
+				<i class="fas fa-chevron-left"></i>
+			</button>
+			<button type="button" class="room-slider-btn next-btn" aria-label="Foto Selanjutnya" onclick="slideRoomPhoto(this, 1, event)">
+				<i class="fas fa-chevron-right"></i>
+			</button>
+
+			<!-- Indikator Dots -->
+			<div class="room-slider-dots">
+				<?php for ($d = 0; $d < $totalPhotos; $d++): ?>
+				<span class="room-slider-dot <?php echo $d === 0 ? 'active' : ''; ?>" data-slide-index="<?php echo $d; ?>" onclick="goToRoomPhoto(this, <?php echo $d; ?>, event)"></span>
+				<?php endfor; ?>
+			</div>
 		</div>
 		<div class="room-body">
 			<div>
@@ -717,7 +932,90 @@
 </div>
 
 <script>
+// Navigasi Slider Foto Ruangan
+window.slideRoomPhoto = function(btn, direction, event) {
+	if (event) {
+		event.preventDefault();
+		event.stopPropagation();
+	}
+	var slider = btn.closest('.room-slider');
+	if (!slider) return;
+
+	var currentIndex = parseInt(slider.getAttribute('data-current-index') || '0', 10);
+	var totalSlides = parseInt(slider.getAttribute('data-total-slides') || '3', 10);
+
+	var nextIndex = currentIndex + direction;
+	if (nextIndex < 0) {
+		nextIndex = totalSlides - 1; // loop ke slide terakhir
+	} else if (nextIndex >= totalSlides) {
+		nextIndex = 0; // loop kembali ke slide pertama
+	}
+
+	updateRoomSliderPosition(slider, nextIndex);
+};
+
+window.goToRoomPhoto = function(dot, targetIndex, event) {
+	if (event) {
+		event.preventDefault();
+		event.stopPropagation();
+	}
+	var slider = dot.closest('.room-slider');
+	if (!slider) return;
+
+	updateRoomSliderPosition(slider, targetIndex);
+};
+
+function updateRoomSliderPosition(slider, index) {
+	slider.setAttribute('data-current-index', index);
+	var track = slider.querySelector('.room-slider-track');
+	if (track) {
+		track.style.transform = 'translateX(-' + (index * 100) + '%)';
+	}
+
+	// Update counter (1/3, 2/3, 3/3)
+	var currCounter = slider.querySelector('.counter-curr');
+	if (currCounter) {
+		currCounter.textContent = (index + 1);
+	}
+
+	// Update active dot
+	var dots = slider.querySelectorAll('.room-slider-dot');
+	dots.forEach(function(d, dIdx) {
+		if (dIdx === index) {
+			d.classList.add('active');
+		} else {
+			d.classList.remove('active');
+		}
+	});
+}
+
 (function() {
+	// Dukungan swipe layar sentuh (mobile/tablet)
+	document.querySelectorAll('.room-slider').forEach(function(slider) {
+		var startX = 0;
+		slider.addEventListener('touchstart', function(e) {
+			if (e.changedTouches && e.changedTouches[0]) {
+				startX = e.changedTouches[0].screenX;
+			}
+		}, { passive: true });
+		slider.addEventListener('touchend', function(e) {
+			if (e.changedTouches && e.changedTouches[0]) {
+				var endX = e.changedTouches[0].screenX;
+				var diff = startX - endX;
+				if (Math.abs(diff) > 40) {
+					if (diff > 0) {
+						var nextBtn = slider.querySelector('.next-btn');
+						if (nextBtn) slideRoomPhoto(nextBtn, 1, e);
+					} else {
+						var prevBtn = slider.querySelector('.prev-btn');
+						if (prevBtn) slideRoomPhoto(prevBtn, -1, e);
+					}
+				}
+			}
+		}, { passive: true });
+	});
+
+	// Sinkronisasi status ruangan real-time
 	function syncRealtimeRoomStatus() {
 		fetch('<?php echo base_url("dashboard/status-ruangan-realtime"); ?>')
 			.then(function(res) { return res.json(); })
