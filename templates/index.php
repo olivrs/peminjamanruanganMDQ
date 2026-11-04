@@ -162,7 +162,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</ul>
 				</div>
 
-				<!-- Kolom 3: Hotline 24 Hours & Kantor Operasional -->
+				<!-- Kolom 3: Hotline 24 Hours & Media Sosial -->
 				<div class="mq-footer-col mq-footer-hotline">
 					<h4 class="mq-footer-title">Customer & Internal Support</h4>
 					<div class="mq-hotline-card">
@@ -171,10 +171,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<div class="mq-hotline-label">Hotline Service 24 Hours</div>
 							<div class="mq-hotline-number">+62-21-29260000</div>
 						</div>
-					</div>
-					<div class="mq-operational-box">
-						<strong><i class="fas fa-building"></i> Operational Office:</strong>
-						<p>Menara Salemba Lt. 6 Zona 1, Jl. Salemba Raya No. 5 – 5A, Jakarta Pusat 10440</p>
 					</div>
 					<div class="mq-footer-socials">
 						<a href="https://www.instagram.com/medquest_id/" target="_blank" rel="noopener" title="Instagram"><i class="fab fa-instagram"></i></a>
