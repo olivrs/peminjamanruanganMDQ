@@ -940,15 +940,15 @@ a:hover {
 
 .mq-footer-logo-box {
     display: inline-block;
-    background: #ffffff;
-    padding: 10px 18px;
-    border-radius: 10px;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
     margin-bottom: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    box-shadow: none;
 }
 
 .mq-footer-logo-box img {
-    height: 36px;
+    height: 40px;
     width: auto;
     display: block;
 }
