@@ -967,6 +967,39 @@ function updateRoomSliderPosition(slider, index) {
 }
 
 (function() {
+	// Auto-slide saat kursor (mouse) diarahkan ke area foto
+	var HOVER_FIRST_DELAY = 600;   // jeda sebelum geser pertama (ms)
+	var HOVER_INTERVAL    = 1800;  // jeda antar geser selanjutnya (ms)
+
+	function autoNext(slider) {
+		var curr  = parseInt(slider.getAttribute('data-current-index') || '0', 10);
+		var total = parseInt(slider.getAttribute('data-total-slides') || '1', 10);
+		if (total <= 1) return;
+		updateRoomSliderPosition(slider, (curr + 1) % total);
+	}
+
+	function stopHoverSlide(slider) {
+		if (slider._hoverTimeout) { clearTimeout(slider._hoverTimeout); slider._hoverTimeout = null; }
+		if (slider._hoverInterval) { clearInterval(slider._hoverInterval); slider._hoverInterval = null; }
+	}
+
+	function startHoverSlide(slider) {
+		stopHoverSlide(slider);
+		slider._hoverTimeout = setTimeout(function() {
+			autoNext(slider);
+			slider._hoverInterval = setInterval(function() { autoNext(slider); }, HOVER_INTERVAL);
+		}, HOVER_FIRST_DELAY);
+	}
+
+	document.querySelectorAll('.room-slider').forEach(function(slider) {
+		slider.addEventListener('mouseenter', function() { startHoverSlide(slider); });
+		slider.addEventListener('mouseleave', function() { stopHoverSlide(slider); });
+		// Jika user klik tombol/dot saat hover, reset timer agar tidak langsung geser lagi
+		slider.addEventListener('click', function() {
+			if (slider.matches(':hover')) startHoverSlide(slider);
+		}, true);
+	});
+
 	// Dukungan swipe layar sentuh (mobile/tablet)
 	document.querySelectorAll('.room-slider').forEach(function(slider) {
 		var startX = 0;
