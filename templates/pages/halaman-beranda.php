@@ -1,71 +1,204 @@
 <style>
 	.beranda-hero {
-		background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f766e 100%);
+		background: linear-gradient(130deg, #002b80 0%, #0059fb 58%, #2ea3f2 100%);
 		border-radius: 16px;
-		padding: 24px 32px;
+		padding: 32px 36px;
 		color: #ffffff;
 		margin-bottom: 22px;
-		box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+		box-shadow: 0 14px 32px -8px rgba(0, 89, 251, 0.32);
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		flex-wrap: wrap;
+		gap: 20px;
+		position: relative;
+		overflow: hidden;
+	}
+	.beranda-hero::after {
+		content: "";
+		position: absolute;
+		right: -60px;
+		top: -60px;
+		width: 240px;
+		height: 240px;
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 70%);
+		pointer-events: none;
+	}
+	.hero-kicker {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		background: rgba(255, 255, 255, 0.16);
+		border: 1px solid rgba(255, 255, 255, 0.28);
+		color: #ffffff;
+		font-size: 11px;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.8px;
+		padding: 4px 12px;
+		border-radius: 20px;
+		margin-bottom: 10px;
 	}
 	.hero-text h2 {
-		font-size: 26px;
+		font-family: 'Open Sans', sans-serif;
+		font-size: 27px;
 		font-weight: 800;
 		margin-bottom: 8px;
-		letter-spacing: -0.5px;
+		letter-spacing: -0.4px;
+		color: #ffffff;
 	}
 	.hero-text p {
 		font-size: 14px;
-		color: #cbd5e1;
-		max-width: 580px;
+		color: #e0f2fe;
+		max-width: 600px;
 		margin-bottom: 20px;
-		line-height: 1.6;
+		line-height: 1.65;
+	}
+	.hero-actions {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		flex-wrap: wrap;
 	}
 	.hero-actions .btn-cta {
-		background: #0284c7;
+		background: #ffffff;
+		color: #0059fb;
+		padding: 11px 22px;
+		border-radius: 8px;
+		font-weight: 800;
+		text-decoration: none;
+		font-size: 13.5px;
+		display: inline-flex;
+		align-items: center;
+		box-shadow: 0 6px 16px rgba(0, 20, 60, 0.2);
+		transition: all 0.2s ease;
+	}
+	.hero-actions .btn-cta:hover {
+		background: #f0f6ff;
+		transform: translateY(-2px);
+		color: #003db3;
+	}
+	.hero-actions .btn-cta-outline {
+		background: rgba(255, 255, 255, 0.12);
+		border: 1px solid rgba(255, 255, 255, 0.35);
 		color: #ffffff;
-		padding: 10px 22px;
+		padding: 10px 18px;
 		border-radius: 8px;
 		font-weight: 700;
 		text-decoration: none;
 		font-size: 13px;
-		display: inline-block;
-		box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+		display: inline-flex;
+		align-items: center;
 		transition: all 0.2s ease;
 	}
-	.hero-actions .btn-cta:hover {
-		background: #0369a1;
-		transform: translateY(-2px);
+	.hero-actions .btn-cta-outline:hover {
+		background: rgba(255, 255, 255, 0.24);
 		color: #ffffff;
 	}
 	.hero-stats {
 		display: flex;
-		gap: 16px;
+		gap: 14px;
+		flex-wrap: wrap;
 	}
 	.stat-card {
-		background: rgba(255, 255, 255, 0.08);
-		backdrop-filter: blur(8px);
-		border: 1px solid rgba(255, 255, 255, 0.15);
+		background: rgba(255, 255, 255, 0.13);
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(255, 255, 255, 0.25);
 		border-radius: 12px;
-		padding: 15px 22px;
+		padding: 16px 22px;
 		text-align: center;
-		min-width: 110px;
+		min-width: 115px;
 	}
 	.stat-number {
 		font-size: 28px;
-		font-weight: 900;
-		color: #38bdf8;
+		font-weight: 800;
+		color: #ffffff;
 		line-height: 1;
 	}
 	.stat-label {
 		font-size: 11px;
-		color: #94a3b8;
+		color: #dbeafe;
+		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
-		margin-top: 5px;
+		margin-top: 6px;
+	}
+
+	/* Medquest Q.U.E.S.T Core Values Strip (from medquest.co.id) */
+	.mq-quest-strip {
+		background: #ffffff;
+		border: 1px solid #e2e8f0;
+		border-top: 3px solid #0059fb;
+		border-radius: 14px;
+		padding: 16px 22px;
+		margin-bottom: 26px;
+		box-shadow: 0 4px 12px rgba(0, 40, 120, 0.04);
+	}
+	.mq-quest-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 12px;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.mq-quest-title {
+		font-size: 12px;
+		font-weight: 800;
+		color: #0059fb;
+		text-transform: uppercase;
+		letter-spacing: 0.8px;
+	}
+	.mq-quest-grid {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 12px;
+	}
+	@media (max-width: 992px) {
+		.mq-quest-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	@media (max-width: 576px) {
+		.mq-quest-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+	.mq-quest-item {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		background: #f8fafd;
+		border: 1px solid #edf2f7;
+		border-radius: 10px;
+		padding: 10px 12px;
+		transition: all 0.2s ease;
+	}
+	.mq-quest-item:hover {
+		border-color: #bfdbfe;
+		background: #f0f6ff;
+		transform: translateY(-2px);
+	}
+	.mq-quest-letter {
+		width: 32px;
+		height: 32px;
+		border-radius: 8px;
+		background: #0059fb;
+		color: #ffffff;
+		font-family: 'Open Sans', sans-serif;
+		font-size: 15px;
+		font-weight: 800;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+	.mq-quest-text {
+		font-size: 11.5px;
+		font-weight: 700;
+		color: #1e293b;
+		line-height: 1.3;
 	}
 
 	/* Analytics Section Styling */
@@ -73,7 +206,7 @@
 		display: grid;
 		grid-template-columns: 1.2fr 1fr 1fr;
 		gap: 20px;
-		margin-bottom: 26px;
+		margin-bottom: 28px;
 	}
 	@media (max-width: 992px) {
 		.analytics-grid {
@@ -85,7 +218,7 @@
 		border: 1px solid #e2e8f0;
 		border-radius: 14px;
 		padding: 20px;
-		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+		box-shadow: 0 4px 12px rgba(0, 40, 120, 0.04);
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -101,7 +234,7 @@
 	.card-head-title {
 		font-size: 14px;
 		font-weight: 800;
-		color: #0f172a;
+		color: #1e293b;
 		display: flex;
 		align-items: center;
 		gap: 8px;
@@ -109,9 +242,9 @@
 	.card-head-badge {
 		font-size: 10px;
 		font-weight: 700;
-		background: #f1f5f9;
-		color: #475569;
-		padding: 3px 8px;
+		background: #f0f6ff;
+		color: #0059fb;
+		padding: 3px 9px;
 		border-radius: 12px;
 		text-transform: uppercase;
 	}
@@ -144,7 +277,7 @@
 	.bar-fill {
 		height: 100%;
 		border-radius: 6px;
-		background: linear-gradient(90deg, #0284c7 0%, #38bdf8 100%);
+		background: linear-gradient(90deg, #0059fb 0%, #2ea3f2 100%);
 		transition: width 0.6s ease;
 	}
 
@@ -209,13 +342,16 @@
 	.dept-rank-3 { background: #fed7aa; color: #9a3412; }
 
 	.section-title {
+		font-family: 'Open Sans', sans-serif;
 		font-size: 18px;
-		font-weight: 700;
+		font-weight: 800;
 		color: #1e293b;
 		margin-bottom: 18px;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 8px;
 	}
 	.room-grid {
 		display: grid;
@@ -228,18 +364,18 @@
 		border-radius: 14px;
 		overflow: hidden;
 		border: 1px solid #e2e8f0;
-		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+		box-shadow: 0 4px 12px rgba(0, 40, 120, 0.05);
 		transition: all 0.3s ease;
 		display: flex;
 		flex-direction: column;
 	}
 	.room-card:hover {
 		transform: translateY(-5px);
-		box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.12);
-		border-color: #0284c7;
+		box-shadow: 0 16px 32px -10px rgba(0, 89, 251, 0.18);
+		border-color: #0059fb;
 	}
 	.room-img-wrapper {
-		height: 165px;
+		height: 170px;
 		width: 100%;
 		overflow: hidden;
 		position: relative;
@@ -257,13 +393,13 @@
 		position: absolute;
 		top: 12px;
 		right: 12px;
-		background: rgba(15, 23, 42, 0.75);
+		background: rgba(0, 89, 251, 0.88);
 		backdrop-filter: blur(4px);
 		color: #ffffff;
-		padding: 4px 10px;
+		padding: 4px 11px;
 		border-radius: 20px;
 		font-size: 11px;
-		font-weight: 600;
+		font-weight: 700;
 	}
 	.room-body {
 		padding: 18px;
@@ -273,9 +409,9 @@
 		justify-content: space-between;
 	}
 	.room-name {
-		font-size: 16px;
-		font-weight: 700;
-		color: #0f172a;
+		font-size: 16.5px;
+		font-weight: 800;
+		color: #1e293b;
 		margin-bottom: 4px;
 	}
 	.room-info {
@@ -295,7 +431,7 @@
 		align-items: center;
 		gap: 6px;
 		font-size: 12px;
-		font-weight: 600;
+		font-weight: 700;
 		color: #059669;
 	}
 	.room-status-dot {
@@ -305,9 +441,9 @@
 		background: #10b981;
 	}
 	.btn-book {
-		background: #f0fdf4;
-		color: #15803d;
-		border: 1px solid #bbf7d0;
+		background: #f0f6ff;
+		color: #0059fb;
+		border: 1px solid #bfdbfe;
 		padding: 6px 14px;
 		border-radius: 6px;
 		font-size: 12px;
@@ -316,7 +452,8 @@
 		transition: all 0.2s;
 	}
 	.btn-book:hover {
-		background: #15803d;
+		background: #0059fb;
+		border-color: #0059fb;
 		color: #ffffff;
 		text-decoration: none;
 	}
@@ -325,11 +462,15 @@
 <!-- Banner Hero Medquest -->
 <div class="beranda-hero">
 	<div class="hero-text">
-		<h2>Selamat Datang, <?php echo htmlspecialchars($this->session->userdata('namalengkap')); ?> </h2>
-		<p>Sistem Manajemen & Peminjaman Ruang Meeting Terintegrasi PT Medquest Jaya Global. Cek ketersediaan ruang, sinkronkan ke kalender kerja, atau lakukan verifikasi check-in langsung.</p>
+		<div class="hero-kicker"><i class="fas fa-hospital-symbol"></i> PT Medquest Jaya Global &middot; Corporate Facility</div>
+		<h2>Selamat Datang, <?php echo htmlspecialchars($this->session->userdata('namalengkap')); ?></h2>
+		<p>Sistem Manajemen &amp; Peminjaman Ruang Meeting Terintegrasi PT Medquest Jaya Global. Cek ketersediaan ruang meeting, sinkronkan ke kalender kerja, atau lakukan verifikasi check-in QR langsung.</p>
 		<div class="hero-actions">
 			<a href="<?php echo base_url('dashboard/ketersediaan-ruangan'); ?>" class="btn-cta">
-				<i class="far fa-calendar-alt" style="margin-right:6px;"></i> Cek Ketersediaan & Booking Ruang
+				<i class="far fa-calendar-alt" style="margin-right:7px;"></i> Cek Ketersediaan &amp; Booking Ruang
+			</a>
+			<a href="<?php echo base_url('dashboard/data-peminjaman'); ?>" class="btn-cta-outline">
+				<i class="fas fa-list-ul" style="margin-right:6px;"></i> Lihat Daftar Agenda
 			</a>
 		</div>
 	</div>
@@ -342,7 +483,7 @@
 			<div class="stat-number"><?php echo $booking_hari_ini; ?></div>
 			<div class="stat-label">Meeting Hari Ini</div>
 		</div>
-				<?php if($this->session->userdata('level') == 'Admin'): ?>
+		<?php if($this->session->userdata('level') == 'Admin'): ?>
 		<div class="stat-card">
 			<div class="stat-number"><?php echo isset($total_agenda) ? $total_agenda : 0; ?></div>
 			<div class="stat-label">Total Agenda</div>
@@ -351,20 +492,50 @@
 	</div>
 </div>
 
+<!-- Medquest Core Values (Q.U.E.S.T) Section ala medquest.co.id -->
+<div class="mq-quest-strip">
+	<div class="mq-quest-header">
+		<span class="mq-quest-title"><i class="fas fa-award" style="margin-right:5px;"></i> PT Medquest Jaya Global &middot; Core Values (Q.U.E.S.T)</span>
+		<small style="color:#64748b; font-size:11.5px; font-weight:600;">Promoting Innovation &amp; Latest Healthcare Technology Since 2004</small>
+	</div>
+	<div class="mq-quest-grid">
+		<div class="mq-quest-item">
+			<div class="mq-quest-letter">Q</div>
+			<div class="mq-quest-text">Quality First</div>
+		</div>
+		<div class="mq-quest-item">
+			<div class="mq-quest-letter">U</div>
+			<div class="mq-quest-text">Understanding Business &amp; Partner's Need</div>
+		</div>
+		<div class="mq-quest-item">
+			<div class="mq-quest-letter">E</div>
+			<div class="mq-quest-text">Enhance Continuous Improvement</div>
+		</div>
+		<div class="mq-quest-item">
+			<div class="mq-quest-letter">S</div>
+			<div class="mq-quest-text">Strive For Excellence</div>
+		</div>
+		<div class="mq-quest-item">
+			<div class="mq-quest-letter">T</div>
+			<div class="mq-quest-text">Thankful Attitude</div>
+		</div>
+	</div>
+</div>
+
 <?php if($this->session->userdata('level') == 'Admin'): ?>
 <!-- ========================================== -->
 <!-- BAGIAN ANALITIK & UTILISASI RUANG MEETING (KHUSUS ADMIN) -->
 <!-- ========================================== -->
 <div class="section-title">
-	<span><i class="fas fa-chart-pie" style="color:#0284c7; margin-right:6px;"></i> Analitik & Utilisasi Ruang Meeting</span>
-	<small style="font-size:12px; color:#64748b; font-weight:normal;">Laporan metrik keterisian & performa reservasi ruangan</small>
+	<span><i class="fas fa-chart-pie" style="color:#0059fb; margin-right:6px;"></i> Analitik &amp; Utilisasi Ruang Meeting</span>
+	<small style="font-size:12px; color:#64748b; font-weight:normal;">Laporan metrik keterisian &amp; performa reservasi ruangan</small>
 </div>
 
 <div class="analytics-grid">
 	<!-- Card 1: Frekuensi Ruangan -->
 	<div class="analytic-card">
 		<div class="card-head">
-			<span class="card-head-title"><i class="fas fa-building" style="color:#0284c7;"></i> Utilisasi Ruangan</span>
+			<span class="card-head-title"><i class="fas fa-building" style="color:#0059fb;"></i> Utilisasi Ruangan</span>
 			<span class="card-head-badge">Total Booking</span>
 		</div>
 		<div class="room-bar-list">
@@ -385,7 +556,7 @@
 				<div class="bar-item">
 					<div class="bar-meta">
 						<span><?php echo $ru['nama']; ?> <small style="color:#94a3b8; font-weight:normal;">(<?php echo $ru['kapasitas']; ?> Org)</small></span>
-						<span style="color:#0284c7; font-weight:700;"><?php echo $ru['total_booking']; ?> Agenda</span>
+						<span style="color:#0059fb; font-weight:700;"><?php echo $ru['total_booking']; ?> Agenda</span>
 					</div>
 					<div class="bar-track">
 						<div class="bar-fill" style="width: <?php echo $pct; ?>%;"></div>
@@ -401,7 +572,7 @@
 	<!-- Card 2: Status Distribusi & On-Time Check-In Donut -->
 	<div class="analytic-card">
 		<div class="card-head">
-			<span class="card-head-title"><i class="fas fa-chart-pie" style="color:#10b981;"></i> Tingkat Kehadiran & Status</span>
+			<span class="card-head-title"><i class="fas fa-chart-pie" style="color:#10b981;"></i> Tingkat Kehadiran &amp; Status</span>
 			<span class="card-head-badge">KPI</span>
 		</div>
 		<div class="donut-wrapper">
@@ -427,8 +598,8 @@
 					<circle cx="50" cy="50" r="40" fill="transparent" stroke="#10b981" stroke-width="14"
 						stroke-dasharray="<?php echo $dashSelesai; ?> <?php echo $cCircum - $dashSelesai; ?>"
 						stroke-dashoffset="0"></circle>
-					<!-- Disetujui (Sky Blue) -->
-					<circle cx="50" cy="50" r="40" fill="transparent" stroke="#0284c7" stroke-width="14"
+					<!-- Disetujui (Medquest Blue) -->
+					<circle cx="50" cy="50" r="40" fill="transparent" stroke="#0059fb" stroke-width="14"
 						stroke-dasharray="<?php echo $dashDisetujui; ?> <?php echo $cCircum - $dashDisetujui; ?>"
 						stroke-dashoffset="-<?php echo $dashSelesai; ?>"></circle>
 					<!-- Menunggu (Amber) -->
@@ -452,7 +623,7 @@
 					<span>Selesai: <strong><?php echo $status_counts['selesai']; ?></strong></span>
 				</div>
 				<div class="legend-item">
-					<span class="legend-dot" style="background:#0284c7;"></span>
+					<span class="legend-dot" style="background:#0059fb;"></span>
 					<span>Disetujui: <strong><?php echo $status_counts['disetujui']; ?></strong></span>
 				</div>
 				<div class="legend-item">
@@ -484,7 +655,7 @@
 						<span class="dept-rank <?php echo $rankClass; ?>"><?php echo $rank++; ?></span>
 						<strong><?php echo htmlspecialchars($td['departemen_peminjam']); ?></strong>
 					</div>
-					<span style="font-weight:700; color:#0284c7; background:#e0f2fe; padding:2px 8px; border-radius:10px; font-size:11px;">
+					<span style="font-weight:700; color:#0059fb; background:#f0f6ff; padding:2px 9px; border-radius:10px; font-size:11px;">
 						<?php echo $td['total']; ?> Meeting
 					</span>
 				</div>
@@ -495,10 +666,12 @@
 		</div>
 	</div>
 </div>
-<?php endif; ?><!-- Katalog Ruangan Meeting Pilihan -->
+<?php endif; ?>
+
+<!-- Katalog Ruangan Meeting Pilihan -->
 <div class="section-title">
-	<span><i class="fas fa-door-open" style="color:#0284c7; margin-right:6px;"></i> Pilihan Ruang Meeting Kantor</span>
-	<small style="font-size:12px; color:#64748b; font-weight:normal;">Dilengkapi fasilitas Smart TV, Whiteboard & Video Conference</small>
+	<span><i class="fas fa-door-open" style="color:#0059fb; margin-right:6px;"></i> Pilihan Ruang Meeting Kantor</span>
+	<small style="font-size:12px; color:#64748b; font-weight:normal;">Dilengkapi fasilitas Smart TV, Whiteboard &amp; Video Conference</small>
 </div>
 
 <div class="room-grid">
@@ -523,19 +696,17 @@
 		<div class="room-body">
 			<div>
 				<div class="room-name"><?php echo $r['nama_ruangan']; ?></div>
-				<div class="room-info">PT Medquest Jaya Global · Lantai Operasional</div>
+				<div class="room-info">PT Medquest Jaya Global &middot; Lantai Operasional</div>
 			</div>
 			<div class="room-footer">
 				<div class="room-status">
 					<span class="room-status-dot"></span> <?php echo $r['status']; ?>
 				</div>
 				<a href="<?php echo base_url('dashboard/ketersediaan-ruangan?ruangan=' . rawurlencode($r['nama_ruangan'])); ?>" class="btn-book">
-					Pilih Slot ?
+					Pilih Slot &rarr;
 				</a>
 			</div>
 		</div>
 	</div>
 	<?php endforeach; ?>
 </div>
-
-

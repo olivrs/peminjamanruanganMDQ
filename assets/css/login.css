@@ -36,29 +36,47 @@ html, body {
 }
 
 a {
-    color: #4FC3F7;
+    color: #0059fb;
     outline: none;
     text-decoration: none;
-    transition: 0.5s;
+    transition: 0.3s;
 }
 
 a:hover {
-    color: #B3E5FC;
+    color: #2ea3f2;
 }
 
 body {
-    color: #555;
-    font-family: 'Utama', sans-serif;
+    color: #334155;
+    font-family: 'Open Sans', 'Roboto', 'Utama', sans-serif;
     font-size: 14px;
     line-height: 21px;
+    background: linear-gradient(135deg, #eef4ff 0%, #f8fafd 55%, #e0ecff 100%);
 }
 
+.mq-login-topbar {
+    background-color: #0059fb;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 24px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 89, 251, 0.2);
+}
 
-/* 
-|--------------------------------------|
-|               Clearfix               |
-|--------------------------------------|
-*/
+.mq-login-topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
 
 .clearfix:before,
 .clearfix:after {
@@ -74,82 +92,105 @@ body {
     *zoom: 1;
 }
 
-
-/* 
-|--------------------------------------|
-|           Custom Bootstrap           |
-|--------------------------------------|
-*/
-
 .container-fluid {
     height: 100%;
     padding: 0;
-    background-color: #f5f5f5;
-    /*border: 1px solid yellow;*/
+    background: transparent;
 }
 
 .baris-utama {
-    width: 80%;
-    height: 395px;
+    width: 82%;
+    max-width: 980px;
+    height: 430px;
     margin: auto;
     position: absolute;
-    top: 0; right: 0; bottom: 0; left: 0;
+    top: 20px; right: 0; bottom: 0; left: 0;
     padding: 0;
-    /*border: 1px solid blue;*/
 }
 
 .baris-footer {
-    min-height: 38px;
-    color: #757575;
-    font-size: 14px;
-    line-height: 21px;
+    min-height: 40px;
+    background-color: #0159fa;
+    color: #f7f7f7;
+    font-size: 12.5px;
+    line-height: 40px;
     text-align: center;
     margin: auto;
     position: fixed;
     right: 0; bottom: 0; left: 0;
-    /*border: 1px solid lightblue;*/
 }
-
-
-/* 
-|--------------------------------------|
-|              CSS Utama               |
-|--------------------------------------|
-*/
 
 .kotak-login {
     padding: 0;
-    border-radius: 10px;
-    transition: 5s;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: 0.8s;
+    border: 1px solid #dbeafe;
 }
 
 .gambar-login, .login-form {
     opacity: 0;
-    transition: 2s;
+    transition: 1.2s ease;
 }
 
 .gambar-login {
     float: left;
     width: 50%;
     height: 100%;
-    border-radius: 10px 0 0 10px;
-    background-image: url("../img/interior.jpg");
+    border-radius: 16px 0 0 16px;
+    background-image: linear-gradient(145deg, rgba(0, 43, 128, 0.88) 0%, rgba(0, 89, 251, 0.82) 100%), url("../img/interior.jpg");
     background-repeat: no-repeat;
-    background-attachment: cover;
-    background-size: 100%;
-    background-position: 0;
-    padding: 0;
-    transform: translate(0, -120px);
+    background-size: cover;
+    background-position: center;
+    padding: 38px 36px;
+    box-sizing: border-box;
+    transform: translate(0, -80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mq-login-badge {
+    display: inline-block;
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
 }
 
 .gambar-login p {
     color: #fff;
     text-align: left;
-    font-family: 'Pembuka', sans-serif;
-    font-size: 42px;
-    line-height: 49px;
-    margin: 50px;
-    /*border: 1px solid yellow;*/
+    font-family: 'Open Sans', 'Pembuka', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 44px;
+    margin: 0 0 16px 0;
+}
+
+.mq-login-caption {
+    color: #e0f2fe;
+    font-size: 12.5px;
+    line-height: 1.6;
+}
+
+.mq-quest-pills {
+    display: inline-block;
+    margin-top: 10px;
+    background: rgba(255, 192, 0, 0.2);
+    border: 1px solid rgba(255, 192, 0, 0.5);
+    color: #fde047;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    padding: 3px 10px;
+    border-radius: 6px;
 }
 
 .login-form {
@@ -157,75 +198,92 @@ body {
     width: 50%;
     height: 100%;
     text-align: center;
-    border-radius: 0 10px 10px 0;
+    border-radius: 0 16px 16px 0;
     background-color: #fff;
-    padding: 0;
-    transform: translate(0, 120px);
+    padding: 28px 20px;
+    box-sizing: border-box;
+    transform: translate(0, 80px);
 }
 
 .login-form img {
-    max-width: 200px;
+    max-width: 195px;
     height: auto;
-    margin: 25px 0 15px 0;
+    margin: 12px 0 12px 0;
     object-fit: contain;
 }
 
 .login-form h3 {
-    color: #757575;
-    font-family: 'Judul Login', sans-serif;
-    font-size: 22px;
-    line-height: 29px;
+    color: #1e293b;
+    font-family: 'Open Sans', 'Judul Login', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 26px;
     margin: 0;
+}
+
+.mq-login-sub {
+    font-size: 12px;
+    font-weight: 600;
+    color: #0059fb;
+    margin-top: 4px;
+    margin-bottom: 14px;
 }
 
 .login-form ul {
     list-style: none;
     text-align: center;
-    margin-top: 20px;
-    /*border: 1px solid salmon;*/
+    margin-top: 16px;
 }
 
 .login-form li {
     width: 100%;
-    margin-top: 15px;
+    margin-top: 14px;
     box-sizing: border-box;
 }
 
-.login-form ul input[type=text], [type=password] {
+.login-form ul input[type=text],
+.login-form ul input[type=password] {
     display: inline-block;
-    color: #555;
-    width: 78%;
-    border: 1px solid rgba(189, 195, 199, 0.5);
-    background-color: #f5f5f5;
-    border-radius: 7px;
-    padding: 9px 15px;
+    color: #1e293b;
+    font-weight: 600;
+    width: 82%;
+    border: 1.5px solid #cbd5e1;
+    background-color: #f8fafc;
+    border-radius: 8px;
+    padding: 11px 15px;
     margin: 0;
     box-sizing: border-box;
+    transition: all 0.2s;
 }
 
-.login-form ul input[type=text]:focus, [type=password]:focus {
+.login-form ul input[type=text]:focus,
+.login-form ul input[type=password]:focus {
     outline: none;
-    border-radius: 7px;
-    box-shadow: 0px 0px 7px #99ccff;
-    
+    border-color: #0059fb;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 89, 251, 0.15);
 }
 
 .login-form ul input[type=submit] {
-    width: 78%;
+    width: 82%;
     color: #fff;
+    font-weight: 800;
+    font-size: 14px;
     border: none;
-    border-bottom: 3px solid #009cb0;
-    border-radius: 7px;
-    background-color: #00BCD4;
-    padding: 10px 0px;
-    margin-top: 5px;
+    border-bottom: 3px solid #003db3;
+    border-radius: 8px;
+    background-color: #0059fb;
+    padding: 11px 0px;
+    margin-top: 6px;
     margin-bottom: 10px;
     cursor: pointer;
-    transition: 0.5s;
+    box-shadow: 0 6px 16px rgba(0, 89, 251, 0.3);
+    transition: all 0.2s ease;
 }
 
 .login-form input[type=submit]:hover {
-    background-color: #009cb0;
+    background-color: #0041b8;
+    transform: translateY(-1px);
 }
 
 .login-form input[type=submit]:focus {
@@ -233,7 +291,7 @@ body {
 }
 
 .kotak-login.muncul {
-    box-shadow: 0 0 15px #dedede;
+    box-shadow: 0 20px 45px rgba(0, 40, 120, 0.16);
 }
 
 .gambar-login.muncul, .login-form.muncul {
@@ -241,35 +299,30 @@ body {
     transform: translate(0,0);
 }
 
-
-/* 
-|--------------------------------------|
-|                Media                 |
-|--------------------------------------|
-*/
-
 @media (max-width: 1024px) {
     .baris-utama {
-        width: 100%;
+        width: 95%;
     }
 }
 
-@media (max-width: 425px) {
-    .baris-utama {
-        width: 80%;
-        height: 65%;
-        min-height: 350px;
+@media (max-width: 600px) {
+    .mq-login-topbar {
+        display: none;
     }
-
+    .baris-utama {
+        width: 90%;
+        height: auto;
+        min-height: 370px;
+        position: relative;
+        margin-top: 50px;
+    }
     .gambar-login {
         display: none;
     }
-
     .login-form {
         width: 100%;
-        border-radius: 7px;
+        border-radius: 14px;
     }
-
     .col-sm-2-offset {
         display: none;
     }

@@ -9,7 +9,6 @@
 	<li <?php if($hal == "Kelola Data Ruangan") echo "class='active'"; ?>>
 		<a href="<?php echo base_url('dashboard/data-ruangan'); ?>"><!-- <span class="lnr lnr-database"></span> -->Data Ruang Meeting</a>
 	</li>
-	</li>
 	<li <?php if($hal == "Ketersediaan Ruangan") echo "class='active'"; ?>>
 		<a href="<?php echo base_url('dashboard/ketersediaan-ruangan'); ?>">Ketersediaan Ruangan</a>
 	</li>

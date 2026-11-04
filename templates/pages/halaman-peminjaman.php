@@ -113,7 +113,7 @@
 		text-decoration: none;
 	}
 	.btn-complete {
-		background: #0284c7;
+		background: #0059fb;
 		color: #ffffff;
 		border: none;
 		padding: 6px 12px;
@@ -151,7 +151,7 @@
 	}
 	.schedule-time {
 		font-size: 11px;
-		color: #0284c7;
+		color: #0059fb;
 		font-weight: 600;
 	}
 	.btn-export-excel {
@@ -210,7 +210,7 @@
 	}
 	.btn-cal-menu:hover {
 		background: #e0f2fe;
-		color: #0284c7;
+		color: #0059fb;
 	}
 </style>
 
@@ -236,15 +236,15 @@
 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
 	<div style="display:inline-flex; background:#f1f5f9; padding:4px; border-radius:10px; border:1px solid #e2e8f0;">
 		<a href="<?php echo base_url('dashboard/data-peminjaman?periode=hari_ini'); ?>" 
-		   style="padding:7px 18px; font-size:12px; font-weight:700; border-radius:8px; text-decoration:none; transition:all 0.2s; <?php echo (isset($filter_periode) && $filter_periode == 'hari_ini') ? 'background:#0284c7; color:#ffffff; box-shadow:0 2px 6px rgba(2,132,199,0.3);' : 'color:#64748b;'; ?>">
+		   style="padding:7px 18px; font-size:12px; font-weight:700; border-radius:8px; text-decoration:none; transition:all 0.2s; <?php echo (isset($filter_periode) && $filter_periode == 'hari_ini') ? 'background:#0059fb; color:#ffffff; box-shadow:0 2px 6px rgba(2,132,199,0.3);' : 'color:#64748b;'; ?>">
 			<i class="far fa-calendar-check" style="margin-right:4px;"></i> Hari Ini (<?php echo date('d M'); ?>)
 		</a>
 		<a href="<?php echo base_url('dashboard/data-peminjaman?periode=kemarin'); ?>" 
-		   style="padding:7px 18px; font-size:12px; font-weight:700; border-radius:8px; text-decoration:none; transition:all 0.2s; <?php echo (isset($filter_periode) && $filter_periode == 'kemarin') ? 'background:#0284c7; color:#ffffff; box-shadow:0 2px 6px rgba(2,132,199,0.3);' : 'color:#64748b;'; ?>">
+		   style="padding:7px 18px; font-size:12px; font-weight:700; border-radius:8px; text-decoration:none; transition:all 0.2s; <?php echo (isset($filter_periode) && $filter_periode == 'kemarin') ? 'background:#0059fb; color:#ffffff; box-shadow:0 2px 6px rgba(2,132,199,0.3);' : 'color:#64748b;'; ?>">
 			<i class="far fa-calendar" style="margin-right:4px;"></i> Kemarin
 		</a>
 		<a href="<?php echo base_url('dashboard/data-peminjaman?periode=semua'); ?>" 
-		   style="padding:7px 18px; font-size:12px; font-weight:700; border-radius:8px; text-decoration:none; transition:all 0.2s; <?php echo (!isset($filter_periode) || $filter_periode == 'semua') ? 'background:#0284c7; color:#ffffff; box-shadow:0 2px 6px rgba(2,132,199,0.3);' : 'color:#64748b;'; ?>">
+		   style="padding:7px 18px; font-size:12px; font-weight:700; border-radius:8px; text-decoration:none; transition:all 0.2s; <?php echo (!isset($filter_periode) || $filter_periode == 'semua') ? 'background:#0059fb; color:#ffffff; box-shadow:0 2px 6px rgba(2,132,199,0.3);' : 'color:#64748b;'; ?>">
 			<i class="fas fa-bars" style="margin-right:4px;"></i> Semua Data
 		</a>
 	</div>
@@ -254,7 +254,7 @@
 		<div style="font-size:13px; color:#64748b; font-weight:600;">
 			Menampilkan: <span style="color:#0f172a; font-weight:700;"><?php echo count($tb); ?> Data</span>
 			<?php if(isset($filter_periode) && $filter_periode == 'hari_ini'): ?>
-				<span style="color:#0284c7;">(Jadwal Hari Ini)</span>
+				<span style="color:#0059fb;">(Jadwal Hari Ini)</span>
 			<?php elseif(isset($filter_periode) && $filter_periode == 'kemarin'): ?>
 				<span style="color:#64748b;">(Jadwal Kemarin)</span>
 			<?php else: ?>
@@ -310,9 +310,9 @@
 						<?php echo htmlspecialchars(!empty($baris['nama_peminjam']) ? $baris['nama_peminjam'] : $baris['peminjam']); ?>
 					</div>
 					<div style="font-size:11px; color:#64748b; margin-top:2px;">
-						<span style="color:#0284c7; font-weight:600;"><?php echo $baris['id_peminjaman']; ?></span>
+						<span style="color:#0059fb; font-weight:600;"><?php echo $baris['id_peminjaman']; ?></span>
 						<?php if(!empty($baris['departemen_peminjam'])): ?>
-							� Dept: <?php echo htmlspecialchars($baris['departemen_peminjam']); ?>
+							&middot; Dept: <?php echo htmlspecialchars($baris['departemen_peminjam']); ?>
 						<?php endif; ?>
 						<?php if(!empty($baris['telepon_peminjam'])): ?>
 							(<?php echo htmlspecialchars($baris['telepon_peminjam']); ?>)
@@ -320,7 +320,7 @@
 					</div>
 				</td>
 				<td>
-					<span class="badge-room"><i class="fas fa-map-marker-alt" style="color:#0284c7; margin-right:4px;"></i> <?php echo $baris['ruangan_dipinjam']; ?></span>
+					<span class="badge-room"><i class="fas fa-map-marker-alt" style="color:#0059fb; margin-right:4px;"></i> <?php echo $baris['ruangan_dipinjam']; ?></span>
 				</td>
 				<td>
 					<?php if(!empty($baris['tanggal_meeting']) && !empty($baris['jam_meeting'])): ?>

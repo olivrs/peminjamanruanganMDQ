@@ -2,69 +2,81 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?php echo $hal; ?> · Peminjaman Ruang Meeting - PT Medquest Jaya Global</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/login.css'); ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/login.css'); ?>?v=2.1">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	<link rel="icon" href="<?php echo base_url('assets/img/logo_medquest.png'); ?>">
 	<script src="<?php echo base_url('assets/js/jquery-3.3.1.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/login.js'); ?>"></script>
 </head>
 <body>
+	<!-- Top Bar Medquest (#top-header) -->
+	<div class="mq-login-topbar">
+		<div class="mq-login-topbar-inner">
+			<div>
+				<span><i class="fas fa-phone-volume"></i> +62 21 39842961</span>
+				<span style="margin-left:16px;"><i class="fas fa-envelope"></i> info@medquest.co.id</span>
+			</div>
+			<div>
+				<span><i class="fas fa-headset"></i> Hotline 24h: +62-21-29260000</span>
+				<a href="https://medquest.co.id/" target="_blank" rel="noopener" style="color:#fff; margin-left:14px; font-weight:700;"><i class="fas fa-globe"></i> medquest.co.id</a>
+			</div>
+		</div>
+	</div>
 
 	<div class="container-fluid">
-
 		<div class="row baris-utama">
-
 			<!-- Kolom Offset -->
 			<div class="col-sm-2-offset col-sm-2"></div>
-			<!-- Kolom Offset -->
 
 			<div class="col-sm-8 kotak-login clearfix">
 				<!-- Kolom Gambar Selamat Datang -->
 				<div class="gambar-login">
-					<p>Selamat <br><b>datang<font color="ffc000">.</font></b></p>
-					<p style="font-size:13px; color:#ccc; margin-top:8px;">PT Medquest Jaya Global</p>
+					<div class="mq-login-badge">CORPORATE PORTAL &middot; EST. 2004</div>
+					<p>Selamat <br><b>datang<font color="#ffc000">.</font></b></p>
+					<div class="mq-login-caption">
+						<strong>PT Medquest Jaya Global</strong><br>
+						Promoting Innovation &amp; Latest Healthcare Technology.<br>
+						<span class="mq-quest-pills">Q &middot; U &middot; E &middot; S &middot; T</span>
+					</div>
 				</div>
-				<!-- Kolom Gambar Selamat Datang -->
 				
 				<!-- Form Login -->
 				<div class="login-form">
-					<img src="<?php echo base_url('assets/img/logo_medquest.png'); ?>">
+					<img src="<?php echo base_url('assets/img/logo_medquest.png'); ?>" alt="PT Medquest Jaya Global">
 					<h3>Peminjaman Ruang Meeting</h3>
-					<p style="font-size:11px; color:#888; margin-top:-8px; margin-bottom:12px;">PT Medquest Jaya Global</p>
+					<p class="mq-login-sub">Portal Internal &middot; PT Medquest Jaya Global</p>
 
 					<?php echo form_open('login/proses'); ?>
 					<ul>
 						<li>
-							<input type="text" name="username" placeholder="Nama pengguna" required />
+							<input type="text" name="username" placeholder="Nama pengguna (Username)" required />
 						</li>
 						<li>
-							<input type="password" name="password" placeholder="Kata sandi" required />
+							<input type="password" name="password" placeholder="Kata sandi (Password)" required />
 						</li>
 						<li>
-							<input type="submit" name="tombol_login" value="Masuk" />
+							<input type="submit" name="tombol_login" value="Masuk ke Portal" />
 						</li>
 					</ul>
 					<?php echo form_close(); ?>
 				</div>
-				<!-- Form Login -->
 			</div>
-			
 		</div>
 
 		<div class="row baris-footer">
-			<!-- Kolom Copyright -->
-			<div class="col-sm-12">&copy; <?php echo date('Y'); ?> PT Medquest Jaya Global · Sistem Peminjaman Ruang Meeting</div>
-			<!-- Kolom Copyright -->
+			<div class="col-sm-12">&copy; <?php echo date('Y'); ?> <strong>PT Medquest Jaya Global</strong> &middot; Menara Salemba 6th Fl Zone 1, Jakarta Pusat &middot; Sistem Peminjaman Ruang Meeting</div>
 		</div>
-
 	</div>
-
 </body>
 </html>

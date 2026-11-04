@@ -3,7 +3,6 @@
 	<li <?php if($hal == "Beranda") echo "class='active'"; ?>>
 		<a href="<?php echo base_url('dashboard'); ?>"><!-- <span class="lnr lnr-home"></span> -->Beranda</a>
 	</li>
-	</li>
 	<li <?php if($hal == "Ketersediaan Ruangan") echo "class='active'"; ?>>
 		<a href="<?php echo base_url('dashboard/ketersediaan-ruangan'); ?>">Ketersediaan Ruangan</a>
 	</li>
