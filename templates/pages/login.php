@@ -44,9 +44,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<div class="gambar-login">
 					<p>Selamat <br><b>datang<font color="#ffc000">.</font></b></p>
 					<div class="mq-login-caption">
-						<strong>PT Medquest Jaya Global</strong><br>
-						Promoting Innovation &amp; Latest Healthcare Technology.<br>
-						<span class="mq-quest-pills">Q &middot; U &middot; E &middot; S &middot; T</span>
+						<strong style="font-size: 14.5px; letter-spacing: 0.3px;">PT Medquest Jaya Global</strong>
+						<div style="margin-top: 14px; background: #ffffff; padding: 10px 14px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 20, 60, 0.18);">
+							<img src="<?php echo base_url('assets/img/quest_horizontal.png'); ?>" alt="Medquest Core Values (Q.U.E.S.T)" style="width: 100%; height: auto; display: block;">
+						</div>
 					</div>
 				</div>
 				
