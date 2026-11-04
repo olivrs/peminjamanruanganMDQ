@@ -54,19 +54,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<!-- Form Login -->
 				<div class="login-form">
 					<img src="<?php echo base_url('assets/img/logo_medquest.png'); ?>" alt="PT Medquest Jaya Global">
-					<h3>Peminjaman Ruang Meeting</h3>
-					<p class="mq-login-sub">Portal Internal &middot; PT Medquest Jaya Global</p>
+					<h3>Login Petugas</h3>
+					<p class="mq-login-sub">Khusus Superadmin &amp; Resepsionis &middot; PT Medquest Jaya Global</p>
 
 					<?php echo form_open('login/proses'); ?>
 					<ul>
 						<li>
-							<input type="text" name="username" placeholder="Nama pengguna (Username)" required />
+							<input type="text" name="username" placeholder="Username Superadmin / Resepsionis" required />
 						</li>
 						<li>
 							<input type="password" name="password" placeholder="Kata sandi (Password)" required />
 						</li>
 						<li>
-							<input type="submit" name="tombol_login" value="Masuk ke Portal" />
+							<input type="submit" name="tombol_login" value="Masuk Mode Petugas" />
+						</li>
+						<li style="margin-top: 10px;">
+							<a href="<?php echo base_url('dashboard'); ?>" style="font-size:12.5px; font-weight:700; color:#0059fb; text-decoration:none;"><i class="fas fa-arrow-left" style="margin-right:4px;"></i> Kembali ke Halaman Booking Ruangan (Tanpa Login)</a>
 						</li>
 					</ul>
 					<?php echo form_close(); ?>

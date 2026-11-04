@@ -8,10 +8,24 @@
 	</li>
 	<li <?php if($hal == "Data Peminjaman" OR $hal == "Laporan Peminjaman") echo "class='active'"; ?>>
 		<a href="<?php echo base_url('dashboard/data-peminjaman'); ?>">Data Peminjaman
-			<span id="badge-notif-pengajuan" class="badge badge-pill badge-secondary notif-pengajuan-badge" style="display:none;"></span>
+			<span id="pending-request-badge-res" class="badge badge-pill badge-secondary" <?php if(empty($jumlah_menunggu)) echo 'style="display:none"'; ?>><?php echo isset($jumlah_menunggu) ? $jumlah_menunggu : 0; ?></span>
 		</a>
 	</li>
 	<li <?php if($hal == "Riwayat Akses Ruangan") echo "class='active'"; ?>>
 		<a href="<?php echo base_url('dashboard/akses-ruangan'); ?>">Riwayat Akses Ruang Meeting</a>
 	</li>
 </ul>
+<script>
+(function () {
+	var badge = document.getElementById('pending-request-badge-res');
+	if (!badge) return;
+	window.setInterval(function () {
+		fetch('<?php echo base_url('dashboard/notifikasi-pengajuan'); ?>', {credentials: 'same-origin'})
+			.then(function (response) { return response.json(); })
+			.then(function (data) {
+				badge.textContent = data.jumlah;
+				badge.style.display = data.jumlah > 0 ? '' : 'none';
+			});
+	}, 30000);
+})();
+</script>

@@ -8,20 +8,109 @@ class Dashboard extends CI_Controller
 	{
 		parent::__construct();
 
-		// Memanggil library untuk templating halaman
-		$this->load->library('template');
+		$this->_ensure_tables_exist();
 
-		// Pemeriksaan session masuk (login)
-		if($this->session->userdata('status-masuk') != 'masuk')
-		{
-			redirect(base_url());
-		}
+		// Memanggil library untuk templating halaman (Open Website: Tanpa wajib login di halaman depan)
+		$this->load->library('template');
 
 		// Memanggil Model
 		$this->load->model('Model_User', 'model_user');
 		$this->load->model('Model_Ruangan', 'model_ruangan');
 		$this->load->model('Model_Peminjaman', 'model_peminjaman');
 		$this->load->model('Model_Tap', 'model_tap');
+	}
+
+	private function _ensure_tables_exist()
+	{
+		try
+		{
+			if ( ! $this->db->table_exists('tb_user'))
+			{
+				$this->db->query("CREATE TABLE IF NOT EXISTS `tb_user` (
+				  `username` varchar(30) NOT NULL,
+				  `fullname` varchar(50) NOT NULL,
+				  `password` varchar(255) NOT NULL,
+				  `level` varchar(20) NOT NULL,
+				  PRIMARY KEY (`username`)
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+			}
+
+			$check_super = $this->db->get_where('tb_user', array('username' => 'superadmin'))->row_array();
+			if (empty($check_super) || ! password_verify('123123', $check_super['password']))
+			{
+				$default_pass = password_hash('123123', PASSWORD_DEFAULT);
+				$default_users = array(
+					array('username' => 'superadmin', 'fullname' => 'Superadmin Medquest', 'password' => $default_pass, 'level' => 'Admin'),
+					array('username' => 'ryan', 'fullname' => 'Ryan (Superadmin)', 'password' => $default_pass, 'level' => 'Admin'),
+					array('username' => 'operator', 'fullname' => 'Operator Resepsionis', 'password' => $default_pass, 'level' => 'Resepsionis'),
+					array('username' => 'resepsionis', 'fullname' => 'Resepsionis Medquest', 'password' => $default_pass, 'level' => 'Resepsionis')
+				);
+				foreach ($default_users as $u)
+				{
+					$this->db->replace('tb_user', $u);
+				}
+			}
+
+			if ( ! $this->db->table_exists('tb_ruangan'))
+			{
+				$this->db->query("CREATE TABLE IF NOT EXISTS `tb_ruangan` (
+				  `id_ruangan` varchar(10) NOT NULL,
+				  `nama_ruangan` varchar(50) NOT NULL,
+				  `status` varchar(16) NOT NULL,
+				  `kapasitas` int unsigned NOT NULL DEFAULT '10',
+				  `room_qr_key` varchar(64) DEFAULT NULL,
+				  PRIMARY KEY (`id_ruangan`)
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+
+				$this->db->query("INSERT IGNORE INTO `tb_ruangan` VALUES 
+				('R001','Pulau Jawa','Tersedia',5,'425df689b3da49a46d8cca03ea61d525'),
+				('R002','Pulau Bali','Tersedia',6,'ac21c50087cad0659cb183baff9aa63e'),
+				('R003','Pulau Papua','Tersedia',10,'e508f4e4b5ae301725c43aa005070b3b'),
+				('R004','Pulau Sumatra','Tersedia',15,'df39d8e0a2144bc7c7b111093bac81fa'),
+				('R005','Pulau Kalimantan','Tersedia',7,'d97cbc1e96b14db386d7d205b813a62f');");
+			}
+
+			if ( ! $this->db->table_exists('tb_peminjaman'))
+			{
+				$this->db->query("CREATE TABLE IF NOT EXISTS `tb_peminjaman` (
+				  `id_peminjaman` varchar(10) NOT NULL,
+				  `peminjam` varchar(25) NOT NULL,
+				  `ruangan_dipinjam` varchar(50) NOT NULL,
+				  `keterangan` varchar(255) NOT NULL,
+				  `waktu_pengajuan` datetime NOT NULL,
+				  `waktu_penyetujuan` datetime DEFAULT NULL,
+				  `waktu_pembatalan` datetime DEFAULT NULL,
+				  `waktu_pengembalian` datetime DEFAULT NULL,
+				  `verifikasi_bp` varchar(5) NOT NULL,
+				  `verifikasi_kabag` varchar(5) NOT NULL,
+				  `status_pinjam` varchar(15) NOT NULL,
+				  `tanggal_meeting` date DEFAULT NULL,
+				  `jam_meeting` time DEFAULT NULL,
+				  `nama_peminjam` varchar(50) DEFAULT NULL,
+				  `departemen_peminjam` varchar(50) DEFAULT NULL,
+				  `telepon_peminjam` varchar(20) DEFAULT NULL,
+				  `waktu_checkin` datetime DEFAULT NULL,
+				  PRIMARY KEY (`id_peminjaman`)
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+			}
+
+			if ( ! $this->db->table_exists('tb_tap'))
+			{
+				$this->db->query("CREATE TABLE IF NOT EXISTS `tb_tap` (
+				  `id` int NOT NULL AUTO_INCREMENT,
+				  `id_kartu` varchar(20) NOT NULL,
+				  `nama_ruangan` varchar(50) NOT NULL,
+				  `waktu_akses` datetime NOT NULL,
+				  `waktu_tutup` datetime NOT NULL,
+				  `status_akses` varchar(10) NOT NULL DEFAULT 'Dibuka',
+				  PRIMARY KEY (`id`)
+				) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4;");
+			}
+		}
+		catch (Exception $e)
+		{
+			log_message('error', 'Auto-table init error: ' . $e->getMessage());
+		}
 	}
 
 	public function index()
@@ -92,7 +181,7 @@ class Dashboard extends CI_Controller
 
 	private function wajib_admin()
 	{
-		if ($this->session->userdata('level') != 'Admin')
+		if ($this->session->userdata('status-masuk') != 'masuk' || $this->session->userdata('level') != 'Admin')
 		{
 			redirect(base_url('dashboard'));
 		}
@@ -100,7 +189,7 @@ class Dashboard extends CI_Controller
 
 	private function wajib_admin_atau_resepsionis()
 	{
-		if (!in_array($this->session->userdata('level'), array('Admin', 'Resepsionis'), TRUE))
+		if ($this->session->userdata('status-masuk') != 'masuk' || !in_array($this->session->userdata('level'), array('Admin', 'Resepsionis'), TRUE))
 		{
 			redirect(base_url('dashboard'));
 		}
@@ -117,159 +206,28 @@ class Dashboard extends CI_Controller
 
 	/*
 	|-----------------------------------------------------------------
-	| Fitur CRUD User
+	| Fitur CRUD User (Dinonaktifkan di Menu - Hanya Akses Internal)
 	|-----------------------------------------------------------------
 	*/
 
 	public function akun_pengguna()
 	{
-		// Membatasi level pengguna yang dapat mengakses halaman
-		if($this->session->userdata('level') != "Admin")
-		{
-			redirect(base_url('dashboard'));
-		}
-
-		// Memanggil fungsi lihat data pada Model User
-		$query   = $this->model_user->tampil()->result_array();
-
-		// Data disimpan sementara pada array
-		$halaman = array
-		(
-			'tb'   => $query,
-			'hal'  => 'Kelola Akun Pengguna'
-		);
-
-		$this->template->utama('pages/halaman-user', $halaman);
-	}
-
-	public function buat_user()
-	{
-		$this->wajib_admin();
-
-		// Menerima input, lalu disimpan pada variabel-variabel berikut
-		$fullname = trim($this->input->post('fullname') ?? '');
-		$username = trim($this->input->post('username') ?? '');
-		$password = $this->input->post('password') ?? '';
-		$level    = $this->input->post('level') ?? '';
-
-		if (!in_array($level, array('Admin', 'Resepsionis', 'Pengguna'), TRUE))
-		{
-			redirect(base_url('dashboard/akun-pengguna'));
-			return;
-		}
-
-		if (empty($fullname) || empty($username) || empty($password))
-		{
-			redirect(base_url('dashboard/akun-pengguna'));
-			return;
-		}
-
-		// Cek duplikasi username
-		$cek = $this->model_user->lihat(array('username' => $username))->num_rows();
-		if ($cek > 0)
-		{
-			echo "<script>alert('Username sudah digunakan! Silakan gunakan username lain.'); window.location.href='" . base_url('dashboard/akun-pengguna') . "';</script>";
-			return;
-		}
-
-		// Data yang akan disimpan/dibuat
-		$data = array(
-			'fullname' => $fullname,
-			'username' => $username,
-			'password' => password_hash($password, PASSWORD_DEFAULT),
-			'level'    => $level
-		);
-
-		$query = $this->model_user->buat($data);
-
-		if ($query)
-		{
-			redirect(base_url('dashboard/akun-pengguna'));
-			return;
-		}
-		else
-		{
-			echo "Proses penambahan data gagal.";
-			return;
-		}
-	}
-
-	public function perbarui_user()
-	{
-		$this->wajib_admin();
-
-		// Menerima input, lalu disimpan pada variabel-variabel berikut
-		$fullname = $this->input->post('fullname');
-		$username = $this->input->post('username');
-		$level    = $this->input->post('level');
-		if (!in_array($level, array('Admin', 'Resepsionis', 'Pengguna'), TRUE))
-		{
-			redirect(base_url('dashboard/akun-pengguna'));
-		}
-		
-		// Data yang akan diperbarui
-		$data     = array
-		(
-			'fullname' => $fullname,
-			'level'    => $level
-		);
-
-		// Username digunakan sebagai pengenal data mana yang akan diperbarui
-		$where    = array('username' => $username);
-
-		$query    = $this->model_user->perbarui($data, $where);
-
-		if ($query)
-		{
-			redirect(base_url('dashboard/akun-pengguna'));
-		}
-		else
-		{
-			echo "Proses pengubahan data gagal.";
-		}
-	}
-
-	public function hapus_user()
-	{
-		$this->wajib_admin();
-
-		// Menerima input, lalu disimpan pada variabel-variabel berikut
-		$username = $this->input->post('username');
-
-		// Username digunakan sebagai pengenal data mana yang akan dihapus
-		$where   = array('username' => $username);
-
-		$query   = $this->model_user->hapus($where);
-
-		if($query)
-		{
-			redirect(base_url('dashboard/akun-pengguna'));
-		}
-		else
-		{
-			echo "Proses penghapusan data gagal.";
-		}
+		redirect(base_url('dashboard'));
 	}
 
 
 	/*
 	|-----------------------------------------------------------------
-	| Fitur CRUD Ruangan
+	| Fitur CRUD Ruangan (Khusus Superadmin)
 	|-----------------------------------------------------------------
 	*/
 
 	public function data_ruangan()
 	{
-		// Membatasi level pengguna yang dapat mengakses halaman
-		if($this->session->userdata('level') != "Admin")
-		{
-			redirect(base_url('dashboard'));
-		}
+		$this->wajib_admin();
 
-		// Memanggil fungsi lihat data pada Model Ruangan
 		$query   = $this->model_ruangan->tampil()->result_array();
 
-		// Data disimpan sementara pada array
 		$halaman = array
 		(
 			'tb'   => $query,
@@ -334,12 +292,10 @@ class Dashboard extends CI_Controller
 			{
 				if ($slot < $currentHourSlot)
 				{
-					// Jam sebelumnya pasti sudah lewat total
 					$elapsed_slots[] = $slot;
 				}
 				elseif ($slot == $currentHourSlot && $currentMinute >= 45)
 				{
-					// Jika sudah menit ke-45 ke atas dari jam berjalan, sisa waktu terlalu mepet
 					$elapsed_slots[] = $slot;
 				}
 			}
@@ -347,13 +303,14 @@ class Dashboard extends CI_Controller
 
 		$halaman = array
 		(
-			'tb'           => $rooms,
-			'slots'        => $slots,
-			'booked_slots' => $booked_slots,
+			'tb'            => $rooms,
+			'tb_idpinjam'   => $this->model_peminjaman->tampil_id()->result_array(),
+			'slots'         => $slots,
+			'booked_slots'  => $booked_slots,
 			'elapsed_slots' => $elapsed_slots,
-			'tanggal'      => $tanggal,
-			'nama_ruangan' => $nama_ruangan,
-			'hal'          => 'Ketersediaan Ruangan'
+			'tanggal'       => $tanggal,
+			'nama_ruangan'  => $nama_ruangan,
+			'hal'           => 'Ketersediaan Ruangan'
 		);
 
 		$this->template->utama('pages/ketersediaan-ruangan', $halaman);
@@ -363,13 +320,11 @@ class Dashboard extends CI_Controller
 	{
 		$this->wajib_admin();
 
-		// Menerima input, lalu disimpan pada variabel-variabel berikut
 		$id_ruangan  = $this->input->post('id_ruangan');
 		$namaruangan = $this->input->post('nama_ruangan');
 		$kapasitas   = $this->input->post('kapasitas');
 		
-		// Data yang akan disimpan/dibuat
-		$data     = array
+		$data = array
 		(
 			'id_ruangan'   => $id_ruangan,
 			'nama_ruangan' => $namaruangan,
@@ -377,7 +332,7 @@ class Dashboard extends CI_Controller
 			'status'       => 'Tersedia'
 		);
 
-		$query    = $this->model_ruangan->buat($data);
+		$query = $this->model_ruangan->buat($data);
 
 		if ($query)
 		{
@@ -393,22 +348,18 @@ class Dashboard extends CI_Controller
 	{
 		$this->wajib_admin();
 
-		// Menerima input, lalu disimpan pada variabel-variabel berikut
 		$id_ruangan  = $this->input->post('id_ruangan');
 		$namaruangan = $this->input->post('nama_ruangan');
 		$kapasitas   = $this->input->post('kapasitas');
 		
-		// Data yang akan diperbarui
-		$data     = array
+		$data = array
 		(
 			'nama_ruangan' => $namaruangan,
 			'kapasitas'    => $kapasitas
 		);
 
-		// ID ruangan digunakan sebagai pengenal data mana yang akan diperbarui
-		$where    = array('id_ruangan' => $id_ruangan);
-
-		$query    = $this->model_ruangan->perbarui($data, $where);
+		$where = array('id_ruangan' => $id_ruangan);
+		$query = $this->model_ruangan->perbarui($data, $where);
 
 		if ($query)
 		{
@@ -424,13 +375,9 @@ class Dashboard extends CI_Controller
 	{
 		$this->wajib_admin();
 
-		// Menerima input, lalu disimpan pada variabel-variabel berikut
 		$id_ruangan = $this->input->post('id_ruangan');
-
-		// ID ruangan digunakan sebagai pengenal data mana yang akan dihapus
-		$where   = array('id_ruangan' => $id_ruangan);
-
-		$query   = $this->model_ruangan->hapus($where);
+		$where      = array('id_ruangan' => $id_ruangan);
+		$query      = $this->model_ruangan->hapus($where);
 
 		if($query)
 		{
@@ -445,7 +392,7 @@ class Dashboard extends CI_Controller
 
 	/*
 	|-----------------------------------------------------------------
-	| Fitur CRUD Peminjaman
+	| Fitur CRUD Peminjaman (Open Booking & Kelola Superadmin/Resepsionis)
 	|-----------------------------------------------------------------
 	*/
 
@@ -453,21 +400,16 @@ class Dashboard extends CI_Controller
 	{
 		$this->model_peminjaman->auto_cancel_no_show();
 
-		// Filter Waktu: 'semua', 'hari_ini', 'kemarin' (Default: 'hari_ini' agar cepat dan rapi)
 		$filter_periode = $this->input->get('periode', TRUE);
 		if (!in_array($filter_periode, array('semua', 'hari_ini', 'kemarin'), TRUE))
 		{
-			$filter_periode = 'semua'; // default menampilkan semua data atau bisa difilter
+			$filter_periode = 'semua';
 		}
 
 		$today = date('Y-m-d');
 		$yesterday = date('Y-m-d', strtotime('-1 day'));
 
 		$this->db->order_by('id_peminjaman', 'DESC');
-		if ($this->session->userdata('level') == "Pengguna")
-		{
-			$this->db->where('peminjam', $this->session->userdata('namalengkap'));
-		}
 
 		if ($filter_periode == 'hari_ini')
 		{
@@ -531,20 +473,19 @@ class Dashboard extends CI_Controller
 			}
 		}
 
-		// Data disimpan sementara pada array
 		$halaman = array
 		(
-			'tb'          => $query,
-			'tb_ruangan'  => $query_b,
-			'tb_idpinjam' => $query_c,
-			'booking_slots' => $booking_slots,
-			'occupied_slots' => $occupied_slots,
+			'tb'                    => $query,
+			'tb_ruangan'            => $query_b,
+			'tb_idpinjam'           => $query_c,
+			'booking_slots'         => $booking_slots,
+			'occupied_slots'        => $occupied_slots,
 			'elapsed_booking_slots' => $elapsed_booking_slots,
-			'selected_date' => $selected_date,
-			'selected_room' => $selected_room,
-			'selected_time' => $selected_time,
-			'filter_periode' => $filter_periode,
-			'hal'         => 'Data Peminjaman'
+			'selected_date'         => $selected_date,
+			'selected_room'         => $selected_room,
+			'selected_time'         => $selected_time,
+			'filter_periode'        => $filter_periode,
+			'hal'                   => 'Data Peminjaman'
 		);
 
 		$this->template->utama('pages/halaman-peminjaman', $halaman);
@@ -552,32 +493,24 @@ class Dashboard extends CI_Controller
 
 	public function laporan_peminjaman()
 	{
-		// Membatasi level pengguna yang dapat mengakses halaman
-		if($this->session->userdata('level') != "Admin")
-		{
-			redirect(base_url('dashboard'));
-		}
+		$this->wajib_admin();
 
-		// Menerima input, lalu disimpan pada variabel-variabel berikut
 		$tgl_awal  = $this->input->post('tgl_awal');
 		$tgl_akhir = $this->input->post('tgl_akhir');
 
-		// Mencegah halaman diakses langsung melalui tautan dengan kondisi data yang kosong
 		if(empty($tgl_awal && $tgl_akhir))
 		{
 			redirect(base_url('dashboard/data-peminjaman'));
 		}
 
-		// Tanggal awal dan akhir digunakan sebagai pengenal data mana yang akan ditampilkan
 		$where = array
 		(
 			'waktu_pengajuan >=' => $tgl_awal,
 			'waktu_pengajuan <=' => $tgl_akhir
 		);
 
-		$query     = $this->model_peminjaman->tampil_detail($where)->result_array();
+		$query = $this->model_peminjaman->tampil_detail($where)->result_array();
 
-		// Data disimpan sementara pada array
 		$halaman = array
 		(
 			'tb'            => $query,
@@ -591,18 +524,21 @@ class Dashboard extends CI_Controller
 
 	public function pinjam_ruang()
 	{
-		// Menerima input, lalu disimpan pada variabel-variabel berikut
-		$id_peminjaman = $this->input->post('id_peminjaman');
-		$peminjam      = $this->input->post('peminjam');
-		$w_pengajuan   = $this->input->post('waktu_pengajuan');
-		$keterangan    = $this->input->post('keterangan');
-		$nama_ruangan  = $this->input->post('nama_ruangan');
-		$tanggal_meeting = $this->input->post('tanggal_meeting');
-		$jam_meeting   = $this->input->post('jam_meeting');
-		$nama_peminjam = trim((string) $this->input->post('nama_peminjam'));
+		$id_peminjaman       = $this->input->post('id_peminjaman');
+		$peminjam_post       = trim((string) $this->input->post('peminjam'));
+		$w_pengajuan         = $this->input->post('waktu_pengajuan');
+		$keterangan          = trim((string) $this->input->post('keterangan'));
+		$nama_ruangan        = $this->input->post('nama_ruangan');
+		$tanggal_meeting     = $this->input->post('tanggal_meeting');
+		$jam_meeting         = $this->input->post('jam_meeting');
+		$nama_peminjam       = trim((string) $this->input->post('nama_peminjam'));
 		$departemen_peminjam = trim((string) $this->input->post('departemen_peminjam'));
-		$telepon_peminjam = trim((string) $this->input->post('telepon_peminjam'));
-		$valid_slots   = array();
+		$telepon_peminjam    = trim((string) $this->input->post('telepon_peminjam'));
+
+		// Pada mode Open Website, peminjam diambil dari nama_peminjam yang diisi di form
+		$peminjam = !empty($nama_peminjam) ? substr($nama_peminjam, 0, 25) : (!empty($peminjam_post) ? substr($peminjam_post, 0, 25) : 'Tamu');
+
+		$valid_slots = array();
 		for ($hour = 8; $hour < 17; $hour++)
 		{
 			$valid_slots[] = sprintf('%02d:00', $hour);
@@ -612,7 +548,8 @@ class Dashboard extends CI_Controller
 		$date_is_valid = count($date_parts) == 3 && checkdate((int) $date_parts[1], (int) $date_parts[2], (int) $date_parts[0]);
 		if (!$date_is_valid || $tanggal_meeting < date('Y-m-d') || !in_array($jam_meeting, $valid_slots))
 		{
-			echo 'Tanggal atau jam meeting tidak valid.';
+			$this->session->set_flashdata('pesan_error', 'Tanggal atau jam meeting tidak valid.');
+			redirect(base_url('dashboard/data-peminjaman'));
 			return;
 		}
 
@@ -623,7 +560,8 @@ class Dashboard extends CI_Controller
 		{
 			if ($jam_meeting < $currentHourSlot || ($jam_meeting == $currentHourSlot && $currentMinute >= 45))
 			{
-				echo 'Jam meeting tersebut sudah lewat atau sisa waktu terlalu mepet (<15 menit). Silakan pilih jam lain.';
+				$this->session->set_flashdata('pesan_error', 'Jam meeting tersebut sudah lewat atau sisa waktu terlalu mepet (<15 menit). Silakan pilih jam lain.');
+				redirect(base_url('dashboard/data-peminjaman'));
 				return;
 			}
 		}
@@ -631,52 +569,51 @@ class Dashboard extends CI_Controller
 		$room_exists = $this->db->get_where('tb_ruangan', array('nama_ruangan' => $nama_ruangan))->num_rows() > 0;
 		if (!$room_exists || $this->model_peminjaman->slot_sudah_dipesan($nama_ruangan, $tanggal_meeting, $jam_meeting . ':00'))
 		{
-			echo 'Slot tersebut baru saja dipesan. Silakan pilih ruang atau jam lain.';
+			$this->session->set_flashdata('pesan_error', 'Slot ruangan tersebut baru saja dipesan orang lain. Silakan pilih ruang atau jam lain.');
+			redirect(base_url('dashboard/data-peminjaman'));
 			return;
 		}
 		
-		// Data yang akan disimpan/dibuat
 		$data_isi = array
 		(
-			'id_peminjaman'    => $id_peminjaman,
-			'peminjam'         => $peminjam,
-			'nama_peminjam'    => $nama_peminjam,
+			'id_peminjaman'       => $id_peminjaman,
+			'peminjam'            => $peminjam,
+			'nama_peminjam'       => $nama_peminjam,
 			'departemen_peminjam' => $departemen_peminjam,
-			'telepon_peminjam' => $telepon_peminjam,
-			'waktu_pengajuan'  => $w_pengajuan,
-			'tanggal_meeting'  => $tanggal_meeting,
-			'jam_meeting'      => $jam_meeting,
-			'keterangan'       => $keterangan,
-			'ruangan_dipinjam' => $nama_ruangan,
-			'verifikasi_bp'    => '-',
-			'verifikasi_kabag' => '-',
-			'status_pinjam'    => 'Menunggu'
+			'telepon_peminjam'    => $telepon_peminjam,
+			'waktu_pengajuan'     => !empty($w_pengajuan) ? $w_pengajuan : date('Y-m-d H:i:s'),
+			'tanggal_meeting'     => $tanggal_meeting,
+			'jam_meeting'         => $jam_meeting,
+			'keterangan'          => $keterangan,
+			'ruangan_dipinjam'    => $nama_ruangan,
+			'verifikasi_bp'       => '-',
+			'verifikasi_kabag'    => '-',
+			'status_pinjam'       => 'Menunggu'
 		);
 
-		$query    = $this->model_peminjaman->buat($data_isi);
+		$query = $this->model_peminjaman->buat($data_isi);
 
 		if ($query)
 		{
+			$this->session->set_flashdata('pesan_sukses', 'Pengajuan booking Ruang ' . $nama_ruangan . ' (' . date('d/m/Y', strtotime($tanggal_meeting)) . ' pukul ' . $jam_meeting . ' WIB) atas nama ' . $nama_peminjam . ' berhasil dikirim!');
 			redirect(base_url('dashboard/data-peminjaman'));
 		}
 		else
 		{
-			echo "Proses penambahan data gagal.";
+			$this->session->set_flashdata('pesan_error', 'Proses penambahan data peminjaman gagal.');
+			redirect(base_url('dashboard/data-peminjaman'));
 		}
 	}
 
 	public function perbarui_peminjaman()
 	{
-		// Menerima input, lalu disimpan pada variabel-variabel berikut
+		$this->wajib_admin_atau_resepsionis();
+
 		$id_peminjaman = $this->input->post('id_peminjaman');
 		$keterangan    = $this->input->post('keterangan');
 		
-		// Data yang akan diperbarui
 		$data  = array('keterangan' => $keterangan);
-
-		// ID peminjaman digunakan sebagai pengenal data mana yang akan diperbarui
 		$where = array('id_peminjaman' => $id_peminjaman);
-
 		$query = $this->model_peminjaman->perbarui($data, $where);
 
 		if ($query)
@@ -693,20 +630,10 @@ class Dashboard extends CI_Controller
 	{
 		$this->wajib_admin();
 
-		// Menerima input, lalu disimpan pada variabel-variabel berikut
 		$id_peminjaman = $this->input->post('id_peminjaman');
-		
-		// Pengubahan status pada tabel peminjaman dari "-" menjadi "OK"
-		// Data yang akan diperbarui
-		$data = array
-		(
-			'verifikasi_bp'     => 'OK'
-		);
-
-		// ID peminjaman digunakan sebagai pengenal data mana yang akan diperbarui
-		$where    = array('id_peminjaman' => $id_peminjaman);
-
-		$query    = $this->model_peminjaman->perbarui($data, $where);
+		$data          = array('verifikasi_bp' => 'OK');
+		$where         = array('id_peminjaman' => $id_peminjaman);
+		$query         = $this->model_peminjaman->perbarui($data, $where);
 
 		if ($query)
 		{
@@ -722,20 +649,10 @@ class Dashboard extends CI_Controller
 	{
 		$this->wajib_admin();
 
-		// Menerima input, lalu disimpan pada variabel-variabel berikut
 		$id_peminjaman = $this->input->post('id_peminjaman');
-		
-		// Pengubahan status pada tabel peminjaman dari "-" menjadi "OK"
-		// Data yang akan diperbarui
-		$data = array
-		(
-			'verifikasi_kabag'     => 'OK'
-		);
-
-		// ID peminjaman digunakan sebagai pengenal data mana yang akan diperbarui
-		$where    = array('id_peminjaman' => $id_peminjaman);
-
-		$query    = $this->model_peminjaman->perbarui($data, $where);
+		$data          = array('verifikasi_kabag' => 'OK');
+		$where         = array('id_peminjaman' => $id_peminjaman);
+		$query         = $this->model_peminjaman->perbarui($data, $where);
 
 		if ($query)
 		{
@@ -751,12 +668,9 @@ class Dashboard extends CI_Controller
 	{
 		$this->wajib_admin_atau_resepsionis();
 
-		// Menerima input, lalu disimpan pada variabel-variabel berikut
 		$id_peminjaman = $this->input->post('id_peminjaman');
 		$w_penyetujuan = $this->input->post('waktu_penyetujuan');
 		
-		// Pengubahan status pada tabel peminjaman dari "Menunggu" menjadi "Disetujui"
-		// Data yang akan diperbarui
 		$data_isi = array
 		(
 			'waktu_penyetujuan' => $w_penyetujuan,
@@ -765,10 +679,8 @@ class Dashboard extends CI_Controller
 			'status_pinjam'     => 'Disetujui'
 		);
 
-		// ID peminjaman digunakan sebagai pengenal data mana yang akan diperbarui
-		$where    = array('id_peminjaman' => $id_peminjaman);
-
-		$query    = $this->model_peminjaman->perbarui($data_isi, $where);
+		$where = array('id_peminjaman' => $id_peminjaman);
+		$query = $this->model_peminjaman->perbarui($data_isi, $where);
 
 		if ($query)
 		{
@@ -782,22 +694,19 @@ class Dashboard extends CI_Controller
 
 	public function batalkan_peminjaman()
 	{
-		// Menerima input, lalu disimpan pada variabel-variabel berikut
+		$this->wajib_admin_atau_resepsionis();
+
 		$id_peminjaman = $this->input->post('id_peminjaman');
 		$w_pembatalan  = $this->input->post('waktu_pembatalan');
 		
-		// Pengubahan status pada tabel peminjaman dari "Menunggu" menjadi "Dibatalkan"
-		// Data yang akan diperbarui
 		$data_isi = array
 		(
 			'waktu_pembatalan' => $w_pembatalan,
 			'status_pinjam'    => 'Dibatalkan'
 		);
 
-		// ID peminjaman digunakan sebagai pengenal data mana yang akan diperbarui
-		$where    = array('id_peminjaman' => $id_peminjaman);
-
-		$query    = $this->model_peminjaman->perbarui($data_isi, $where);
+		$where = array('id_peminjaman' => $id_peminjaman);
+		$query = $this->model_peminjaman->perbarui($data_isi, $where);
 
 		if ($query)
 		{
@@ -813,27 +722,21 @@ class Dashboard extends CI_Controller
 	{
 		$this->wajib_admin_atau_resepsionis();
 
-		// Menerima input, lalu disimpan pada variabel-variabel berikut
 		$id_peminjaman  = $this->input->post('id_peminjaman');
 		$w_pengembalian = $this->input->post('waktu_pengembalian');
 		
-		// Pengubahan status pada tabel peminjaman dari "Disetujui" menjadi "Selesai"
-		// Data yang akan diperbarui
 		$data_isi = array
 		(
 			'waktu_pengembalian' => $w_pengembalian,
 			'status_pinjam'      => 'Selesai'
 		);
 
-		// ID peminjaman digunakan sebagai pengenal data mana yang akan diperbarui
-		$where    = array('id_peminjaman' => $id_peminjaman);
-
-		$query    = $this->model_peminjaman->perbarui($data_isi, $where);
+		$where = array('id_peminjaman' => $id_peminjaman);
+		$query = $this->model_peminjaman->perbarui($data_isi, $where);
 
 		if ($query)
 		{
 			redirect(base_url('dashboard/data-peminjaman'));
-
 		}
 		else
 		{
@@ -845,13 +748,9 @@ class Dashboard extends CI_Controller
 	{
 		$this->wajib_admin();
 
-		// Menerima input dan lalu disimpan pada variabel-variabel berikut
 		$id_peminjaman = $this->input->post('id_peminjaman');
-
-		// ID peminjaman digunakan sebagai pengenal data mana yang akan dihapus
-		$where = array('id_peminjaman' => $id_peminjaman);
-
-		$query = $this->model_peminjaman->hapus($where);
+		$where         = array('id_peminjaman' => $id_peminjaman);
+		$query         = $this->model_peminjaman->hapus($where);
 
 		if ($query)
 		{
@@ -866,26 +765,20 @@ class Dashboard extends CI_Controller
 
 	/*
 	|-----------------------------------------------------------------
-	| Riwayat Akses Ruangan
+	| Riwayat Akses Ruangan (Khusus Superadmin & Resepsionis)
 	|-----------------------------------------------------------------
 	*/
 
 	public function akses_ruangan()
 	{
-		// Membatasi level pengguna yang dapat mengakses halaman (Admin & Resepsionis)
-		if(!in_array($this->session->userdata('level'), array('Admin', 'Resepsionis'), TRUE))
-		{
-			redirect(base_url('dashboard'));
-		}
+		$this->wajib_admin_atau_resepsionis();
 
-		// Memanggil fungsi lihat data pada Model Tap
-		$query   = $this->model_tap->tampil()->result_array();
+		$query = $this->model_tap->tampil()->result_array();
 
-		// Data disimpan sementara pada array
 		$halaman = array
 		(
-			'tb'            => $query,
-			'hal'           => 'Riwayat Akses Ruangan'
+			'tb'  => $query,
+			'hal' => 'Riwayat Akses Ruangan'
 		);
 
 		$this->template->utama('pages/halaman-akses-ruangan', $halaman);
@@ -900,20 +793,14 @@ class Dashboard extends CI_Controller
 
 	public function unduh_akses_ruangan()
 	{
-		// Membatasi level pengguna yang dapat mengakses halaman (Admin & Resepsionis)
-		if(!in_array($this->session->userdata('level'), array('Admin', 'Resepsionis'), TRUE))
-		{
-			redirect(base_url('dashboard'));
-		}
+		$this->wajib_admin_atau_resepsionis();
 
-		// Memanggil fungsi lihat data pada Model Tap
-		$query   = $this->model_tap->tampil()->result_array();
+		$query = $this->model_tap->tampil()->result_array();
 
-		// Data disimpan sementara pada array
 		$halaman = array
 		(
-			'tb'            => $query,
-			'hal'           => 'Riwayat Akses Ruangan'
+			'tb'  => $query,
+			'hal' => 'Riwayat Akses Ruangan'
 		);
 
 		$this->load->view('pages/unduh-akses-ruangan', $halaman);
@@ -921,26 +808,19 @@ class Dashboard extends CI_Controller
 
 	public function unduh_laporan_peminjaman()
 	{
-		// Membatasi level pengguna yang dapat mengakses halaman
-		if($this->session->userdata('level') != "Admin")
-		{
-			redirect(base_url('dashboard'));
-		}
+		$this->wajib_admin();
 
-		// Menerima input, lalu disimpan pada variabel-variabel berikut
 		$tgl_awal  = $this->input->post('tanggal_awal');
 		$tgl_akhir = $this->input->post('tanggal_akhir');
 
-		// Tanggal awal dan akhir digunakan sebagai pengenal data mana yang akan ditampilkan
 		$where = array
 		(
 			'waktu_pengajuan >=' => $tgl_awal,
 			'waktu_pengajuan <=' => $tgl_akhir
 		);
 
-		$query     = $this->model_peminjaman->tampil_detail($where)->result_array();
+		$query = $this->model_peminjaman->tampil_detail($where)->result_array();
 
-		// Data disimpan sementara pada array
 		$halaman = array
 		(
 			'tb'            => $query,
@@ -949,19 +829,19 @@ class Dashboard extends CI_Controller
 			'hal'           => 'Laporan Peminjaman'
 		);
 
-		$unduh = $this->load->view('pages/unduh-laporan', $halaman);
+		$this->load->view('pages/unduh-laporan', $halaman);
 	}
 
 
 	/*
 	|-----------------------------------------------------------------
-	| Fitur Logout
+	| Fitur Logout Petugas (Superadmin / Resepsionis)
 	|-----------------------------------------------------------------
 	*/
 
 	public function logout()
 	{
-		$sesi	= array
+		$sesi = array
 		(
 			'namalengkap',
 			'level',
@@ -970,93 +850,19 @@ class Dashboard extends CI_Controller
 
 		$this->session->unset_userdata($sesi);
 
-		redirect(base_url());
+		redirect(base_url('dashboard'));
 	}
+
 	/*
 	|-----------------------------------------------------------------
-	| Fitur Verifikasi Check-In Ruangan (Tombol / QR Code)
+	| Fitur Verifikasi Check-In Ruangan (Tombol / QR Code - Open Access)
 	|-----------------------------------------------------------------
 	*/
 
 	public function checkin_ruangan()
 	{
 		$id_peminjaman = $this->input->post('id_peminjaman', TRUE);
-		$user_level    = $this->session->userdata('level');
-		$user_fullname = $this->session->userdata('namalengkap');
-
-		$booking = $this->db->get_where('tb_peminjaman', array('id_peminjaman' => $id_peminjaman))->row_array();
-
-		if (!$booking)
-		{
-			$this->session->set_flashdata('pesan_error', 'Data peminjaman tidak ditemukan.');
-			redirect(base_url('dashboard/data-peminjaman'));
-			return;
-		}
-
-		// Validasi otorisasi
-		if ($user_level != 'Admin' && $booking['peminjam'] != $user_fullname)
-		{
-			$this->session->set_flashdata('pesan_error', 'Anda tidak berhak melakukan check-in untuk peminjaman ini.');
-			redirect(base_url('dashboard/data-peminjaman'));
-			return;
-		}
-
-		if ($booking['status_pinjam'] != 'Disetujui')
-		{
-			$this->session->set_flashdata('pesan_error', 'Peminjaman belum disetujui atau sudah tidak aktif.');
-			redirect(base_url('dashboard/data-peminjaman'));
-			return;
-		}
-
-		if (!empty($booking['waktu_checkin']))
-		{
-			$this->session->set_flashdata('pesan_sukses', 'Ruangan sudah di-check in sebelumnya pada ' . date('H:i', strtotime($booking['waktu_checkin'])));
-			redirect(base_url('dashboard/data-peminjaman'));
-			return;
-		}
-
-		$meeting_start = strtotime($booking['tanggal_meeting'] . ' ' . $booking['jam_meeting']);
-		$now = time();
-		$tolerance_limit = $meeting_start + (10 * 60);
-		$today = date('Y-m-d');
-
-		// 1. Cek jika belum hari H atau belum jamnya
-		if ($booking['tanggal_meeting'] != $today || $now < $meeting_start)
-		{
-			$this->session->set_flashdata('pesan_error', 'Belum waktunya check-in. Check-in hanya dapat dilakukan pada hari meeting mulai jam ' . substr($booking['jam_meeting'], 0, 5) . ' hingga 10 menit setelahnya.');
-			redirect(base_url('dashboard/data-peminjaman'));
-			return;
-		}
-
-		// 2. Cek apakah sudah lewat 10 menit dari jadwal booking
-		if ($now > $tolerance_limit)
-		{
-			// Batalkan otomatis
-			$this->model_peminjaman->perbarui(array(
-				'status_pinjam' => 'Dibatalkan',
-				'waktu_pembatalan' => date('Y-m-d H:i:s'),
-				'keterangan' => $booking['keterangan'] . ' [Auto-Cancel: Melewati batas check-in 10 menit]'
-			), array('id_peminjaman' => $id_peminjaman));
-
-			$this->session->set_flashdata('pesan_error', 'Maaf, batas waktu check-in (10 menit setelah jam booking) telah habis. Ruangan telah otomatis dibatalkan.');
-			redirect(base_url('dashboard/data-peminjaman'));
-			return;
-		}
-
-		// Lakukan Check-In
-		$waktu_sekarang = date('Y-m-d H:i:s');
-		$this->model_peminjaman->perbarui(array('waktu_checkin' => $waktu_sekarang), array('id_peminjaman' => $id_peminjaman));
-
-		// Catat ke riwayat akses ruangan (tb_tap)
-		$this->db->insert('tb_tap', array(
-			'id_kartu'     => 'CHECKIN-' . substr($booking['peminjam'], 0, 10),
-			'nama_ruangan' => $booking['ruangan_dipinjam'],
-			'waktu_akses'  => $waktu_sekarang,
-			'status_akses' => 'Dibuka'
-		));
-
-		$this->session->set_flashdata('pesan_sukses', 'Verifikasi Check-in Berhasil! Ruangan ' . $booking['ruangan_dipinjam'] . ' resmi digunakan.');
-		redirect(base_url('dashboard/data-peminjaman'));
+		$this->proses_checkin($id_peminjaman);
 	}
 
 	public function scan_qr($room_key = '')
@@ -1073,18 +879,13 @@ class Dashboard extends CI_Controller
 		}
 
 		$today = date('Y-m-d');
-		$now_time = date('H:i:s');
-		$user_fullname = $this->session->userdata('namalengkap');
 
-		// Cari booking aktif untuk ruangan ini hari ini
+		// Cari booking aktif yang sudah disetujui untuk ruangan ini hari ini
 		$this->db->where('ruangan_dipinjam', $room['nama_ruangan']);
 		$this->db->where('tanggal_meeting', $today);
 		$this->db->where('status_pinjam', 'Disetujui');
 		$this->db->where('waktu_checkin IS NULL', NULL, FALSE);
-		if ($this->session->userdata('level') != 'Admin')
-		{
-			$this->db->where('peminjam', $user_fullname);
-		}
+		$this->db->order_by('jam_meeting', 'ASC');
 		$active_booking = $this->db->get('tb_peminjaman')->row_array();
 
 		if ($active_booking)
@@ -1112,10 +913,12 @@ class Dashboard extends CI_Controller
 				$waktu_sekarang = date('Y-m-d H:i:s');
 				$this->model_peminjaman->perbarui(array('waktu_checkin' => $waktu_sekarang), array('id_peminjaman' => $active_booking['id_peminjaman']));
 
+				$nama_log = !empty($active_booking['nama_peminjam']) ? $active_booking['nama_peminjam'] : $active_booking['peminjam'];
 				$this->db->insert('tb_tap', array(
-					'id_kartu'     => 'QR-' . substr($active_booking['peminjam'], 0, 10),
+					'id_kartu'     => 'QR-' . substr($nama_log, 0, 10),
 					'nama_ruangan' => $room['nama_ruangan'],
 					'waktu_akses'  => $waktu_sekarang,
+					'waktu_tutup'  => '0000-00-00 00:00:00',
 					'status_akses' => 'Dibuka'
 				));
 
@@ -1145,6 +948,7 @@ class Dashboard extends CI_Controller
 
 		$this->load->view('pages/qr-ruangan', $halaman);
 	}
+
 	public function proses_checkin($id_peminjaman = '')
 	{
 		if (empty($id_peminjaman))
@@ -1153,25 +957,11 @@ class Dashboard extends CI_Controller
 			return;
 		}
 
-		$user_level    = $this->session->userdata('level');
-		$user_fullname = $this->session->userdata('namalengkap');
-
 		$booking = $this->db->get_where('tb_peminjaman', array('id_peminjaman' => $id_peminjaman))->row_array();
 
 		if (!$booking)
 		{
 			$this->session->set_flashdata('pesan_error', 'Data peminjaman tidak ditemukan.');
-			redirect(base_url('dashboard/data-peminjaman'));
-			return;
-		}
-
-		// Validasi otorisasi: Admin atau peminjam bersangkutan
-		$is_owner = (strcasecmp(trim($booking['peminjam']), trim($user_fullname)) === 0) || 
-		            (isset($booking['nama_peminjam']) && strcasecmp(trim($booking['nama_peminjam']), trim($user_fullname)) === 0);
-
-		if ($user_level != 'Admin' && !$is_owner)
-		{
-			$this->session->set_flashdata('pesan_error', 'Anda tidak berhak melakukan check-in untuk peminjaman ini.');
 			redirect(base_url('dashboard/data-peminjaman'));
 			return;
 		}
@@ -1221,11 +1011,12 @@ class Dashboard extends CI_Controller
 		$waktu_sekarang = date('Y-m-d H:i:s');
 		$this->model_peminjaman->perbarui(array('waktu_checkin' => $waktu_sekarang), array('id_peminjaman' => $id_peminjaman));
 
-		// Catat ke log riwayat akses ruangan
+		$nama_log = !empty($booking['nama_peminjam']) ? $booking['nama_peminjam'] : $booking['peminjam'];
 		$this->db->insert('tb_tap', array(
-			'id_kartu'     => 'CHECKIN-' . substr($booking['peminjam'], 0, 10),
+			'id_kartu'     => 'CHECKIN-' . substr($nama_log, 0, 10),
 			'nama_ruangan' => $booking['ruangan_dipinjam'],
 			'waktu_akses'  => $waktu_sekarang,
+			'waktu_tutup'  => '0000-00-00 00:00:00',
 			'status_akses' => 'Dibuka'
 		));
 
@@ -1250,7 +1041,7 @@ class Dashboard extends CI_Controller
 		$tgl = !empty($booking['tanggal_meeting']) ? $booking['tanggal_meeting'] : date('Y-m-d');
 		
 		$start_ts = strtotime($tgl . ' ' . $jam);
-		$end_ts   = $start_ts + 3600; // default 1 jam
+		$end_ts   = $start_ts + 3600;
 
 		$dtstart = gmdate('Ymd\THis\Z', $start_ts);
 		$dtend   = gmdate('Ymd\THis\Z', $end_ts);
@@ -1326,6 +1117,7 @@ class Dashboard extends CI_Controller
 
 	public function ekspor_excel()
 	{
+		$this->wajib_admin_atau_resepsionis();
 		$this->model_peminjaman->auto_cancel_no_show();
 
 		$periode = $this->input->get('periode', TRUE);
@@ -1342,11 +1134,6 @@ class Dashboard extends CI_Controller
 
 		$this->db->order_by('tanggal_meeting', 'DESC');
 		$this->db->order_by('jam_meeting', 'DESC');
-
-		if ($this->session->userdata('level') == "Pengguna")
-		{
-			$this->db->where('peminjam', $this->session->userdata('namalengkap'));
-		}
 
 		if ($periode == 'hari_ini')
 		{
@@ -1440,7 +1227,7 @@ class Dashboard extends CI_Controller
 			exit;
 		}
 
-		// FORMAT CSV (Default - 100% universal in Microsoft Excel without warnings)
+		// FORMAT CSV
 		$filename = 'Laporan_Peminjaman_Medquest_' . $periode . '.csv';
 		header('Pragma: public');
 		header('Expires: 0');
@@ -1450,12 +1237,9 @@ class Dashboard extends CI_Controller
 		header('Content-Transfer-Encoding: binary');
 
 		$output = fopen('php://output', 'w');
-		// UTF-8 BOM
 		fprintf($output, chr(0xEF) . chr(0xBB) . chr(0xBF));
-		// Instruksi Excel untuk auto-detect pemisah semicolon
 		fwrite($output, "sep=;\r\n");
 
-		// Header kolom
 		fputcsv($output, array(
 			'No',
 			'ID Booking',
@@ -1509,6 +1293,7 @@ class Dashboard extends CI_Controller
 
 	public function cetak_laporan()
 	{
+		$this->wajib_admin_atau_resepsionis();
 		$this->model_peminjaman->auto_cancel_no_show();
 
 		$periode = $this->input->get('periode', TRUE);
@@ -1519,11 +1304,6 @@ class Dashboard extends CI_Controller
 
 		$this->db->order_by('tanggal_meeting', 'DESC');
 		$this->db->order_by('jam_meeting', 'DESC');
-
-		if ($this->session->userdata('level') == "Pengguna")
-		{
-			$this->db->where('peminjam', $this->session->userdata('namalengkap'));
-		}
 
 		if ($periode == 'hari_ini')
 		{

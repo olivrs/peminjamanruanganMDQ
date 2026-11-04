@@ -249,7 +249,7 @@
 		</a>
 	</div>
 
-		<!-- Info Jumlah Ditampilkan & Tombol Ekspor -->
+	<!-- Info Jumlah Ditampilkan & Tombol Ekspor (Khusus Superadmin & Resepsionis) -->
 	<div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
 		<div style="font-size:13px; color:#64748b; font-weight:600;">
 			Menampilkan: <span style="color:#0f172a; font-weight:700;"><?php echo count($tb); ?> Data</span>
@@ -261,6 +261,7 @@
 				<span style="color:#64748b;">(Keseluruhan Arsip)</span>
 			<?php endif; ?>
 		</div>
+		<?php if(in_array($this->session->userdata('level'), array('Admin', 'Resepsionis'), TRUE)): ?>
 		<div style="display:flex; align-items:center; gap:8px;">
 			<a href="<?php echo base_url('dashboard/ekspor-excel?periode=' . (isset($filter_periode) ? $filter_periode : 'semua')); ?>" target="_blank" class="btn-export-excel" 
 			   title="Download Laporan Format Excel / CSV">
@@ -273,8 +274,10 @@
 				<i class="fas fa-print" style="margin-right:5px;"></i> Cetak / PDF
 			</a>
 		</div>
+		<?php endif; ?>
 	</div>
 </div>
+
 <!-- Tabel Data Peminjaman Modern -->
 <div class="table-card">
 	<table class="table-custom">
@@ -287,9 +290,7 @@
 				<th>Agenda Meeting</th>
 				<th style="text-align:center;">Status</th>
 				<th style="text-align:center;">Verifikasi Check-In</th>
-				<?php if(in_array($this->session->userdata('level'), array('Admin', 'Resepsionis', 'Pengguna'), TRUE)): ?>
 				<th style="text-align:center; min-width: 170px;">Keputusan / Aksi</th>
-				<?php endif; ?>
 			</tr>
 		</thead>
 		<tbody>
@@ -390,10 +391,9 @@
 						<span style="color:#94a3b8; font-size:11px;">Menunggu Persetujuan</span>
 					<?php endif; ?>
 				</td>
-				<?php if(in_array($this->session->userdata('level'), array('Admin', 'Resepsionis', 'Pengguna'), TRUE)): ?>
 				<td align="center">
 					<div class="btn-action-group">
-						<!-- Tombol Khusus Admin & Resepsionis / Operator -->
+						<!-- Tombol Khusus Superadmin & Resepsionis -->
 						<?php if(in_array($this->session->userdata('level'), array('Admin', 'Resepsionis'), TRUE)): ?>
 							<?php if($baris['status_pinjam'] == 'Menunggu'): ?>
 								<!-- Tombol Setujui Langsung -->
@@ -403,6 +403,10 @@
 								<!-- Tombol Tolak / Batalkan -->
 								<a href="" data-toggle="modal" data-target="#batalkan<?php echo $baris['id_peminjaman']; ?>" data-backdrop="static" class="btn-cancel">
 									<i class="fas fa-times" style="margin-right:4px;"></i> Tolak
+								</a>
+								<!-- Tombol Sunting (Hanya jika masih menunggu) -->
+								<a href="" data-toggle="modal" data-target="#suntingpinjam<?php echo $baris['id_peminjaman']; ?>" data-backdrop="static" style="color:#64748b; padding:4px 8px; border-radius:4px; border:1px solid #e2e8f0; font-size:12px; text-decoration:none;" title="Sunting">
+									<i class="fas fa-pencil-alt"></i>
 								</a>
 							<?php elseif($baris['status_pinjam'] == 'Disetujui'): ?>
 								<!-- Tombol Selesaikan Meeting -->
@@ -414,21 +418,7 @@
 							<?php endif; ?>
 						<?php endif; ?>
 
-						<!-- Aksi Peminjam (Pengguna Biasa) -->
-						<?php if($this->session->userdata('level') == 'Pengguna' && $baris['status_pinjam'] == 'Menunggu'): ?>
-							<a href="" data-toggle="modal" data-target="#batalkan<?php echo $baris['id_peminjaman']; ?>" data-backdrop="static" class="btn-cancel">
-								<i class="fas fa-times" style="margin-right:4px;"></i> Batalkan
-							</a>
-						<?php endif; ?>
-
-						<!-- Tombol Sunting (Hanya jika masih menunggu) -->
-						<?php if($baris['status_pinjam'] == 'Menunggu'): ?>
-							<a href="" data-toggle="modal" data-target="#suntingpinjam<?php echo $baris['id_peminjaman']; ?>" data-backdrop="static" style="color:#64748b; padding:4px 8px; border-radius:4px; border:1px solid #e2e8f0; font-size:12px; text-decoration:none;" title="Sunting">
-								<i class="fas fa-pencil-alt"></i>
-							</a>
-						<?php endif; ?>
-
-												<!-- Integrasi Kalender (Bila status Disetujui atau Selesai) -->
+						<!-- Integrasi Kalender (Bila status Disetujui atau Selesai) -->
 						<?php if(in_array($baris['status_pinjam'], array('Disetujui', 'Selesai'), TRUE)): ?>
 							<div class="dropdown" style="display:inline-block;">
 								<button class="btn btn-xs dropdown-toggle" type="button" data-toggle="dropdown" style="background:#f0f9ff; border:1px solid #bae6fd; color:#0369a1; font-size:11px; font-weight:700; padding:5px 8px; border-radius:6px; cursor:pointer;" title="Sinkronisasi ke Kalender Kerja">
@@ -447,9 +437,11 @@
 									</li>
 								</ul>
 							</div>
+						<?php elseif(!in_array($this->session->userdata('level'), array('Admin', 'Resepsionis'), TRUE)): ?>
+							<span style="color:#94a3b8; font-size:12px;">-</span>
 						<?php endif; ?>
 
-						<!-- Tombol Hapus Database (Hanya Admin) -->
+						<!-- Tombol Hapus Database (Hanya Superadmin) -->
 						<?php if($this->session->userdata('level') == 'Admin'): ?>
 							<a href="" data-toggle="modal" data-target="#hapuspinjam<?php echo $baris['id_peminjaman']; ?>" data-backdrop="static" style="color:#ef4444; padding:4px 8px; border-radius:4px; border:1px solid #fee2e2; font-size:12px; text-decoration:none;" title="Hapus Permanen">
 								<i class="fas fa-trash-alt"></i>
@@ -457,7 +449,6 @@
 						<?php endif; ?>
 					</div>
 				</td>
-				<?php endif; ?>
 			</tr>
 			<?php $no++; endforeach; ?>
 		</tbody>
@@ -466,20 +457,16 @@
 <!-- Tabel Data Peminjaman Modern [Akhir] -->
 
 <!-- Fungsi untuk Cetak ID Peminjaman Otomatis -->
-<?php foreach($tb_idpinjam as $baris_id): ?>
-	<?php
-		$kode   = substr($baris_id['id_peminjaman'],4,5);
+<?php
+$id_pinjam = "MDQ-00001";
+if (!empty($tb_idpinjam)) {
+	foreach($tb_idpinjam as $baris_id) {
+		$kode   = (int) substr($baris_id['id_peminjaman'], 4, 5);
 		$tambah = $kode + 1;
-		if($tambah < 10)
-		{
-			$id_pinjam = "MDQ-0000".$tambah;
-		}
-		else
-		{
-			$id_pinjam = "MDQ-000".$tambah;
-		}
-	?>
-<?php endforeach; ?>
+		$id_pinjam = "MDQ-" . str_pad((string)$tambah, 5, "0", STR_PAD_LEFT);
+	}
+}
+?>
 
 <div id="ajukanpinjam" class="modal fade" role="dialog">
 	<div class="modal-dialog">
@@ -497,20 +484,20 @@
 					<li>
 						<div><i class="lnr lnr-user"></i></div><input type="text" value="<?php echo $id_pinjam; ?>" disabled />
 					</li>
-					<input type="hidden" name="peminjam" value="<?php echo $this->session->userdata('namalengkap'); ?>">
+					<input type="hidden" name="peminjam" value="<?php echo htmlspecialchars((string)$this->session->userdata('namalengkap')); ?>">
 					<input type="hidden" name="waktu_pengajuan" value="<?php echo date('Y-m-d H:i:s'); ?>">
 					<li>
-						<div><i class="lnr lnr-user"></i></div><input type="text" name="nama_peminjam" placeholder="Nama peminjam" maxlength="50" value="<?php echo htmlspecialchars($this->session->userdata('namalengkap')); ?>" required />
+						<div><i class="lnr lnr-user"></i></div><input type="text" name="nama_peminjam" placeholder="Nama lengkap peminjam" maxlength="50" value="<?php echo htmlspecialchars((string)$this->session->userdata('namalengkap')); ?>" required />
 					</li>
 					<li>
-						<div><i class="lnr lnr-apartment"></i></div><input type="text" name="departemen_peminjam" placeholder="Departemen peminjam" maxlength="50" required />
+						<div><i class="lnr lnr-apartment"></i></div><input type="text" name="departemen_peminjam" placeholder="Departemen / Divisi peminjam" maxlength="50" required />
 					</li>
 					<li>
-						<div><i class="lnr lnr-phone-handset"></i></div><input type="tel" name="telepon_peminjam" placeholder="Nomor telepon" maxlength="20" pattern="[0-9+\-\s]{8,20}" title="Masukkan nomor telepon yang valid (8-20 digit)" required />
+						<div><i class="lnr lnr-phone-handset"></i></div><input type="tel" name="telepon_peminjam" placeholder="Nomor telepon / WhatsApp" maxlength="20" pattern="[0-9+\-\s]{8,20}" title="Masukkan nomor telepon yang valid (8-20 digit)" required />
 					</li>
 					<li>
 						<div><i class="lnr lnr-layers"></i></div><select name="nama_ruangan" required="required">
-							<option value="" selected>Ruang</option>
+							<option value="" selected>Pilih Ruang Meeting</option>
 
 							<?php foreach($tb_ruangan as $baris_ruangan): ?>
 								<option value="<?php echo $baris_ruangan['nama_ruangan']; ?>" <?php if($selected_room == $baris_ruangan['nama_ruangan']) echo 'selected'; ?>>
@@ -527,16 +514,17 @@
 						<div><i class="lnr lnr-clock"></i></div><select name="jam_meeting" required>
 							<option value="">Pilih jam meeting</option>
 							<?php foreach($booking_slots as $booking_slot): ?>
-							<option value="<?php echo $booking_slot; ?>" <?php if(in_array($booking_slot, $occupied_slots)) echo 'disabled'; ?> <?php if($selected_time == $booking_slot && !in_array($booking_slot, $occupied_slots)) echo 'selected'; ?>><?php echo $booking_slot; ?> - <?php echo date('H:i', strtotime($booking_slot) + 3600); ?><?php if(in_array($booking_slot, $occupied_slots)) echo ' (Sudah dipesan)'; ?></option>
+							<?php $slot_disabled = in_array($booking_slot, $occupied_slots) || in_array($booking_slot, $elapsed_booking_slots); ?>
+							<option value="<?php echo $booking_slot; ?>" <?php if($slot_disabled) echo 'disabled'; ?> <?php if($selected_time == $booking_slot && !$slot_disabled) echo 'selected'; ?>><?php echo $booking_slot; ?> - <?php echo date('H:i', strtotime($booking_slot) + 3600); ?><?php if(in_array($booking_slot, $occupied_slots)) echo ' (Sudah dipesan)'; elseif(in_array($booking_slot, $elapsed_booking_slots)) echo ' (Waktu lewat)'; ?></option>
 							<?php endforeach; ?>
 						</select>
 					</li>
 					<li>
-						<div><i class="lnr lnr-text-format"></i></div><input type="text" name="keterangan" placeholder="Agenda meeting" maxlength="50" required />
+						<div><i class="lnr lnr-text-format"></i></div><input type="text" name="keterangan" placeholder="Agenda / Keperluan meeting" maxlength="100" required />
 					</li>
 					<br /><hr />
 					<li>
-						<input type="submit" name="tombol_tambah" value="Ajukan" />
+						<input type="submit" name="tombol_tambah" value="Ajukan Booking Ruangan" />
 					</li>
 				</ul>
 				<?php echo form_close(); ?>
@@ -790,9 +778,3 @@
 		<?php endif; ?>
     });
 </script>
-
-
-
-
-
-

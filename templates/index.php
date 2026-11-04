@@ -70,13 +70,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				</div>
 
 				<div class="mq-title-actions">
-					<?php if($hal == "Kelola Akun Pengguna"): ?>
-					<div class="button-add">
-						<a href="" data-toggle="modal" data-target="#buatuser" data-backdrop="static"><i class="fas fa-user-plus" style="margin-right:6px;"></i> Tambah Akun</a>
-					</div>
-					<?php endif; ?>
-
-					<?php if($hal == "Kelola Data Ruangan"): ?>
+					<?php if($hal == "Kelola Data Ruangan" && $this->session->userdata('level') == "Admin"): ?>
 					<div class="button-add">
 						<a href="" data-toggle="modal" data-target="#buatruangan" data-backdrop="static"><i class="fas fa-plus-circle" style="margin-right:6px;"></i> Tambah Ruangan</a>
 					</div>
@@ -89,11 +83,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</div>
 						<?php endif; ?>
 
-						<?php if(in_array($this->session->userdata('level'), array('Admin', 'Resepsionis', 'Pengguna'), TRUE)): ?>
 						<div class="button-add">
 							<a href="" data-toggle="modal" data-target="#ajukanpinjam" data-backdrop="static"><i class="fas fa-plus-circle" style="margin-right:6px;"></i> Ajukan Peminjaman</a>
 						</div>
-						<?php endif; ?>
 					<?php endif; ?>
 
 					<?php if($hal == "Riwayat Akses Ruangan"): ?>

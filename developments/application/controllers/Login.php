@@ -31,11 +31,10 @@ class Login extends CI_Controller
 			{
 				$default_pass = password_hash('123123', PASSWORD_DEFAULT);
 				$default_users = array(
-					array('username' => 'ryan', 'fullname' => 'Ryan', 'password' => $default_pass, 'level' => 'Admin'),
+					array('username' => 'superadmin', 'fullname' => 'Superadmin Medquest', 'password' => $default_pass, 'level' => 'Admin'),
+					array('username' => 'ryan', 'fullname' => 'Ryan (Superadmin)', 'password' => $default_pass, 'level' => 'Admin'),
 					array('username' => 'operator', 'fullname' => 'Operator Resepsionis', 'password' => $default_pass, 'level' => 'Resepsionis'),
-					array('username' => 'resepsionis', 'fullname' => 'Resepsionis Medquest', 'password' => $default_pass, 'level' => 'Resepsionis'),
-					array('username' => 'nawal', 'fullname' => 'nawwal fadhil', 'password' => $default_pass, 'level' => 'Pengguna'),
-					array('username' => '123123', 'fullname' => '123', 'password' => $default_pass, 'level' => 'Resepsionis')
+					array('username' => 'resepsionis', 'fullname' => 'Resepsionis Medquest', 'password' => $default_pass, 'level' => 'Resepsionis')
 				);
 				foreach ($default_users as $u)
 				{
@@ -143,7 +142,7 @@ class Login extends CI_Controller
 			}
 		}
 
-		if ($password_valid)
+		if ($password_valid && in_array($user['level'], array('Admin', 'Resepsionis'), TRUE))
 		{
 			if (!password_verify($password, $user['password']) || password_needs_rehash($user['password'], PASSWORD_DEFAULT))
 			{
@@ -166,7 +165,7 @@ class Login extends CI_Controller
 		}
 		else
 		{
-			echo "Username atau password salah!";
+			echo "<script>alert('Login khusus Superadmin & Resepsionis. Username atau password tidak sesuai!'); window.location.href='" . base_url('login') . "';</script>";
 		}
 	}
 }

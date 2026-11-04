@@ -449,7 +449,11 @@
 <!-- Banner Hero Medquest -->
 <div class="beranda-hero">
 	<div class="hero-text">
+		<?php if ($this->session->userdata('status-masuk') == 'masuk' && !empty($this->session->userdata('namalengkap'))): ?>
 		<h2>Selamat Datang, <?php echo htmlspecialchars($this->session->userdata('namalengkap')); ?></h2>
+		<?php else: ?>
+		<h2>Selamat Datang di Portal Ruang Meeting</h2>
+		<?php endif; ?>
 		<p>Sistem Manajemen &amp; Peminjaman Ruang Meeting Terintegrasi PT Medquest Jaya Global. Cek ketersediaan ruang meeting, sinkronkan ke kalender kerja, atau lakukan verifikasi check-in QR langsung.</p>
 		<div class="hero-actions">
 			<a href="<?php echo base_url('dashboard/ketersediaan-ruangan'); ?>" class="btn-cta">
