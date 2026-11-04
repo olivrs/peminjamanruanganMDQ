@@ -475,30 +475,10 @@
 		gap: 3px;
 	}
 
-	/* Slide Angle Subtitle (Bawah) */
-	.room-photo-caption {
-		position: absolute;
-		bottom: 22px;
-		left: 50%;
-		transform: translateX(-50%);
-		background: rgba(255, 255, 255, 0.92);
-		backdrop-filter: blur(4px);
-		border: 1px solid rgba(226, 232, 240, 0.9);
-		color: #475569;
-		padding: 2px 9px;
-		border-radius: 10px;
-		font-size: 9.5px;
-		font-weight: 700;
-		white-space: nowrap;
-		pointer-events: none;
-		z-index: 10;
-		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-	}
-
 	/* Dots Navigation */
 	.room-slider-dots {
 		position: absolute;
-		bottom: 7px;
+		bottom: 10px;
 		left: 50%;
 		transform: translateX(-50%);
 		display: flex;
@@ -798,33 +778,33 @@
 
 <div class="room-grid">
 	<?php 
-		// Mapping galeri foto per ruangan (masing-masing 3 foto berbeda)
+		// Mapping galeri foto per ruangan (masing-masing 3 foto)
 		// Jika nanti sudah ada foto asli ruangan, cukup letakkan file di assets/img/rooms/ atau ubah path di bawah ini:
 		$roomGalleries = array(
 			'Pulau Jawa' => array(
-				array('path' => 'assets/img/rooms/pulau_jawa_1.png', 'label' => 'Tampak Depan'),
-				array('path' => 'assets/img/rooms/pulau_jawa_2.png', 'label' => 'Area Meja & Kursi'),
-				array('path' => 'assets/img/rooms/pulau_jawa_3.png', 'label' => 'Smart TV & Fasilitas'),
+				'assets/img/rooms/pulau_jawa_1.png',
+				'assets/img/rooms/pulau_jawa_2.png',
+				'assets/img/rooms/pulau_jawa_3.png',
 			),
 			'Pulau Bali' => array(
-				array('path' => 'assets/img/rooms/pulau_bali_1.png', 'label' => 'Tampak Depan'),
-				array('path' => 'assets/img/rooms/pulau_bali_2.png', 'label' => 'Area Meja & Kursi'),
-				array('path' => 'assets/img/rooms/pulau_bali_3.png', 'label' => 'Smart TV & Fasilitas'),
+				'assets/img/rooms/pulau_bali_1.png',
+				'assets/img/rooms/pulau_bali_2.png',
+				'assets/img/rooms/pulau_bali_3.png',
 			),
 			'Pulau Papua' => array(
-				array('path' => 'assets/img/rooms/pulau_papua_1.png', 'label' => 'Tampak Depan'),
-				array('path' => 'assets/img/rooms/pulau_papua_2.png', 'label' => 'Area Meja & Kursi'),
-				array('path' => 'assets/img/rooms/pulau_papua_3.png', 'label' => 'Smart TV & Fasilitas'),
+				'assets/img/rooms/pulau_papua_1.png',
+				'assets/img/rooms/pulau_papua_2.png',
+				'assets/img/rooms/pulau_papua_3.png',
 			),
 			'Pulau Sumatra' => array(
-				array('path' => 'assets/img/rooms/pulau_sumatra_1.png', 'label' => 'Tampak Depan'),
-				array('path' => 'assets/img/rooms/pulau_sumatra_2.png', 'label' => 'Area Meja & Kursi'),
-				array('path' => 'assets/img/rooms/pulau_sumatra_3.png', 'label' => 'Smart TV & Fasilitas'),
+				'assets/img/rooms/pulau_sumatra_1.png',
+				'assets/img/rooms/pulau_sumatra_2.png',
+				'assets/img/rooms/pulau_sumatra_3.png',
 			),
 			'Pulau Kalimantan' => array(
-				array('path' => 'assets/img/rooms/pulau_kalimantan_1.png', 'label' => 'Tampak Depan'),
-				array('path' => 'assets/img/rooms/pulau_kalimantan_2.png', 'label' => 'Area Meja & Kursi'),
-				array('path' => 'assets/img/rooms/pulau_kalimantan_3.png', 'label' => 'Smart TV & Fasilitas'),
+				'assets/img/rooms/pulau_kalimantan_1.png',
+				'assets/img/rooms/pulau_kalimantan_2.png',
+				'assets/img/rooms/pulau_kalimantan_3.png',
 			),
 		);
 	?>
@@ -833,9 +813,9 @@
 		$roomName = $r['nama_ruangan'];
 		$photos = isset($roomGalleries[$roomName]) ? $roomGalleries[$roomName] : (
 			isset($roomGalleries[$r['id_ruangan']]) ? $roomGalleries[$r['id_ruangan']] : array(
-				array('path' => 'assets/img/rooms/default_1.png', 'label' => 'Tampak Depan'),
-				array('path' => 'assets/img/rooms/default_2.png', 'label' => 'Area Meja & Kursi'),
-				array('path' => 'assets/img/rooms/default_3.png', 'label' => 'Smart TV & Fasilitas'),
+				'assets/img/rooms/default_1.png',
+				'assets/img/rooms/default_2.png',
+				'assets/img/rooms/default_3.png',
 			)
 		);
 		$totalPhotos = count($photos);
@@ -843,15 +823,12 @@
 	<div class="room-card">
 		<div class="room-slider" data-room-id="<?php echo $r['id_ruangan']; ?>" data-current-index="0" data-total-slides="<?php echo $totalPhotos; ?>">
 			<div class="room-slider-track">
-				<?php foreach ($photos as $pIdx => $photo): ?>
+				<?php foreach ($photos as $pIdx => $pPath): ?>
 				<?php 
-					$pPath = is_array($photo) ? $photo['path'] : $photo;
-					$pLabel = is_array($photo) ? $photo['label'] : 'Foto ' . ($pIdx + 1);
 					$isDummy = (strpos($pPath, 'room_dummy') !== false || strpos($pPath, 'rooms/') !== false);
 				?>
 				<div class="room-slide">
-					<img src="<?php echo base_url($pPath); ?>" alt="<?php echo htmlspecialchars($r['nama_ruangan'] . ' - ' . $pLabel); ?>" class="<?php echo $isDummy ? 'img-dummy' : 'img-real'; ?>">
-					<div class="room-photo-caption"><i class="fas fa-camera" style="margin-right:4px; opacity:0.75;"></i> <?php echo $pLabel; ?></div>
+					<img src="<?php echo base_url($pPath); ?>" alt="<?php echo htmlspecialchars($r['nama_ruangan'] . ' - Foto ' . ($pIdx + 1)); ?>" class="<?php echo $isDummy ? 'img-dummy' : 'img-real'; ?>">
 				</div>
 				<?php endforeach; ?>
 			</div>
