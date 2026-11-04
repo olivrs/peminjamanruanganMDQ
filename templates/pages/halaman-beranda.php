@@ -125,80 +125,81 @@
 		margin-top: 6px;
 	}
 
-	/* Medquest Q.U.E.S.T Core Values Strip (from medquest.co.id) */
+	/* Medquest Q.U.E.S.T Core Values Strip (from medquest.co.id - Compact Version) */
 	.mq-quest-strip {
 		background: #ffffff;
 		border: 1px solid #e2e8f0;
-		border-top: 3px solid #0059fb;
 		border-radius: 14px;
-		padding: 16px 22px;
+		padding: 16px 24px 18px 24px;
 		margin-bottom: 26px;
 		box-shadow: 0 4px 12px rgba(0, 40, 120, 0.04);
 	}
-	.mq-quest-header {
+	.mq-quest-separator {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
-		margin-bottom: 12px;
-		flex-wrap: wrap;
-		gap: 8px;
+		justify-content: center;
+		gap: 18px;
+		margin-bottom: 14px;
 	}
-	.mq-quest-title {
-		font-size: 12px;
-		font-weight: 800;
-		color: #0059fb;
-		text-transform: uppercase;
-		letter-spacing: 0.8px;
+	.mq-quest-line {
+		flex: 1;
+		height: 2px;
+		background: #2b6cb0;
+		opacity: 0.75;
+	}
+	.mq-quest-heading {
+		margin: 0;
+		font-family: 'Roboto', 'Open Sans', sans-serif;
+		font-size: 15px;
+		font-weight: 700;
+		color: #262626;
+		letter-spacing: 0.2px;
+		white-space: nowrap;
 	}
 	.mq-quest-grid {
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
 		gap: 12px;
+		align-items: start;
 	}
 	@media (max-width: 992px) {
 		.mq-quest-grid {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: repeat(3, 1fr);
 		}
 	}
 	@media (max-width: 576px) {
 		.mq-quest-grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 	.mq-quest-item {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
-		gap: 10px;
-		background: #f8fafd;
-		border: 1px solid #edf2f7;
+		text-align: center;
+		padding: 6px 8px;
 		border-radius: 10px;
-		padding: 10px 12px;
-		transition: all 0.2s ease;
+		transition: transform 0.2s ease;
 	}
 	.mq-quest-item:hover {
-		border-color: #bfdbfe;
-		background: #f0f6ff;
-		transform: translateY(-2px);
+		transform: translateY(-3px);
 	}
-	.mq-quest-letter {
-		width: 32px;
-		height: 32px;
-		border-radius: 8px;
-		background: #0059fb;
-		color: #ffffff;
-		font-family: 'Open Sans', sans-serif;
-		font-size: 15px;
-		font-weight: 800;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-shrink: 0;
+	.mq-quest-img {
+		width: 64px;
+		height: 64px;
+		object-fit: contain;
+		margin-bottom: 8px;
+		filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.06));
 	}
 	.mq-quest-text {
-		font-size: 11.5px;
+		font-family: 'Roboto', 'Open Sans', sans-serif;
+		font-size: 9.5px;
 		font-weight: 700;
-		color: #1e293b;
-		line-height: 1.3;
+		color: #4a5568;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		line-height: 1.35;
+		max-width: 165px;
 	}
 
 	/* Analytics Section Styling */
@@ -492,32 +493,33 @@
 	</div>
 </div>
 
-<!-- Medquest Core Values (Q.U.E.S.T) Section ala medquest.co.id -->
+<!-- Medquest Core Values (Q.U.E.S.T) Section ala medquest.co.id (Compact) -->
 <div class="mq-quest-strip">
-	<div class="mq-quest-header">
-		<span class="mq-quest-title"><i class="fas fa-award" style="margin-right:5px;"></i> PT Medquest Jaya Global &middot; Core Values (Q.U.E.S.T)</span>
-		<small style="color:#64748b; font-size:11.5px; font-weight:600;">Promoting Innovation &amp; Latest Healthcare Technology Since 2004</small>
+	<div class="mq-quest-separator">
+		<span class="mq-quest-line"></span>
+		<h4 class="mq-quest-heading">Core Values</h4>
+		<span class="mq-quest-line"></span>
 	</div>
 	<div class="mq-quest-grid">
 		<div class="mq-quest-item">
-			<div class="mq-quest-letter">Q</div>
-			<div class="mq-quest-text">Quality First</div>
+			<img src="<?php echo base_url('assets/img/quest_q.png'); ?>" class="mq-quest-img" alt="Q - Quality First">
+			<div class="mq-quest-text">QUALITY FIRST</div>
 		</div>
 		<div class="mq-quest-item">
-			<div class="mq-quest-letter">U</div>
-			<div class="mq-quest-text">Understanding Business &amp; Partner's Need</div>
+			<img src="<?php echo base_url('assets/img/quest_u.png'); ?>" class="mq-quest-img" alt="U - Understanding Business & Partner's Need">
+			<div class="mq-quest-text">UNDERSTANDING BUSINESS &amp; PARTNER'S NEED</div>
 		</div>
 		<div class="mq-quest-item">
-			<div class="mq-quest-letter">E</div>
-			<div class="mq-quest-text">Enhance Continuous Improvement</div>
+			<img src="<?php echo base_url('assets/img/quest_e.png'); ?>" class="mq-quest-img" alt="E - Enhance Continuous Improvement">
+			<div class="mq-quest-text">ENHANCE CONTINUOUS IMPROVEMENT</div>
 		</div>
 		<div class="mq-quest-item">
-			<div class="mq-quest-letter">S</div>
-			<div class="mq-quest-text">Strive For Excellence</div>
+			<img src="<?php echo base_url('assets/img/quest_s.png'); ?>" class="mq-quest-img" alt="S - Strive For Excellence">
+			<div class="mq-quest-text">STRIVE FOR EXCELLENCE</div>
 		</div>
 		<div class="mq-quest-item">
-			<div class="mq-quest-letter">T</div>
-			<div class="mq-quest-text">Thankful Attitude</div>
+			<img src="<?php echo base_url('assets/img/quest_t.png'); ?>" class="mq-quest-img" alt="T - Thankful Attitude">
+			<div class="mq-quest-text">THANKFUL ATTITUDE</div>
 		</div>
 	</div>
 </div>
