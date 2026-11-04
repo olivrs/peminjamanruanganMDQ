@@ -667,21 +667,19 @@
 
 <div class="room-grid">
 	<?php 
+		// Mapping foto ruangan (sementara default dummy, bisa diisi path foto jika sudah tersedia)
 		$roomImages = array(
-			'R001' => 'assets/img/room_focus.jpg',
-			'R002' => 'assets/img/room_huddle.jpg',
-			'R003' => 'assets/img/room_board.jpg',
-			'R004' => 'assets/img/room_focus.jpg',
-			'R005' => 'assets/img/room_board.jpg'
+			// Contoh: 'R001' => 'assets/img/foto_r001.jpg',
 		);
 	?>
 	<?php foreach ($rooms as $r): ?>
 	<?php 
-		$img = isset($roomImages[$r['id_ruangan']]) ? $roomImages[$r['id_ruangan']] : 'assets/img/interior.jpg';
+		$img = isset($roomImages[$r['id_ruangan']]) ? $roomImages[$r['id_ruangan']] : 'assets/img/room_dummy.png';
+		$is_dummy = ($img == 'assets/img/room_dummy.png');
 	?>
 	<div class="room-card">
-		<div class="room-img-wrapper">
-			<img src="<?php echo base_url($img); ?>" alt="<?php echo $r['nama_ruangan']; ?>">
+		<div class="room-img-wrapper" style="<?php if($is_dummy) echo 'background: #f8fafc; display: flex; align-items: center; justify-content: center;'; ?>">
+			<img src="<?php echo base_url($img); ?>" alt="<?php echo $r['nama_ruangan']; ?>" style="<?php echo $is_dummy ? 'object-fit: contain; padding: 22px; opacity: 0.75;' : 'object-fit: cover;'; ?>">
 			<div class="room-tag"><i class="fas fa-users" style="margin-right:4px;"></i> <?php echo $r['kapasitas']; ?> Orang</div>
 		</div>
 		<div class="room-body">
