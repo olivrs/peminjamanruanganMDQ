@@ -27,16 +27,42 @@ class Model_Peminjaman extends CI_Model
 
     public function auto_cancel_no_show()
     {
-        $sql = "UPDATE tb_peminjaman 
+        date_default_timezone_set('Asia/Jakarta');
+        $now = $this->db->escape(date('Y-m-d H:i:s'));
+
+        // 1. Auto-Cancel jika sudah Disetujui tapi tidak Check-In > 10 menit dari jam mulai (WIB)
+        $sql_no_show = "UPDATE tb_peminjaman 
                 SET status_pinjam = 'Dibatalkan', 
-                    waktu_pembatalan = NOW(), 
+                    waktu_pembatalan = {$now}, 
                     keterangan = CONCAT(keterangan, ' [Auto-Cancel: Tidak Check-In >10 menit]')
                 WHERE status_pinjam = 'Disetujui' 
-                  AND tanggal_meeting = CURDATE() 
+                  AND tanggal_meeting IS NOT NULL
+                  AND jam_meeting IS NOT NULL
                   AND waktu_checkin IS NULL 
-                  AND ADDTIME(CONCAT(tanggal_meeting, ' ', jam_meeting), '00:10:00') <= NOW()";
-        
-        $this->db->query($sql);
+                  AND ADDTIME(CONCAT(tanggal_meeting, ' ', jam_meeting), '00:10:00') <= {$now}";
+        $this->db->query($sql_no_show);
+
+        // 2. Auto-Selesai jika sudah Disetujui & sudah Check-In dan durasi meeting (1 jam) telah berakhir (WIB)
+        $sql_complete = "UPDATE tb_peminjaman 
+                SET status_pinjam = 'Selesai', 
+                    waktu_pengembalian = {$now}
+                WHERE status_pinjam = 'Disetujui' 
+                  AND tanggal_meeting IS NOT NULL
+                  AND jam_meeting IS NOT NULL
+                  AND waktu_checkin IS NOT NULL 
+                  AND ADDTIME(CONCAT(tanggal_meeting, ' ', jam_meeting), '01:00:00') <= {$now}";
+        $this->db->query($sql_complete);
+
+        // 3. Auto-Cancel jika masih Menunggu padahal jam selesai meeting (1 jam) sudah lewat (WIB)
+        $sql_expired_pending = "UPDATE tb_peminjaman 
+                SET status_pinjam = 'Dibatalkan', 
+                    waktu_pembatalan = {$now}, 
+                    keterangan = CONCAT(keterangan, ' [Auto-Cancel: Jadwal Meeting Terlewat]')
+                WHERE status_pinjam = 'Menunggu' 
+                  AND tanggal_meeting IS NOT NULL
+                  AND jam_meeting IS NOT NULL
+                  AND ADDTIME(CONCAT(tanggal_meeting, ' ', jam_meeting), '01:00:00') <= {$now}";
+        $this->db->query($sql_expired_pending);
     }
 
     public function slot_terpakai($nama_ruangan, $tanggal_meeting)

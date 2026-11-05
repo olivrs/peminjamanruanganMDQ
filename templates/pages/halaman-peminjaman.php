@@ -296,16 +296,26 @@
 <?php endif; ?>
 
 <?php if($this->session->flashdata('pesan_sukses')): ?>
-<div class="alert alert-success" role="alert" style="background:#dcfce7; border-color:#86efac; color:#166534; font-weight:600; border-radius: 0; padding:12px 18px; margin-bottom:18px;">
+<div class="alert alert-success alert-dismissible fade show" id="flash-alert-sukses" role="alert" style="background:#dcfce7; border-color:#86efac; color:#166534; font-weight:600; border-radius: 0; padding:12px 36px 12px 18px; margin-bottom:18px; position:relative;">
 	<i class="fas fa-check-circle" style="color:#16a34a; margin-right:6px;"></i> <?php echo $this->session->flashdata('pesan_sukses'); ?>
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="position:absolute; top:10px; right:12px; color:#166534; opacity:0.7; outline:none;">
+		<span aria-hidden="true">&times;</span>
+	</button>
 </div>
 <?php endif; ?>
 
 <?php if($this->session->flashdata('pesan_error')): ?>
-<div class="alert alert-danger" role="alert" style="background:#fee2e2; border-color:#fca5a5; color:#991b1b; font-weight:600; border-radius: 0; padding:12px 18px; margin-bottom:18px;">
+<div class="alert alert-danger alert-dismissible fade show" id="flash-alert-error" role="alert" style="background:#fee2e2; border-color:#fca5a5; color:#991b1b; font-weight:600; border-radius: 0; padding:12px 36px 12px 18px; margin-bottom:18px; position:relative;">
 	<i class="fas fa-exclamation-triangle" style="color:#dc2626; margin-right:6px;"></i> <?php echo $this->session->flashdata('pesan_error'); ?>
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="position:absolute; top:10px; right:12px; color:#991b1b; opacity:0.7; outline:none;">
+		<span aria-hidden="true">&times;</span>
+	</button>
 </div>
 <?php endif; ?>
+<?php
+// Pastikan flashdata langsung dibersihkan dari session setelah ditampilkan
+$this->session->unset_userdata(array('pesan_sukses', 'pesan_error'));
+?>
 
 <!-- Filter Tab / Dropdown Periode Data Peminjaman -->
 <div class="peminjaman-toolbar">
