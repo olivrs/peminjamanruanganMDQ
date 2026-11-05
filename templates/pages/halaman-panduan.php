@@ -206,6 +206,22 @@ if (!$level) {
 		color: #334155;
 	}
 
+	@media (max-width: 767.98px) {
+		.guide-header { padding: 18px 16px; border-radius: 12px; margin-bottom: 16px; }
+		.guide-header h2 { font-size: 18px; flex-wrap: wrap; gap: 8px; }
+		.guide-header p { font-size: 12.5px; }
+		.guide-header > div:last-child { width: 100%; }
+		.btn-print-guide { width: 100%; justify-content: center; }
+		.guide-nav { gap: 8px; margin-bottom: 16px; }
+		.guide-tab-btn { width: 100%; padding: 10px 14px; font-size: 12.5px; }
+		.guide-card { padding: 18px 14px; border-radius: 12px; }
+		.guide-card-title { font-size: 15.5px; margin-bottom: 14px; }
+		.step-item { gap: 12px; }
+		.step-badge { width: 28px; height: 28px; font-size: 12.5px; }
+		.step-title { font-size: 14px; }
+		.step-desc { font-size: 12.5px; }
+		.account-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; }
+	}
 	@media print {
 		.guide-nav, .btn-print-guide, .header-panel, .dropdown-info, footer {
 			display: none !important;

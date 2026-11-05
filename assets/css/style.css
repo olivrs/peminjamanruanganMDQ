@@ -333,8 +333,9 @@ a:hover {
     border-radius: 14px;
     border: 1px solid var(--mq-border);
     box-shadow: 0 6px 20px -4px rgba(15, 23, 42, 0.05);
-    padding: 16px 0 32px;
+    padding: 20px 22px 32px;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .main.main-beranda {
@@ -1195,7 +1196,7 @@ a:hover {
 }
 
 /* =========================================================
-   RESPONSIVE MEDIA QUERIES
+   RESPONSIVE MEDIA QUERIES (TABLET & HANDPHONE)
    ========================================================= */
 @media (max-width: 1200px) {
     .menubar ul li a {
@@ -1209,17 +1210,42 @@ a:hover {
     }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 991.98px) {
     .mq-navbar-inner {
         flex-wrap: wrap;
-        padding: 12px 0;
+        padding: 10px 0;
+        min-height: auto;
+        gap: 10px;
     }
     .menubar {
         order: 3;
         width: 100%;
+        flex: 0 0 100%;
         justify-content: flex-start;
         border-top: 1px solid #f1f5f9;
         padding-top: 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .menubar::-webkit-scrollbar {
+        display: none;
+    }
+    .menubar ul {
+        justify-content: flex-start;
+        width: max-content;
+        min-width: 100%;
+        gap: 6px;
+        padding-bottom: 2px;
+    }
+    .mq-page-wrapper > .row > .col-sm-1 {
+        display: none;
+    }
+    .mq-page-wrapper > .row > .col-sm-10 {
+        flex: 0 0 94%;
+        max-width: 94%;
+        margin-left: auto;
+        margin-right: auto;
     }
     .mq-footer-grid {
         grid-template-columns: 1fr;
@@ -1227,37 +1253,212 @@ a:hover {
     }
 }
 
-@media (max-width: 600px) {
-    .mq-hide-mobile {
-        display: none;
+@media (max-width: 767.98px) {
+    html, body {
+        overflow-x: hidden;
+    }
+    .mq-container {
+        width: 94%;
+    }
+    .mq-hide-mobile,
+    .mq-top-socials,
+    .mq-top-left a[href^="mailto:"] {
+        display: none !important;
+    }
+    .mq-top-header {
+        padding: 6px 0;
+        font-size: 11px;
     }
     .mq-top-header .mq-container {
-        justify-content: center;
-        text-align: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        gap: 6px;
+    }
+    .mq-top-left,
+    .mq-top-right {
+        gap: 8px;
+        flex-wrap: nowrap;
+    }
+    .mq-hotline-pill {
+        font-size: 10.5px;
+        padding: 2px 9px;
+        white-space: nowrap;
+    }
+    .mq-logo-img {
+        height: 30px;
+        max-width: 135px;
+    }
+    .dropdown-info {
+        padding: 6px 10px;
+        font-size: 12px;
+        gap: 4px;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     .menubar ul {
-        width: 100%;
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: center;
+        gap: 6px;
+    }
+    .menubar ul li {
+        flex: 1 0 auto;
     }
     .menubar ul li a {
-        text-align: left;
+        justify-content: center;
+        text-align: center;
+        padding: 7px 12px;
+        font-size: 12px;
+        border-radius: 8px;
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+    }
+    .menubar ul .active a {
+        background-color: #0059fb;
+        border-color: #0059fb;
+        color: #ffffff;
+    }
+    .mq-page-wrapper {
+        padding-left: 12px;
+        padding-right: 12px;
+        padding-bottom: 28px;
+    }
+    .mq-page-wrapper > .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .mq-page-wrapper > .row > .col-sm-10 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .title-pg {
+        padding: 14px 16px;
+        margin-top: 14px;
+        margin-bottom: 14px;
+        border-radius: 10px;
+        gap: 10px;
+    }
+    .mq-page-heading {
+        font-size: 18px;
+    }
+    .mq-title-actions {
+        width: 100%;
+        gap: 8px;
+    }
+    .mq-title-actions .button-add,
+    .mq-title-actions .button-datapick {
+        flex: 1 1 auto;
+    }
+    .mq-title-actions .button-add a,
+    .mq-title-actions .button-datapick a {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    .main {
+        padding: 14px 12px 22px;
+        border-radius: 12px;
+    }
+    .main table {
+        min-width: 580px;
+    }
+    .main th,
+    .main td {
+        padding: 10px 10px;
+        font-size: 12px;
     }
     .availability-filter {
         align-items: stretch;
         flex-direction: column;
+        padding: 14px 14px;
+        gap: 8px;
+        border-radius: 10px;
     }
     .availability-filter input,
     .availability-filter select,
     .availability-filter button {
         width: 100%;
     }
+    .availability-heading,
+    .availability-legend {
+        padding: 12px 6px 0;
+        gap: 8px;
+    }
+    .availability-legend {
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 11.5px;
+    }
     .availability-slots {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        padding-right: 12px;
-        padding-left: 12px;
+        gap: 10px;
+        padding: 14px 4px 18px;
+    }
+    .availability-slot {
+        min-height: 82px;
+        padding: 10px 12px;
+    }
+    .availability-slot strong {
+        font-size: 15px;
     }
     .button-delete {
-        margin: 5px 0 0;
+        margin: 4px 0 0;
+    }
+    .modal-dialog {
+        margin: 12px;
+    }
+    .modal-header {
+        padding: 14px 16px;
+        font-size: 15px;
+    }
+    .modal-body {
+        padding: 14px 12px;
+    }
+    .modal-body li,
+    .modal-body ul hr {
+        width: 96%;
+    }
+    .modal-body ul input[type=text],
+    .modal-body ul input[type=password],
+    .modal-body ul input[type=number],
+    .modal-body ul input[type=tel],
+    .modal-body ul input[type=date],
+    .modal-body ul input[type=time],
+    .modal-body ul input[type=email],
+    .modal-body ul select {
+        font-size: 13px;
+        padding: 0 10px;
+    }
+    .mq-footer-main {
+        padding: 30px 0 24px;
+    }
+    .mq-footer-desc {
+        text-align: left;
+        font-size: 12.5px;
+    }
+    .mq-hotline-card {
+        padding: 12px 14px;
+    }
+    .mq-hotline-number {
+        font-size: 16px;
+    }
+    .mq-footer-bottom {
+        font-size: 11.5px;
+        padding: 12px 10px;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 380px) {
+    .mq-top-header .mq-container {
+        justify-content: center;
+    }
+    .mq-top-left {
+        display: none;
+    }
+    .availability-slots {
+        grid-template-columns: 1fr;
     }
 }

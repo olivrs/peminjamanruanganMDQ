@@ -585,6 +585,112 @@
 		color: #ffffff;
 		text-decoration: none;
 	}
+
+	/* Responsive Mobile & Tablet untuk Halaman Beranda */
+	@media (max-width: 767.98px) {
+		.beranda-hero {
+			padding: 18px 18px;
+			border-radius: 14px;
+			margin-bottom: 18px;
+			gap: 16px;
+		}
+		.hero-text {
+			width: 100%;
+		}
+		.hero-text h2 {
+			font-size: 19px;
+			line-height: 1.3;
+		}
+		.hero-text p {
+			font-size: 12.5px;
+			margin-bottom: 14px;
+			line-height: 1.5;
+		}
+		.hero-actions {
+			width: 100%;
+			flex-direction: column;
+			align-items: stretch;
+			gap: 8px;
+		}
+		.hero-actions .btn-cta,
+		.hero-actions .btn-cta-outline {
+			width: 100%;
+			justify-content: center;
+			text-align: center;
+			padding: 10px 14px;
+			font-size: 12.5px;
+		}
+		.hero-stats {
+			width: 100%;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 10px;
+		}
+		.stat-card {
+			min-width: 0;
+			padding: 12px 10px;
+		}
+		.stat-number {
+			font-size: 22px;
+		}
+		.stat-label {
+			font-size: 10px;
+		}
+		.analytics-grid {
+			gap: 14px;
+			margin-bottom: 22px;
+		}
+		.analytic-card {
+			padding: 16px;
+		}
+		.section-title {
+			font-size: 16px;
+			margin-bottom: 14px;
+			gap: 4px;
+		}
+		.section-title small {
+			width: 100%;
+			font-size: 11.5px;
+		}
+		.room-grid {
+			grid-template-columns: 1fr;
+			gap: 16px;
+		}
+		.room-slider {
+			height: 200px;
+		}
+		.room-slider-btn {
+			width: 32px;
+			height: 32px;
+			opacity: 0.92;
+		}
+		.room-body {
+			padding: 18px 18px 16px 18px;
+		}
+		.room-name {
+			font-size: 17px;
+		}
+		.mq-quest-strip {
+			padding: 18px 14px 20px 14px;
+			margin-top: 24px;
+		}
+		.mq-quest-heading {
+			font-size: 15px;
+		}
+		.mq-quest-img {
+			width: 64px;
+			height: 64px;
+		}
+		.mq-quest-text {
+			font-size: 10px;
+		}
+	}
+
+	@media (max-width: 576px) {
+		.mq-quest-grid .mq-quest-item:last-child {
+			grid-column: 1 / -1;
+		}
+	}
 </style>
 
 <!-- Banner Hero Medquest -->

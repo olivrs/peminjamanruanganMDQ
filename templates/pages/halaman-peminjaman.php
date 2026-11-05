@@ -6,11 +6,13 @@
 		border-radius: 14px;
 		border: 1px solid #e2e8f0;
 		box-shadow: 0 4px 15px -2px rgba(0, 0, 0, 0.05);
-		overflow: hidden;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
 		margin-bottom: 30px;
 	}
 	.table-custom {
 		width: 100%;
+		min-width: 780px;
 		border-collapse: separate;
 		border-spacing: 0;
 	}
@@ -212,6 +214,79 @@
 		background: #e0f2fe;
 		color: #0059fb;
 	}
+	.peminjaman-toolbar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 18px;
+		flex-wrap: wrap;
+		gap: 12px;
+	}
+	.peminjaman-tabs {
+		display: inline-flex;
+		background: #f1f5f9;
+		padding: 4px;
+		border-radius: 10px;
+		border: 1px solid #e2e8f0;
+	}
+	.peminjaman-tab-link {
+		padding: 7px 18px;
+		font-size: 12px;
+		font-weight: 700;
+		border-radius: 8px;
+		text-decoration: none;
+		transition: all 0.2s;
+		color: #64748b;
+		white-space: nowrap;
+		text-align: center;
+	}
+	.peminjaman-tab-link:hover {
+		text-decoration: none;
+		color: #0059fb;
+	}
+	.peminjaman-tab-link.active {
+		background: #0059fb;
+		color: #ffffff !important;
+		box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+	}
+	.peminjaman-meta {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		flex-wrap: wrap;
+	}
+	.peminjaman-exports {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+	@media (max-width: 767.98px) {
+		.peminjaman-tabs {
+			width: 100%;
+			display: flex;
+		}
+		.peminjaman-tab-link {
+			flex: 1 1 0;
+			padding: 8px 6px;
+			font-size: 11.5px;
+		}
+		.peminjaman-meta {
+			width: 100%;
+			justify-content: space-between;
+		}
+		.peminjaman-exports {
+			width: 100%;
+		}
+		.peminjaman-exports a {
+			flex: 1 1 0;
+			justify-content: center;
+		}
+		.table-custom th,
+		.table-custom td {
+			padding: 11px 12px;
+			font-size: 12px;
+		}
+	}
 </style>
 
 <?php if(in_array($this->session->userdata('level'), array('Admin', 'Resepsionis'), TRUE) && !empty($jumlah_menunggu)): ?>
@@ -233,24 +308,24 @@
 <?php endif; ?>
 
 <!-- Filter Tab / Dropdown Periode Data Peminjaman -->
-<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
-	<div style="display:inline-flex; background:#f1f5f9; padding:4px; border-radius:10px; border:1px solid #e2e8f0;">
+<div class="peminjaman-toolbar">
+	<div class="peminjaman-tabs">
 		<a href="<?php echo base_url('dashboard/data-peminjaman?periode=hari_ini'); ?>" 
-		   style="padding:7px 18px; font-size:12px; font-weight:700; border-radius:8px; text-decoration:none; transition:all 0.2s; <?php echo (isset($filter_periode) && $filter_periode == 'hari_ini') ? 'background:#0059fb; color:#ffffff; box-shadow:0 2px 6px rgba(2,132,199,0.3);' : 'color:#64748b;'; ?>">
+		   class="peminjaman-tab-link <?php echo (isset($filter_periode) && $filter_periode == 'hari_ini') ? 'active' : ''; ?>">
 			<i class="far fa-calendar-check" style="margin-right:4px;"></i> Hari Ini (<?php echo date('d M'); ?>)
 		</a>
 		<a href="<?php echo base_url('dashboard/data-peminjaman?periode=kemarin'); ?>" 
-		   style="padding:7px 18px; font-size:12px; font-weight:700; border-radius:8px; text-decoration:none; transition:all 0.2s; <?php echo (isset($filter_periode) && $filter_periode == 'kemarin') ? 'background:#0059fb; color:#ffffff; box-shadow:0 2px 6px rgba(2,132,199,0.3);' : 'color:#64748b;'; ?>">
+		   class="peminjaman-tab-link <?php echo (isset($filter_periode) && $filter_periode == 'kemarin') ? 'active' : ''; ?>">
 			<i class="far fa-calendar" style="margin-right:4px;"></i> Kemarin
 		</a>
 		<a href="<?php echo base_url('dashboard/data-peminjaman?periode=semua'); ?>" 
-		   style="padding:7px 18px; font-size:12px; font-weight:700; border-radius:8px; text-decoration:none; transition:all 0.2s; <?php echo (!isset($filter_periode) || $filter_periode == 'semua') ? 'background:#0059fb; color:#ffffff; box-shadow:0 2px 6px rgba(2,132,199,0.3);' : 'color:#64748b;'; ?>">
+		   class="peminjaman-tab-link <?php echo (!isset($filter_periode) || $filter_periode == 'semua') ? 'active' : ''; ?>">
 			<i class="fas fa-bars" style="margin-right:4px;"></i> Semua Data
 		</a>
 	</div>
 
 	<!-- Info Jumlah Ditampilkan & Tombol Ekspor (Khusus Superadmin & Resepsionis) -->
-	<div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+	<div class="peminjaman-meta">
 		<div style="font-size:13px; color:#64748b; font-weight:600;">
 			Menampilkan: <span style="color:#0f172a; font-weight:700;"><?php echo count($tb); ?> Data</span>
 			<?php if(isset($filter_periode) && $filter_periode == 'hari_ini'): ?>
@@ -262,7 +337,7 @@
 			<?php endif; ?>
 		</div>
 		<?php if(in_array($this->session->userdata('level'), array('Admin', 'Resepsionis'), TRUE)): ?>
-		<div style="display:flex; align-items:center; gap:8px;">
+		<div class="peminjaman-exports">
 			<a href="<?php echo base_url('dashboard/ekspor-excel?periode=' . (isset($filter_periode) ? $filter_periode : 'semua')); ?>" target="_blank" class="btn-export-excel" 
 			   title="Download Laporan Format Excel / CSV">
 				<i class="fas fa-file-excel" style="color:#16a34a; margin-right:5px;"></i> Ekspor Excel

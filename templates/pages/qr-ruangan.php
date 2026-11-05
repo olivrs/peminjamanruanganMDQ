@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?php echo $hal; ?> · PT Medquest Jaya Global</title>
 	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo base_url('assets/img/favicon-32x32.png'); ?>">
 	<link rel="icon" type="image/png" sizes="192x192" href="<?php echo base_url('assets/img/favicon-192x192.png'); ?>">
@@ -19,7 +20,7 @@
 			align-items: center;
 			justify-content: center;
 			min-height: 100vh;
-			margin: 0;
+			margin: 0; padding: 16px; box-sizing: border-box;
 		}
 		.qr-card {
 			background: #ffffff;
