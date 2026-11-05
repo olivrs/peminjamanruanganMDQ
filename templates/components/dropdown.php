@@ -28,8 +28,8 @@
 	<a href="<?php echo base_url('dashboard/panduan'); ?>" class="dropdown-info" style="text-decoration:none;" title="Buku Panduan Penggunaan">
 		<i class="fas fa-book-open" style="color:#0059fb;"></i> <span>Panduan</span>
 	</a>
-	<a href="<?php echo base_url('login'); ?>" class="dropdown-info" style="background:#0059fb; color:#ffffff; border-color:#0059fb; text-decoration:none;" title="Login">
-		<i class="fas fa-user-lock"></i> <span>Login</span>
+	<a href="<?php echo base_url('login'); ?>" class="dropdown-info" style="background:#0059fb; color:#ffffff !important; border-color:#0059fb; text-decoration:none;" title="Login">
+		<i class="fas fa-user-lock" style="color:#ffffff;"></i> <span style="color:#ffffff;">Login</span>
 	</a>
 </div>
 <?php endif; ?>
