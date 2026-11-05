@@ -13,6 +13,9 @@
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
 	<style>
+		*, *::before, *::after {
+			border-radius: 0 !important;
+		}
 		body {
 			background: #f1f5f9;
 			font-family: 'Open Sans', Helvetica, Arial, sans-serif;
@@ -24,7 +27,7 @@
 		}
 		.qr-card {
 			background: #ffffff;
-			border-radius: 16px;
+			border-radius: 0;
 			box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
 			padding: 40px;
 			text-align: center;
@@ -48,7 +51,7 @@
 			padding: 16px;
 			display: inline-block;
 			border: 2px dashed #cbd5e1;
-			border-radius: 12px;
+			border-radius: 0;
 			margin-bottom: 20px;
 		}
 		.qr-box img {
@@ -66,7 +69,7 @@
 			background: #fee2e2;
 			color: #dc2626;
 			padding: 6px 12px;
-			border-radius: 20px;
+			border-radius: 0;
 			font-size: 12px;
 			font-weight: 600;
 			display: inline-block;

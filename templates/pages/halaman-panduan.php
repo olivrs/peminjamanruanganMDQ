@@ -11,7 +11,7 @@ if (!$level) {
 	}
 	.guide-header {
 		background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0369a1 100%);
-		border-radius: 16px;
+		border-radius: 0;
 		padding: 28px 36px;
 		color: #ffffff;
 		margin-bottom: 24px;
@@ -44,7 +44,7 @@ if (!$level) {
 		font-size: 11.5px;
 		font-weight: 700;
 		padding: 4px 10px;
-		border-radius: 20px;
+		border-radius: 0;
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
 		vertical-align: middle;
@@ -54,7 +54,7 @@ if (!$level) {
 		color: #ffffff;
 		border: none;
 		padding: 10px 20px;
-		border-radius: 8px;
+		border-radius: 0;
 		font-size: 13px;
 		font-weight: 700;
 		cursor: pointer;
@@ -82,7 +82,7 @@ if (!$level) {
 		border: 1px solid #e2e8f0;
 		color: #475569;
 		padding: 10px 18px;
-		border-radius: 10px;
+		border-radius: 0;
 		font-size: 13px;
 		font-weight: 700;
 		cursor: pointer;
@@ -107,7 +107,7 @@ if (!$level) {
 	.guide-card {
 		background: #ffffff;
 		border: 1px solid #e2e8f0;
-		border-radius: 14px;
+		border-radius: 0;
 		padding: 28px;
 		margin-bottom: 24px;
 		box-shadow: 0 4px 10px -2px rgba(0, 0, 0, 0.04);
@@ -136,7 +136,7 @@ if (!$level) {
 	.step-badge {
 		width: 32px;
 		height: 32px;
-		border-radius: 50%;
+		border-radius: 0;
 		background: #e0f2fe;
 		color: #0284c7;
 		font-size: 14px;
@@ -165,7 +165,7 @@ if (!$level) {
 		background: #f8fafc;
 		border-left: 4px solid #0284c7;
 		padding: 12px 16px;
-		border-radius: 0 8px 8px 0;
+		border-radius: 0;
 		font-size: 13px;
 		color: #334155;
 		margin-top: 8px;
@@ -207,14 +207,14 @@ if (!$level) {
 	}
 
 	@media (max-width: 767.98px) {
-		.guide-header { padding: 18px 16px; border-radius: 12px; margin-bottom: 16px; }
+		.guide-header { padding: 18px 16px; border-radius: 0; margin-bottom: 16px; }
 		.guide-header h2 { font-size: 18px; flex-wrap: wrap; gap: 8px; }
 		.guide-header p { font-size: 12.5px; }
 		.guide-header > div:last-child { width: 100%; }
 		.btn-print-guide { width: 100%; justify-content: center; }
 		.guide-nav { gap: 8px; margin-bottom: 16px; }
 		.guide-tab-btn { width: 100%; padding: 10px 14px; font-size: 12.5px; }
-		.guide-card { padding: 18px 14px; border-radius: 12px; }
+		.guide-card { padding: 18px 14px; border-radius: 0; }
 		.guide-card-title { font-size: 15.5px; margin-bottom: 14px; }
 		.step-item { gap: 12px; }
 		.step-badge { width: 28px; height: 28px; font-size: 12.5px; }
@@ -617,21 +617,21 @@ if (!$level) {
 				</thead>
 				<tbody>
 					<tr>
-						<td><span class="badge" style="background:#0284c7; color:#fff; padding:4px 8px; border-radius:4px;">Admin</span></td>
+						<td><span class="badge" style="background:#0284c7; color:#fff; padding:4px 8px; border-radius: 0;">Admin</span></td>
 						<td><code>ryan</code></td>
 						<td><code>123123</code></td>
 						<td>Ryan (Administrator)</td>
 						<td>Kelola sistem penuh, data ruangan, user, dan pantau analitik.</td>
 					</tr>
 					<tr>
-						<td><span class="badge" style="background:#f59e0b; color:#fff; padding:4px 8px; border-radius:4px;">Resepsionis</span></td>
+						<td><span class="badge" style="background:#f59e0b; color:#fff; padding:4px 8px; border-radius: 0;">Resepsionis</span></td>
 						<td><code>operator</code></td>
 						<td><code>123123</code></td>
 						<td>Operator Resepsionis</td>
 						<td>Front desk: persetujuan agenda, verifikasi check-in, cetak laporan.</td>
 					</tr>
 					<tr>
-						<td><span class="badge" style="background:#10b981; color:#fff; padding:4px 8px; border-radius:4px;">Pengguna</span></td>
+						<td><span class="badge" style="background:#10b981; color:#fff; padding:4px 8px; border-radius: 0;">Pengguna</span></td>
 						<td><code>nawal</code></td>
 						<td><code>123123</code></td>
 						<td>Nawwal Fadhil</td>

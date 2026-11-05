@@ -1,7 +1,7 @@
 <style>
 	.beranda-hero {
 		background: linear-gradient(130deg, #002b80 0%, #0059fb 58%, #2ea3f2 100%);
-		border-radius: 16px;
+		border-radius: 0;
 		padding: 22px 30px;
 		color: #ffffff;
 		margin-bottom: 22px;
@@ -21,7 +21,7 @@
 		top: -60px;
 		width: 240px;
 		height: 240px;
-		border-radius: 50%;
+		border-radius: 0;
 		background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 70%);
 		pointer-events: none;
 	}
@@ -51,7 +51,7 @@
 		background: #ffffff;
 		color: #0059fb;
 		padding: 9px 18px;
-		border-radius: 8px;
+		border-radius: 0;
 		font-weight: 800;
 		text-decoration: none;
 		font-size: 12.5px;
@@ -70,7 +70,7 @@
 		border: 1px solid rgba(255, 255, 255, 0.35);
 		color: #ffffff;
 		padding: 8px 16px;
-		border-radius: 8px;
+		border-radius: 0;
 		font-weight: 700;
 		text-decoration: none;
 		font-size: 12.5px;
@@ -91,7 +91,7 @@
 		background: rgba(255, 255, 255, 0.13);
 		backdrop-filter: blur(10px);
 		border: 1px solid rgba(255, 255, 255, 0.25);
-		border-radius: 12px;
+		border-radius: 0;
 		padding: 12px 18px;
 		text-align: center;
 		min-width: 105px;
@@ -115,7 +115,7 @@
 	.mq-quest-strip {
 		background: #ffffff;
 		border: 1px solid #e2e8f0;
-		border-radius: 14px;
+		border-radius: 0;
 		padding: 24px 28px 26px 28px;
 		margin-top: 36px;
 		margin-bottom: 12px;
@@ -165,7 +165,7 @@
 		align-items: center;
 		text-align: center;
 		padding: 6px 8px;
-		border-radius: 10px;
+		border-radius: 0;
 		transition: transform 0.2s ease;
 	}
 	.mq-quest-item:hover {
@@ -204,7 +204,7 @@
 	.analytic-card {
 		background: #ffffff;
 		border: 1px solid #e2e8f0;
-		border-radius: 14px;
+		border-radius: 0;
 		padding: 20px;
 		box-shadow: 0 4px 12px rgba(0, 40, 120, 0.04);
 		display: flex;
@@ -233,7 +233,7 @@
 		background: #f0f6ff;
 		color: #0059fb;
 		padding: 3px 9px;
-		border-radius: 12px;
+		border-radius: 0;
 		text-transform: uppercase;
 	}
 
@@ -258,13 +258,13 @@
 	.bar-track {
 		height: 9px;
 		background: #f1f5f9;
-		border-radius: 6px;
+		border-radius: 0;
 		overflow: hidden;
 		position: relative;
 	}
 	.bar-fill {
 		height: 100%;
-		border-radius: 6px;
+		border-radius: 0;
 		background: linear-gradient(90deg, #0059fb 0%, #2ea3f2 100%);
 		transition: width 0.6s ease;
 	}
@@ -293,7 +293,7 @@
 	.legend-dot {
 		width: 10px;
 		height: 10px;
-		border-radius: 50%;
+		border-radius: 0;
 	}
 
 	/* Leaderboard Dept */
@@ -309,13 +309,13 @@
 		background: #f8fafc;
 		border: 1px solid #f1f5f9;
 		padding: 8px 12px;
-		border-radius: 8px;
+		border-radius: 0;
 		font-size: 12px;
 	}
 	.dept-rank {
 		width: 20px;
 		height: 20px;
-		border-radius: 50%;
+		border-radius: 0;
 		background: #e2e8f0;
 		color: #0f172a;
 		font-size: 10px;
@@ -349,7 +349,7 @@
 	}
 	.room-card {
 		background: #ffffff;
-		border-radius: 14px;
+		border-radius: 0;
 		overflow: hidden;
 		border: 1px solid #e2e8f0;
 		box-shadow: 0 4px 12px rgba(0, 40, 120, 0.05);
@@ -369,8 +369,8 @@
 		position: relative;
 		overflow: hidden;
 		background: #f8fafc;
-		border-top-left-radius: 14px;
-		border-top-right-radius: 14px;
+		border-radius: 0;
+		border-radius: 0;
 		user-select: none;
 	}
 	.room-slider-track {
@@ -415,7 +415,7 @@
 		transform: translateY(-50%);
 		width: 28px;
 		height: 28px;
-		border-radius: 50%;
+		border-radius: 0;
 		background: rgba(255, 255, 255, 0.9);
 		backdrop-filter: blur(4px);
 		border: 1px solid rgba(226, 232, 240, 0.9);
@@ -464,7 +464,7 @@
 		backdrop-filter: blur(4px);
 		color: #ffffff;
 		padding: 3px 8px;
-		border-radius: 12px;
+		border-radius: 0;
 		font-size: 10.5px;
 		font-weight: 700;
 		letter-spacing: 0.5px;
@@ -489,14 +489,14 @@
 	.room-slider-dot {
 		width: 6px;
 		height: 6px;
-		border-radius: 50%;
+		border-radius: 0;
 		background: rgba(148, 163, 184, 0.6);
 		cursor: pointer;
 		transition: all 0.25s ease;
 	}
 	.room-slider-dot.active {
 		width: 16px;
-		border-radius: 10px;
+		border-radius: 0;
 		background: #0059fb;
 		box-shadow: 0 1px 4px rgba(0, 89, 251, 0.4);
 	}
@@ -516,7 +516,7 @@
 		backdrop-filter: blur(4px);
 		color: #ffffff;
 		padding: 4px 11px;
-		border-radius: 20px;
+		border-radius: 0;
 		font-size: 11px;
 		font-weight: 700;
 	}
@@ -560,7 +560,7 @@
 	.room-status-dot {
 		width: 8px;
 		height: 8px;
-		border-radius: 50%;
+		border-radius: 0;
 		background: #10b981;
 		transition: all 0.25s ease;
 	}
@@ -573,7 +573,7 @@
 		color: #0059fb;
 		border: 1px solid #bfdbfe;
 		padding: 7px 15px;
-		border-radius: 6px;
+		border-radius: 0;
 		font-size: 12.5px;
 		font-weight: 700;
 		text-decoration: none;
@@ -590,7 +590,7 @@
 	@media (max-width: 767.98px) {
 		.beranda-hero {
 			padding: 18px 18px;
-			border-radius: 14px;
+			border-radius: 0;
 			margin-bottom: 18px;
 			gap: 16px;
 		}
@@ -863,7 +863,7 @@
 						<span class="dept-rank <?php echo $rankClass; ?>"><?php echo $rank++; ?></span>
 						<strong><?php echo htmlspecialchars($td['departemen_peminjam']); ?></strong>
 					</div>
-					<span style="font-weight:700; color:#0059fb; background:#f0f6ff; padding:2px 9px; border-radius:10px; font-size:11px;">
+					<span style="font-weight:700; color:#0059fb; background:#f0f6ff; padding:2px 9px; border-radius: 0; font-size:11px;">
 						<?php echo $td['total']; ?> Meeting
 					</span>
 				</div>

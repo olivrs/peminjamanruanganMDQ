@@ -16,9 +16,10 @@
 			size: A4 landscape;
 			margin: 10mm 12mm 12mm 12mm;
 		}
-		* {
+		*, *::before, *::after {
 			box-sizing: border-box;
 			font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+			border-radius: 0;
 		}
 		body {
 			background: #f8fafc;
@@ -30,7 +31,7 @@
 			background: #0f172a;
 			color: #ffffff;
 			padding: 12px 24px;
-			border-radius: 10px;
+			border-radius: 0;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
@@ -42,7 +43,7 @@
 			color: #ffffff;
 			border: none;
 			padding: 9px 20px;
-			border-radius: 6px;
+			border-radius: 0;
 			font-size: 13px;
 			font-weight: 700;
 			cursor: pointer;
@@ -60,7 +61,7 @@
 			color: #ffffff;
 			border: 1px solid rgba(255, 255, 255, 0.25);
 			padding: 9px 18px;
-			border-radius: 6px;
+			border-radius: 0;
 			font-size: 13px;
 			text-decoration: none;
 			cursor: pointer;
@@ -74,7 +75,7 @@
 		.report-card {
 			background: #ffffff;
 			border: 1px solid #e2e8f0;
-			border-radius: 12px;
+			border-radius: 0;
 			padding: 30px;
 			box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 			max-width: 1100px;
@@ -161,7 +162,7 @@
 			justify-content: space-between;
 			background: #f8fafc;
 			border: 1px solid #e2e8f0;
-			border-radius: 8px;
+			border-radius: 0;
 			padding: 12px 18px;
 			margin-bottom: 20px;
 			font-size: 12px;
@@ -201,7 +202,7 @@
 		.badge {
 			display: inline-block;
 			padding: 3px 8px;
-			border-radius: 4px;
+			border-radius: 0;
 			font-size: 10px;
 			font-weight: 700;
 			text-transform: uppercase;

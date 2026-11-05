@@ -5,9 +5,10 @@
    Primary Font: 'Open Sans', Helvetica, Arial, sans-serif
    ========================================================= */
 
-* {
+*, *::before, *::after {
     padding: 0;
     margin: 0;
+    border-radius: 0;
 }
 
 html, body,
@@ -108,7 +109,7 @@ body {
 
 .kotak-login {
     padding: 0;
-    border-radius: 16px;
+    border-radius: 0;
     overflow: hidden;
     transition: 0.8s;
     border: 1px solid #dbeafe;
@@ -123,7 +124,7 @@ body {
     float: left;
     width: 50%;
     height: 100%;
-    border-radius: 16px 0 0 16px;
+    border-radius: 0;
     background-image: linear-gradient(145deg, rgba(0, 43, 128, 0.88) 0%, rgba(0, 89, 251, 0.82) 100%), url("../img/interior.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -148,7 +149,7 @@ body {
     font-weight: 800;
     letter-spacing: 0.8px;
     padding: 4px 12px;
-    border-radius: 20px;
+    border-radius: 0;
     margin-bottom: 16px;
 }
 
@@ -179,7 +180,7 @@ body {
     font-size: 11px;
     letter-spacing: 1.5px;
     padding: 3px 10px;
-    border-radius: 6px;
+    border-radius: 0;
 }
 
 .login-form {
@@ -187,7 +188,7 @@ body {
     width: 50%;
     height: 100%;
     text-align: center;
-    border-radius: 0 16px 16px 0;
+    border-radius: 0;
     background-color: #fff;
     padding: 28px 20px;
     box-sizing: border-box;
@@ -238,7 +239,7 @@ body {
     width: 82%;
     border: 1.5px solid #cbd5e1;
     background-color: #f8fafc;
-    border-radius: 8px;
+    border-radius: 0;
     padding: 11px 15px;
     margin: 0;
     box-sizing: border-box;
@@ -260,7 +261,7 @@ body {
     font-size: 14px;
     border: none;
     border-bottom: 3px solid #003db3;
-    border-radius: 8px;
+    border-radius: 0;
     background-color: #0059fb;
     padding: 11px 0px;
     margin-top: 6px;
@@ -338,14 +339,14 @@ body {
     .kotak-login {
         flex: 0 0 100%;
         max-width: 100%;
-        border-radius: 16px;
+        border-radius: 0;
     }
     .gambar-login {
         float: none;
         width: 100%;
         height: auto;
         padding: 24px 20px;
-        border-radius: 16px 16px 0 0;
+        border-radius: 0;
         transform: none;
         opacity: 1;
     }
@@ -359,7 +360,7 @@ body {
         float: none;
         width: 100%;
         height: auto;
-        border-radius: 0 0 16px 16px;
+        border-radius: 0;
         padding: 24px 20px 28px;
         transform: none;
         opacity: 1;

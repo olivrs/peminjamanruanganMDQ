@@ -3,7 +3,7 @@
 <style>
 	.table-card {
 		background: #ffffff;
-		border-radius: 14px;
+		border-radius: 0;
 		border: 1px solid #e2e8f0;
 		box-shadow: 0 4px 15px -2px rgba(0, 0, 0, 0.05);
 		overflow-x: auto;
@@ -44,7 +44,7 @@
 		display: inline-flex;
 		align-items: center;
 		padding: 5px 10px;
-		border-radius: 20px;
+		border-radius: 0;
 		font-size: 11px;
 		font-weight: 700;
 	}
@@ -78,7 +78,7 @@
 		color: #ffffff;
 		border: none;
 		padding: 6px 12px;
-		border-radius: 6px;
+		border-radius: 0;
 		font-size: 12px;
 		font-weight: 700;
 		text-decoration: none;
@@ -99,7 +99,7 @@
 		color: #b91c1c;
 		border: 1px solid #fca5a5;
 		padding: 5px 10px;
-		border-radius: 6px;
+		border-radius: 0;
 		font-size: 12px;
 		font-weight: 600;
 		text-decoration: none;
@@ -119,7 +119,7 @@
 		color: #ffffff;
 		border: none;
 		padding: 6px 12px;
-		border-radius: 6px;
+		border-radius: 0;
 		font-size: 12px;
 		font-weight: 700;
 		text-decoration: none;
@@ -137,7 +137,7 @@
 		color: #0f172a;
 		border: 1px solid #cbd5e1;
 		padding: 4px 10px;
-		border-radius: 6px;
+		border-radius: 0;
 		font-weight: 700;
 		font-size: 12px;
 		display: inline-block;
@@ -161,7 +161,7 @@
 		color: #166534;
 		border: 1px solid #bbf7d0;
 		padding: 7px 14px;
-		border-radius: 8px;
+		border-radius: 0;
 		font-size: 12px;
 		font-weight: 700;
 		text-decoration: none;
@@ -181,7 +181,7 @@
 		color: #334155;
 		border: 1px solid #cbd5e1;
 		padding: 7px 14px;
-		border-radius: 8px;
+		border-radius: 0;
 		font-size: 12px;
 		font-weight: 700;
 		text-decoration: none;
@@ -204,7 +204,7 @@
 		font-size: 11px;
 		font-weight: 700;
 		padding: 3px 8px;
-		border-radius: 5px;
+		border-radius: 0;
 		display: inline-flex;
 		align-items: center;
 		gap: 4px;
@@ -226,14 +226,14 @@
 		display: inline-flex;
 		background: #f1f5f9;
 		padding: 4px;
-		border-radius: 10px;
+		border-radius: 0;
 		border: 1px solid #e2e8f0;
 	}
 	.peminjaman-tab-link {
 		padding: 7px 18px;
 		font-size: 12px;
 		font-weight: 700;
-		border-radius: 8px;
+		border-radius: 0;
 		text-decoration: none;
 		transition: all 0.2s;
 		color: #64748b;
@@ -290,19 +290,19 @@
 </style>
 
 <?php if(in_array($this->session->userdata('level'), array('Admin', 'Resepsionis'), TRUE) && !empty($jumlah_menunggu)): ?>
-<div class="alert alert-warning" role="status" style="background:#fffbeb; border-color:#fde68a; color:#92400e; font-weight:600; border-radius:10px; padding:12px 18px; margin-bottom:18px;">
+<div class="alert alert-warning" role="status" style="background:#fffbeb; border-color:#fde68a; color:#92400e; font-weight:600; border-radius: 0; padding:12px 18px; margin-bottom:18px;">
 	<i class="fas fa-bell" style="margin-right:6px;"></i> Ada <strong><?php echo $jumlah_menunggu; ?> pengajuan peminjaman</strong> yang menunggu keputusan (Setujui / Batalkan).
 </div>
 <?php endif; ?>
 
 <?php if($this->session->flashdata('pesan_sukses')): ?>
-<div class="alert alert-success" role="alert" style="background:#dcfce7; border-color:#86efac; color:#166534; font-weight:600; border-radius:10px; padding:12px 18px; margin-bottom:18px;">
+<div class="alert alert-success" role="alert" style="background:#dcfce7; border-color:#86efac; color:#166534; font-weight:600; border-radius: 0; padding:12px 18px; margin-bottom:18px;">
 	<i class="fas fa-check-circle" style="color:#16a34a; margin-right:6px;"></i> <?php echo $this->session->flashdata('pesan_sukses'); ?>
 </div>
 <?php endif; ?>
 
 <?php if($this->session->flashdata('pesan_error')): ?>
-<div class="alert alert-danger" role="alert" style="background:#fee2e2; border-color:#fca5a5; color:#991b1b; font-weight:600; border-radius:10px; padding:12px 18px; margin-bottom:18px;">
+<div class="alert alert-danger" role="alert" style="background:#fee2e2; border-color:#fca5a5; color:#991b1b; font-weight:600; border-radius: 0; padding:12px 18px; margin-bottom:18px;">
 	<i class="fas fa-exclamation-triangle" style="color:#dc2626; margin-right:6px;"></i> <?php echo $this->session->flashdata('pesan_error'); ?>
 </div>
 <?php endif; ?>
@@ -425,7 +425,7 @@
 				<td align="center">
 					<?php if($baris['status_pinjam'] == 'Disetujui'): ?>
 						<?php if(!empty($baris['waktu_checkin'])): ?>
-							<span class="badge" style="background:#16a34a; color:#fff; padding:6px 10px; border-radius:6px; font-size:11px; display:inline-block; font-weight:700;">
+							<span class="badge" style="background:#16a34a; color:#fff; padding:6px 10px; border-radius: 0; font-size:11px; display:inline-block; font-weight:700;">
 								<i class="fas fa-user-check" style="margin-right:3px;"></i> Check-In (<?php echo date('H:i', strtotime($baris['waktu_checkin'])); ?>)
 							</span>
 						<?php else: ?>
@@ -437,19 +437,19 @@
 								$isToday = ($baris['tanggal_meeting'] == $todayDate);
 							?>
 							<?php if(!$isToday || $now < $mStart): ?>
-								<span style="background:#f1f5f9; color:#64748b; border:1px solid #cbd5e1; padding:4px 8px; border-radius:6px; font-size:11px; display:inline-block;">
+								<span style="background:#f1f5f9; color:#64748b; border:1px solid #cbd5e1; padding:4px 8px; border-radius: 0; font-size:11px; display:inline-block;">
 									Belum Waktunya<br>
 									<small style="font-size:10px; color:#94a3b8;">(Mulai <?php echo substr($baris['jam_meeting'], 0, 5); ?>)</small>
 								</span>
 							<?php elseif($now > $tolerance): ?>
-								<span style="background:#fee2e2; color:#dc2626; border:1px solid #fca5a5; padding:4px 8px; border-radius:6px; font-size:11px; display:inline-block; font-weight:600;">
+								<span style="background:#fee2e2; color:#dc2626; border:1px solid #fca5a5; padding:4px 8px; border-radius: 0; font-size:11px; display:inline-block; font-weight:600;">
 									Lewat Batas<br>
 									<small style="font-size:10px;">Auto-Cancel</small>
 								</span>
 							<?php else: ?>
 								<a href="<?php echo base_url('dashboard/proses-checkin/' . $baris['id_peminjaman']); ?>" 
 								   class="btn btn-sm btn-success" 
-								   style="background:#059669; border:none; color:#fff; font-size:11px; padding:6px 14px; border-radius:6px; font-weight:bold; text-decoration:none; display:inline-block; box-shadow:0 2px 4px rgba(0,0,0,0.1);" 
+								   style="background:#059669; border:none; color:#fff; font-size:11px; padding:6px 14px; border-radius: 0; font-weight:bold; text-decoration:none; display:inline-block; box-shadow:0 2px 4px rgba(0,0,0,0.1);" 
 								   >
 									<i class="fas fa-qrcode" style="margin-right:4px;"></i> Check-In Sekarang
 								</a>
@@ -480,7 +480,7 @@
 									<i class="fas fa-times" style="margin-right:4px;"></i> Tolak
 								</a>
 								<!-- Tombol Sunting (Hanya jika masih menunggu) -->
-								<a href="" data-toggle="modal" data-target="#suntingpinjam<?php echo $baris['id_peminjaman']; ?>" data-backdrop="static" style="color:#64748b; padding:4px 8px; border-radius:4px; border:1px solid #e2e8f0; font-size:12px; text-decoration:none;" title="Sunting">
+								<a href="" data-toggle="modal" data-target="#suntingpinjam<?php echo $baris['id_peminjaman']; ?>" data-backdrop="static" style="color:#64748b; padding:4px 8px; border-radius: 0; border:1px solid #e2e8f0; font-size:12px; text-decoration:none;" title="Sunting">
 									<i class="fas fa-pencil-alt"></i>
 								</a>
 							<?php elseif($baris['status_pinjam'] == 'Disetujui'): ?>
@@ -496,10 +496,10 @@
 						<!-- Integrasi Kalender (Bila status Disetujui atau Selesai) -->
 						<?php if(in_array($baris['status_pinjam'], array('Disetujui', 'Selesai'), TRUE)): ?>
 							<div class="dropdown" style="display:inline-block;">
-								<button class="btn btn-xs dropdown-toggle" type="button" data-toggle="dropdown" style="background:#f0f9ff; border:1px solid #bae6fd; color:#0369a1; font-size:11px; font-weight:700; padding:5px 8px; border-radius:6px; cursor:pointer;" title="Sinkronisasi ke Kalender Kerja">
+								<button class="btn btn-xs dropdown-toggle" type="button" data-toggle="dropdown" style="background:#f0f9ff; border:1px solid #bae6fd; color:#0369a1; font-size:11px; font-weight:700; padding:5px 8px; border-radius: 0; cursor:pointer;" title="Sinkronisasi ke Kalender Kerja">
 									<i class="far fa-calendar-alt" style="margin-right:4px;"></i> Kalender <span class="caret"></span>
 								</button>
-								<ul class="dropdown-menu dropdown-menu-right" style="font-size:12px; min-width:165px; box-shadow:0 4px 15px rgba(0,0,0,0.12); border-radius:8px; border:1px solid #e2e8f0; padding:6px 0;">
+								<ul class="dropdown-menu dropdown-menu-right" style="font-size:12px; min-width:165px; box-shadow:0 4px 15px rgba(0,0,0,0.12); border-radius: 0; border:1px solid #e2e8f0; padding:6px 0;">
 									<li>
 										<a href="<?php echo base_url('dashboard/kalender-google/' . $baris['id_peminjaman']); ?>" target="_blank" style="padding:7px 14px; display:flex; align-items:center; gap:8px;">
 											<i class="fab fa-google" style="color:#ea4335; margin-right:6px;"></i> Google Calendar
@@ -518,7 +518,7 @@
 
 						<!-- Tombol Hapus Database (Hanya Superadmin) -->
 						<?php if($this->session->userdata('level') == 'Admin'): ?>
-							<a href="" data-toggle="modal" data-target="#hapuspinjam<?php echo $baris['id_peminjaman']; ?>" data-backdrop="static" style="color:#ef4444; padding:4px 8px; border-radius:4px; border:1px solid #fee2e2; font-size:12px; text-decoration:none;" title="Hapus Permanen">
+							<a href="" data-toggle="modal" data-target="#hapuspinjam<?php echo $baris['id_peminjaman']; ?>" data-backdrop="static" style="color:#ef4444; padding:4px 8px; border-radius: 0; border:1px solid #fee2e2; font-size:12px; text-decoration:none;" title="Hapus Permanen">
 								<i class="fas fa-trash-alt"></i>
 							</a>
 						<?php endif; ?>
