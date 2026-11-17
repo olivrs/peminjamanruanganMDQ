@@ -16,7 +16,7 @@
 	<p>Belum ada ruang meeting terdaftar.</p>
 <?php else: ?>
 	<div class="availability-heading">
-		<strong><i class="fas fa-door-open" style="color:#0f766e; margin-right:6px;"></i> <?php echo htmlspecialchars($nama_ruangan); ?></strong>
+		<strong><i class="fas fa-door-open" style="color:#2c5282; margin-right:6px;"></i> <?php echo htmlspecialchars($nama_ruangan); ?></strong>
 		<span><i class="far fa-calendar-alt" style="margin-right:4px;"></i> <?php echo date('d/m/Y', strtotime($tanggal)); ?></span>
 	</div>
 	<div class="availability-legend">

@@ -6,11 +6,11 @@
 	$role = $this->session->userdata('level') == 'Admin' ? 'Superadmin' : 'Resepsionis';
 ?>
 <div class="dropdown">
-	<a class="dropdown-info ws-user-pill" id="dropdown-info" data-toggle="dropdown" style="cursor:pointer;" title="<?php echo htmlspecialchars($nama) . ' (' . $role . ')'; ?>">
-		<i class="fas fa-user-shield" style="color:#5eead4;"></i>
+	<a class="dropdown-info" id="dropdown-info" data-toggle="dropdown" style="cursor:pointer;" title="<?php echo htmlspecialchars($nama) . ' (' . $role . ')'; ?>">
+		<i class="fas fa-user-shield" style="color:#2c5282; margin-right:5px;"></i>
 		<span><?php echo htmlspecialchars($nama); ?></span>
-		<small class="ws-role-tag"><?php echo $role; ?></small>
-		<span class="lnr lnr-chevron-down" style="margin-left:2px; font-size:11px;"></span>
+		<small style="color:#2c5282; font-weight:700; margin-left:4px;">(<?php echo $role; ?>)</small>
+		<span class="lnr lnr-chevron-down" style="margin-left:4px;"></span>
 	</a>
 	
 	<div class="dropdown-menu info-content dropdown-menu-right" aria-labelledby="dropdown-info">
@@ -23,12 +23,12 @@
 	</div>
 </div>
 <?php else: ?>
-<div class="ws-header-btns">
-	<a href="<?php echo base_url('dashboard/panduan'); ?>" class="dropdown-info ws-btn-ghost" style="text-decoration:none;" title="Buku Panduan Penggunaan">
-		<i class="fas fa-book-open"></i> <span>Panduan</span>
+<div style="display:flex; align-items:center; gap:8px;">
+	<a href="<?php echo base_url('dashboard/panduan'); ?>" class="dropdown-info" style="text-decoration:none;" title="Buku Panduan Penggunaan">
+		<i class="fas fa-book-open" style="color:#2c5282;"></i> <span>Panduan</span>
 	</a>
-	<a href="<?php echo base_url('login'); ?>" class="dropdown-info ws-btn-login" style="text-decoration:none;" title="Login Petugas">
-		<i class="fas fa-sign-in-alt"></i> <span>Login</span>
+	<a href="<?php echo base_url('login'); ?>" class="dropdown-info app-btn-login" style="background:#2c5282; color:#ffffff !important; border-color:#2c5282; text-decoration:none;" title="Login">
+		<i class="fas fa-user-lock" style="color:#ffffff;"></i> <span style="color:#ffffff;">Login</span>
 	</a>
 </div>
 <?php endif; ?>

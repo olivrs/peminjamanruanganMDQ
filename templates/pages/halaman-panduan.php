@@ -10,7 +10,7 @@ if (!$level) {
 		margin: 0 auto 40px auto;
 	}
 	.guide-header {
-		background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #115e59 100%);
+		background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #1a365d 100%);
 		border-radius: 0;
 		padding: 28px 36px;
 		color: #ffffff;
@@ -50,7 +50,7 @@ if (!$level) {
 		vertical-align: middle;
 	}
 	.btn-print-guide {
-		background: #0f766e;
+		background: #2c5282;
 		color: #ffffff;
 		border: none;
 		padding: 10px 20px;
@@ -66,7 +66,7 @@ if (!$level) {
 		text-decoration: none;
 	}
 	.btn-print-guide:hover {
-		background: #115e59;
+		background: #1a365d;
 		color: #ffffff;
 		text-decoration: none;
 		transform: translateY(-2px);
@@ -94,14 +94,14 @@ if (!$level) {
 	}
 	.guide-tab-btn:hover {
 		background: #f8fafc;
-		color: #0f766e;
+		color: #2c5282;
 		border-color: #cbd5e1;
 		text-decoration: none;
 	}
 	.guide-tab-btn.active {
-		background: #0f766e;
+		background: #2c5282;
 		color: #ffffff;
-		border-color: #0f766e;
+		border-color: #2c5282;
 		box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
 	}
 	.guide-card {
@@ -137,8 +137,8 @@ if (!$level) {
 		width: 32px;
 		height: 32px;
 		border-radius: 0;
-		background: #ccfbf1;
-		color: #0f766e;
+		background: #e2e8f0;
+		color: #2c5282;
 		font-size: 14px;
 		font-weight: 800;
 		display: inline-flex;
@@ -163,7 +163,7 @@ if (!$level) {
 	}
 	.callout-box {
 		background: #f8fafc;
-		border-left: 4px solid #0f766e;
+		border-left: 4px solid #2c5282;
 		padding: 12px 16px;
 		border-radius: 0;
 		font-size: 13px;
@@ -256,16 +256,16 @@ if (!$level) {
 					<span class="badge-role-tag" style="background:#f59e0b; color:#fff;">Resepsionis</span>
 				<?php else: ?>
 					Buku Panduan Administrator (GA & IT)
-					<span class="badge-role-tag" style="background:#0f766e; color:#fff;">Admin Sistem</span>
+					<span class="badge-role-tag" style="background:#2c5282; color:#fff;">Admin Sistem</span>
 				<?php endif; ?>
 			</h2>
 			<p>
 				<?php if ($level == 'Pengguna'): ?>
-					Standard Operating Procedure (SOP) & Alur Reservasi Ruang Meeting, Sinkronisasi Kalender & Check-in bagi Karyawan PT Medquest Jaya Global.
+					Standard Operating Procedure (SOP) & Alur Reservasi Ruang Meeting, Sinkronisasi Kalender & Check-in.
 				<?php elseif ($level == 'Resepsionis'): ?>
-					Standard Operating Procedure (SOP) Operasional Front Desk, Verifikasi Kehadiran & Tata Kelola Ruang Meeting PT Medquest Jaya Global.
+					Standard Operating Procedure (SOP) Operasional Front Desk, Verifikasi Kehadiran & Tata Kelola Ruang Meeting Kantor.
 				<?php else: ?>
-					Standard Operating Procedure (SOP) Tata Kelola Fasilitas, Manajemen Akun Pengguna, Analisis Utilisasi & Pelaporan PT Medquest Jaya Global.
+					Standard Operating Procedure (SOP) Tata Kelola Fasilitas, Manajemen Akun Pengguna, Analisis Utilisasi & Pelaporan Peminjaman Ruangan.
 				<?php endif; ?>
 			</p>
 		</div>
@@ -318,7 +318,7 @@ if (!$level) {
 	<div id="section-karyawan" class="guide-section" style="<?php echo ($level == 'Pengguna') ? 'display:block;' : 'display:none;'; ?>">
 		<div class="guide-card">
 			<div class="guide-card-title">
-				<i class="fas fa-user" style="color:#0f766e;"></i>
+				<i class="fas fa-user" style="color:#2c5282;"></i>
 				<span>Panduan Operasional Karyawan (Pengguna / Pemohon Meeting)</span>
 			</div>
 			<div class="step-list">
@@ -330,7 +330,7 @@ if (!$level) {
 							Buka menu <strong>"Ketersediaan Ruangan"</strong> atau klik <strong>"Pilih Slot"</strong> pada Beranda. Pilih tanggal meeting yang diinginkan. Sistem akan menampilkan status slot per jam (08:00 - 17:00 WIB). Slot yang berwarna abu-abu/terisi tidak dapat dipilih.
 						</p>
 						<div class="callout-box">
-							<i class="fas fa-lightbulb" style="color:#0f766e; margin-right:5px;"></i>
+							<i class="fas fa-lightbulb" style="color:#2c5282; margin-right:5px;"></i>
 							<strong>Tips:</strong> Cek kapasitas ruangan (contoh: <em>Pulau Kalimantan</em> muat s.d 15 orang, <em>Pulau Komodo</em> 6 orang) agar sesuai dengan jumlah peserta rapat Anda.
 						</div>
 					</div>
@@ -400,8 +400,8 @@ if (!$level) {
 	<div id="section-aturan-karyawan" class="guide-section" style="display:none;">
 		<div class="guide-card">
 			<div class="guide-card-title">
-				<i class="fas fa-clipboard-check" style="color:#0f766e;"></i>
-				<span>Aturan, Etika & Kebijakan Reservasi Ruang Meeting PT Medquest Jaya Global</span>
+				<i class="fas fa-clipboard-check" style="color:#2c5282;"></i>
+				<span>Aturan, Etika & Kebijakan Reservasi Ruang Meeting Kantor</span>
 			</div>
 			
 			<div class="callout-box callout-success" style="margin-bottom:20px;">
@@ -447,7 +447,7 @@ if (!$level) {
 	<div id="section-resepsionis" class="guide-section" style="<?php echo ($level == 'Resepsionis') ? 'display:block;' : 'display:none;'; ?>">
 		<div class="guide-card">
 			<div class="guide-card-title">
-				<i class="fas fa-concierge-bell" style="color:#0f766e;"></i>
+				<i class="fas fa-concierge-bell" style="color:#2c5282;"></i>
 				<span>Panduan Operasional Resepsionis (Operator / Front Desk)</span>
 			</div>
 			<div class="step-list">
@@ -456,7 +456,7 @@ if (!$level) {
 					<div class="step-content">
 						<div class="step-title">Memantau Jadwal & Tamu Hari Ini</div>
 						<p class="step-desc">
-							Setiap pagi, buka menu <strong>"Data Peminjaman"</strong> dan manfaatkan filter cepat <strong>"Hari Ini Saja"</strong> untuk melihat daftar agenda meeting, nama penanggung jawab, serta tamu eksternal yang akan hadir di PT Medquest Jaya Global.
+							Setiap pagi, buka menu <strong>"Data Peminjaman"</strong> dan manfaatkan filter cepat <strong>"Hari Ini Saja"</strong> untuk melihat daftar agenda meeting, nama penanggung jawab, serta tamu eksternal yang akan hadir.
 						</p>
 					</div>
 				</div>
@@ -511,8 +511,8 @@ if (!$level) {
 	<div id="section-aturan-resepsionis" class="guide-section" style="display:none;">
 		<div class="guide-card">
 			<div class="guide-card-title">
-				<i class="fas fa-tasks" style="color:#0f766e;"></i>
-				<span>SOP Kesiapan Ruangan & Checklist Front Desk PT Medquest Jaya Global</span>
+				<i class="fas fa-tasks" style="color:#2c5282;"></i>
+				<span>SOP Kesiapan Ruangan & Checklist Front Desk Kantor</span>
 			</div>
 			
 			<div class="callout-box callout-success" style="margin-bottom:20px;">
@@ -534,7 +534,7 @@ if (!$level) {
 	<div id="section-admin" class="guide-section" style="display:block;">
 		<div class="guide-card">
 			<div class="guide-card-title">
-				<i class="fas fa-user-shield" style="color:#0f766e;"></i>
+				<i class="fas fa-user-shield" style="color:#2c5282;"></i>
 				<span>Panduan Administrator Sistem (General Affairs & Tim IT)</span>
 			</div>
 			<div class="step-list">
@@ -591,7 +591,7 @@ if (!$level) {
 	<div id="section-aturan-admin" class="guide-section" style="display:none;">
 		<div class="guide-card">
 			<div class="guide-card-title">
-				<i class="fas fa-database" style="color:#0f766e;"></i>
+				<i class="fas fa-database" style="color:#2c5282;"></i>
 				<span>Aturan Sistem, Parameter Otomasi & Akun Uji Coba (Demo Credentials)</span>
 			</div>
 			
@@ -617,7 +617,7 @@ if (!$level) {
 				</thead>
 				<tbody>
 					<tr>
-						<td><span class="badge" style="background:#0f766e; color:#fff; padding:4px 8px; border-radius: 0;">Admin</span></td>
+						<td><span class="badge" style="background:#2c5282; color:#fff; padding:4px 8px; border-radius: 0;">Admin</span></td>
 						<td><code>ryan</code></td>
 						<td><code>123123</code></td>
 						<td>Ryan (Administrator)</td>

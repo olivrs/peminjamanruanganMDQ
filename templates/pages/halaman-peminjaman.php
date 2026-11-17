@@ -64,9 +64,9 @@
 		border: 1px solid #fca5a5;
 	}
 	.status-selesai {
-		background: #ccfbf1;
-		color: #115e59;
-		border: 1px solid #99f6e4;
+		background: #e2e8f0;
+		color: #1a365d;
+		border: 1px solid #cbd5e1;
 	}
 	.btn-action-group {
 		display: inline-flex;
@@ -115,7 +115,7 @@
 		text-decoration: none;
 	}
 	.btn-complete {
-		background: #0f766e;
+		background: #2c5282;
 		color: #ffffff;
 		border: none;
 		padding: 6px 12px;
@@ -128,7 +128,7 @@
 		gap: 4px;
 	}
 	.btn-complete:hover {
-		background: #115e59;
+		background: #1a365d;
 		color: #ffffff;
 		text-decoration: none;
 	}
@@ -153,7 +153,7 @@
 	}
 	.schedule-time {
 		font-size: 11px;
-		color: #0f766e;
+		color: #2c5282;
 		font-weight: 600;
 	}
 	.btn-export-excel {
@@ -198,9 +198,9 @@
 		box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);
 	}
 	.btn-cal-menu {
-		background: #f0fdfa;
-		border: 1px solid #99f6e4;
-		color: #115e59;
+		background: #edf2f7;
+		border: 1px solid #cbd5e1;
+		color: #1a365d;
 		font-size: 11px;
 		font-weight: 700;
 		padding: 3px 8px;
@@ -211,8 +211,8 @@
 		cursor: pointer;
 	}
 	.btn-cal-menu:hover {
-		background: #ccfbf1;
-		color: #0f766e;
+		background: #e2e8f0;
+		color: #2c5282;
 	}
 	.peminjaman-toolbar {
 		display: flex;
@@ -242,10 +242,10 @@
 	}
 	.peminjaman-tab-link:hover {
 		text-decoration: none;
-		color: #0f766e;
+		color: #2c5282;
 	}
 	.peminjaman-tab-link.active {
-		background: #0f766e;
+		background: #2c5282;
 		color: #ffffff !important;
 		box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
 	}
@@ -339,7 +339,7 @@ $this->session->unset_userdata(array('pesan_sukses', 'pesan_error'));
 		<div style="font-size:13px; color:#64748b; font-weight:600;">
 			Menampilkan: <span style="color:#0f172a; font-weight:700;"><?php echo count($tb); ?> Data</span>
 			<?php if(isset($filter_periode) && $filter_periode == 'hari_ini'): ?>
-				<span style="color:#0f766e;">(Jadwal Hari Ini)</span>
+				<span style="color:#2c5282;">(Jadwal Hari Ini)</span>
 			<?php elseif(isset($filter_periode) && $filter_periode == 'kemarin'): ?>
 				<span style="color:#64748b;">(Jadwal Kemarin)</span>
 			<?php else: ?>
@@ -396,7 +396,7 @@ $this->session->unset_userdata(array('pesan_sukses', 'pesan_error'));
 						<?php echo htmlspecialchars(!empty($baris['nama_peminjam']) ? $baris['nama_peminjam'] : $baris['peminjam']); ?>
 					</div>
 					<div style="font-size:11px; color:#64748b; margin-top:2px;">
-						<span style="color:#0f766e; font-weight:600;"><?php echo $baris['id_peminjaman']; ?></span>
+						<span style="color:#2c5282; font-weight:600;"><?php echo $baris['id_peminjaman']; ?></span>
 						<?php if(!empty($baris['departemen_peminjam'])): ?>
 							&middot; Dept: <?php echo htmlspecialchars($baris['departemen_peminjam']); ?>
 						<?php endif; ?>
@@ -406,7 +406,7 @@ $this->session->unset_userdata(array('pesan_sukses', 'pesan_error'));
 					</div>
 				</td>
 				<td>
-					<span class="badge-room"><i class="fas fa-map-marker-alt" style="color:#0f766e; margin-right:4px;"></i> <?php echo $baris['ruangan_dipinjam']; ?></span>
+					<span class="badge-room"><i class="fas fa-map-marker-alt" style="color:#2c5282; margin-right:4px;"></i> <?php echo $baris['ruangan_dipinjam']; ?></span>
 				</td>
 				<td>
 					<?php if(!empty($baris['tanggal_meeting']) && !empty($baris['jam_meeting'])): ?>
@@ -506,7 +506,7 @@ $this->session->unset_userdata(array('pesan_sukses', 'pesan_error'));
 						<!-- Integrasi Kalender (Bila status Disetujui atau Selesai) -->
 						<?php if(in_array($baris['status_pinjam'], array('Disetujui', 'Selesai'), TRUE)): ?>
 							<div class="dropdown" style="display:inline-block;">
-								<button class="btn btn-xs dropdown-toggle" type="button" data-toggle="dropdown" style="background:#f0fdfa; border:1px solid #99f6e4; color:#115e59; font-size:11px; font-weight:700; padding:5px 8px; border-radius: 0; cursor:pointer;" title="Sinkronisasi ke Kalender Kerja">
+								<button class="btn btn-xs dropdown-toggle" type="button" data-toggle="dropdown" style="background:#edf2f7; border:1px solid #cbd5e1; color:#1a365d; font-size:11px; font-weight:700; padding:5px 8px; border-radius: 0; cursor:pointer;" title="Sinkronisasi ke Kalender Kerja">
 									<i class="far fa-calendar-alt" style="margin-right:4px;"></i> Kalender <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu dropdown-menu-right" style="font-size:12px; min-width:165px; box-shadow:0 4px 15px rgba(0,0,0,0.12); border-radius: 0; border:1px solid #e2e8f0; padding:6px 0;">

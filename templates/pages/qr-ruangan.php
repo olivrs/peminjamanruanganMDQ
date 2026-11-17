@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title><?php echo $hal; ?> · PT Medquest Jaya Global</title>
+	<title><?php echo $hal; ?></title>
 	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo base_url('assets/img/favicon-32x32.png'); ?>">
 	<link rel="icon" type="image/png" sizes="192x192" href="<?php echo base_url('assets/img/favicon-192x192.png'); ?>">
 	<link rel="apple-touch-icon" sizes="180x180" href="<?php echo base_url('assets/img/favicon-180x180.png'); ?>">
@@ -33,7 +33,7 @@
 			text-align: center;
 			max-width: 420px;
 			width: 100%;
-			border-top: 6px solid #009688;
+			border-top: 6px solid #2c5282;
 		}
 		.qr-title {
 			font-size: 22px;
@@ -81,7 +81,7 @@
 	<div class="qr-card">
 		<div class="badge-timer">⏱️ Batas Check-in: 10 Menit dari Jam Booking</div>
 		<div class="qr-title"><?php echo $room['nama_ruangan']; ?></div>
-		<div class="qr-subtitle">PT Medquest Jaya Global · Kapasitas: <?php echo $room['kapasitas']; ?> Orang</div>
+		<div class="qr-subtitle">Kapasitas: <?php echo $room['kapasitas']; ?> Orang</div>
 
 		<div class="qr-box">
 			<?php 
