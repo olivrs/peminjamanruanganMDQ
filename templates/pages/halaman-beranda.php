@@ -1,390 +1,216 @@
+<?php
+date_default_timezone_set('Asia/Jakarta');
+$hari_indo = array('Sunday' => 'Minggu', 'Monday' => 'Senin', 'Tuesday' => 'Selasa', 'Wednesday' => 'Rabu', 'Thursday' => 'Kamis', 'Friday' => 'Jumat', 'Saturday' => 'Sabtu');
+$bulan_indo = array(1 => 'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des');
+$hari_ini_label = $hari_indo[date('l')] . ', ' . date('d') . ' ' . $bulan_indo[(int)date('n')] . ' ' . date('Y');
+?>
 <style>
-	.beranda-hero {
-		background: linear-gradient(130deg, #002b80 0%, #0059fb 58%, #2ea3f2 100%);
-		border-radius: 0;
-		padding: 22px 30px;
-		color: #ffffff;
-		margin-bottom: 22px;
-		box-shadow: 0 14px 32px -8px rgba(0, 89, 251, 0.32);
+	/* =========================================================
+	   MINIMALIST SPLIT WORKSPACE — BERANDA
+	   ========================================================= */
+	.ws-overview-bar {
+		background: #ffffff;
+		border: 1px solid #e2e8f0;
+		border-left: 4px solid #0f766e;
+		padding: 18px 22px;
+		margin-bottom: 18px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		flex-wrap: wrap;
-		gap: 20px;
-		position: relative;
-		overflow: hidden;
+		gap: 18px;
 	}
-	.beranda-hero::after {
-		content: "";
-		position: absolute;
-		right: -60px;
-		top: -60px;
-		width: 240px;
-		height: 240px;
-		border-radius: 0;
-		background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 70%);
-		pointer-events: none;
-	}
-	.hero-text h2 {
-		font-family: 'Open Sans', sans-serif;
-		font-size: 23px;
-		font-weight: 800;
-		margin-top: 0;
-		margin-bottom: 6px;
-		letter-spacing: -0.4px;
-		color: #ffffff;
-	}
-	.hero-text p {
-		font-size: 13px;
-		color: #e0f2fe;
-		max-width: 600px;
-		margin-bottom: 14px;
-		line-height: 1.55;
-	}
-	.hero-actions {
+	.ws-overview-left {
 		display: flex;
-		align-items: center;
-		gap: 12px;
-		flex-wrap: wrap;
+		flex-direction: column;
+		gap: 6px;
+		min-width: 0;
 	}
-	.hero-actions .btn-cta {
-		background: #ffffff;
-		color: #0059fb;
-		padding: 9px 18px;
-		border-radius: 0;
-		font-weight: 800;
-		text-decoration: none;
-		font-size: 12.5px;
-		display: inline-flex;
-		align-items: center;
-		box-shadow: 0 6px 16px rgba(0, 20, 60, 0.2);
-		transition: all 0.2s ease;
-	}
-	.hero-actions .btn-cta:hover {
-		background: #f0f6ff;
-		transform: translateY(-2px);
-		color: #003db3;
-	}
-	.hero-actions .btn-cta-outline {
-		background: rgba(255, 255, 255, 0.12);
-		border: 1px solid rgba(255, 255, 255, 0.35);
-		color: #ffffff;
-		padding: 8px 16px;
-		border-radius: 0;
-		font-weight: 700;
-		text-decoration: none;
-		font-size: 12.5px;
-		display: inline-flex;
-		align-items: center;
-		transition: all 0.2s ease;
-	}
-	.hero-actions .btn-cta-outline:hover {
-		background: rgba(255, 255, 255, 0.24);
-		color: #ffffff;
-	}
-	.hero-stats {
-		display: flex;
-		gap: 14px;
-		flex-wrap: wrap;
-	}
-	.stat-card {
-		background: rgba(255, 255, 255, 0.13);
-		backdrop-filter: blur(10px);
-		border: 1px solid rgba(255, 255, 255, 0.25);
-		border-radius: 0;
-		padding: 12px 18px;
-		text-align: center;
-		min-width: 105px;
-	}
-	.stat-number {
-		font-size: 24px;
-		font-weight: 800;
-		color: #ffffff;
-		line-height: 1;
-	}
-	.stat-label {
+	.ws-overview-date {
 		font-size: 11px;
-		color: #dbeafe;
 		font-weight: 700;
+		color: #0f766e;
 		text-transform: uppercase;
-		letter-spacing: 0.5px;
+		letter-spacing: 0.8px;
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+	}
+	.ws-overview-left h2 {
+		font-size: 20px;
+		font-weight: 800;
+		color: #0f172a;
+		margin: 0;
+		letter-spacing: -0.3px;
+	}
+	.ws-overview-sub {
+		font-size: 13px;
+		color: #64748b;
+		margin: 0;
+	}
+	.ws-overview-actions {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-wrap: wrap;
 		margin-top: 6px;
 	}
-
-	/* Medquest Q.U.E.S.T Core Values Strip (from medquest.co.id - Compact Version) */
-	.mq-quest-strip {
-		background: #ffffff;
-		border: 1px solid #e2e8f0;
-		border-radius: 0;
-		padding: 24px 28px 26px 28px;
-		margin-top: 36px;
-		margin-bottom: 12px;
-		box-shadow: 0 4px 12px rgba(0, 40, 120, 0.04);
-	}
-	.mq-quest-separator {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 18px;
-		margin-bottom: 18px;
-	}
-	.mq-quest-line {
-		flex: 1;
-		height: 2px;
-		background: #2b6cb0;
-		opacity: 0.75;
-	}
-	.mq-quest-heading {
-		margin: 0;
-		font-family: 'Roboto', 'Open Sans', sans-serif;
-		font-size: 17px;
+	.ws-btn-primary {
+		background: #0f766e;
+		color: #ffffff !important;
+		border: 1px solid #0f766e;
+		padding: 8px 16px;
+		font-size: 12.5px;
 		font-weight: 700;
-		color: #262626;
-		letter-spacing: 0.2px;
-		white-space: nowrap;
-	}
-	.mq-quest-grid {
-		display: grid;
-		grid-template-columns: repeat(5, 1fr);
-		gap: 12px;
-		align-items: start;
-	}
-	@media (max-width: 992px) {
-		.mq-quest-grid {
-			grid-template-columns: repeat(3, 1fr);
-		}
-	}
-	@media (max-width: 576px) {
-		.mq-quest-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
-	.mq-quest-item {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-		padding: 6px 8px;
-		border-radius: 0;
-		transition: transform 0.2s ease;
-	}
-	.mq-quest-item:hover {
-		transform: translateY(-3px);
-	}
-	.mq-quest-img {
-		width: 80px;
-		height: 80px;
-		object-fit: contain;
-		margin-bottom: 10px;
-		filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.06));
-	}
-	.mq-quest-text {
-		font-family: 'Roboto', 'Open Sans', sans-serif;
-		font-size: 11px;
-		font-weight: 700;
-		color: #4a5568;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-		line-height: 1.4;
-		max-width: 190px;
-	}
-
-	/* Analytics Section Styling */
-	.analytics-grid {
-		display: grid;
-		grid-template-columns: 1.2fr 1fr 1fr;
-		gap: 20px;
-		margin-bottom: 28px;
-	}
-	@media (max-width: 992px) {
-		.analytics-grid {
-			grid-template-columns: 1fr;
-		}
-	}
-	.analytic-card {
-		background: #ffffff;
-		border: 1px solid #e2e8f0;
-		border-radius: 0;
-		padding: 20px;
-		box-shadow: 0 4px 12px rgba(0, 40, 120, 0.04);
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-	}
-	.card-head {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 16px;
-		padding-bottom: 12px;
-		border-bottom: 1px solid #f1f5f9;
-	}
-	.card-head-title {
-		font-size: 14px;
-		font-weight: 800;
-		color: #1e293b;
-		display: flex;
-		align-items: center;
-		gap: 8px;
-	}
-	.card-head-badge {
-		font-size: 10px;
-		font-weight: 700;
-		background: #f0f6ff;
-		color: #0059fb;
-		padding: 3px 9px;
-		border-radius: 0;
-		text-transform: uppercase;
-	}
-
-	/* Horizontal Room Bar Chart */
-	.room-bar-list {
-		display: flex;
-		flex-direction: column;
-		gap: 12px;
-	}
-	.bar-item {
-		display: flex;
-		flex-direction: column;
-		gap: 4px;
-	}
-	.bar-meta {
-		display: flex;
-		justify-content: space-between;
-		font-size: 12px;
-		font-weight: 600;
-		color: #334155;
-	}
-	.bar-track {
-		height: 9px;
-		background: #f1f5f9;
-		border-radius: 0;
-		overflow: hidden;
-		position: relative;
-	}
-	.bar-fill {
-		height: 100%;
-		border-radius: 0;
-		background: linear-gradient(90deg, #0059fb 0%, #2ea3f2 100%);
-		transition: width 0.6s ease;
-	}
-
-	/* Donut Chart SVG */
-	.donut-wrapper {
-		display: flex;
-		align-items: center;
-		justify-content: space-around;
-		gap: 12px;
-		flex-wrap: wrap;
-	}
-	.donut-legend {
-		display: flex;
-		flex-direction: column;
-		gap: 8px;
-		font-size: 11.5px;
-	}
-	.legend-item {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		color: #475569;
-		font-weight: 600;
-	}
-	.legend-dot {
-		width: 10px;
-		height: 10px;
-		border-radius: 0;
-	}
-
-	/* Leaderboard Dept */
-	.dept-list {
-		display: flex;
-		flex-direction: column;
-		gap: 8px;
-	}
-	.dept-item {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		background: #f8fafc;
-		border: 1px solid #f1f5f9;
-		padding: 8px 12px;
-		border-radius: 0;
-		font-size: 12px;
-	}
-	.dept-rank {
-		width: 20px;
-		height: 20px;
-		border-radius: 0;
-		background: #e2e8f0;
-		color: #0f172a;
-		font-size: 10px;
-		font-weight: 800;
 		display: inline-flex;
 		align-items: center;
-		justify-content: center;
-		margin-right: 8px;
+		gap: 6px;
+		text-decoration: none;
+		transition: all 0.18s ease;
 	}
-	.dept-rank-1 { background: #fef08a; color: #854d0e; }
-	.dept-rank-2 { background: #e2e8f0; color: #475569; }
-	.dept-rank-3 { background: #fed7aa; color: #9a3412; }
+	.ws-btn-primary:hover {
+		background: #115e59;
+		border-color: #115e59;
+		color: #ffffff !important;
+	}
+	.ws-btn-secondary {
+		background: #f8fafc;
+		color: #1e293b !important;
+		border: 1px solid #cbd5e1;
+		padding: 8px 15px;
+		font-size: 12.5px;
+		font-weight: 700;
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		text-decoration: none;
+		transition: all 0.18s ease;
+	}
+	.ws-btn-secondary:hover {
+		background: #0f172a;
+		border-color: #0f172a;
+		color: #ffffff !important;
+	}
 
-	.section-title {
-		font-family: 'Open Sans', sans-serif;
-		font-size: 18px;
+	/* Compact KPI Strip inside Overview Bar */
+	.ws-kpi-strip {
+		display: flex;
+		align-items: stretch;
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+	.ws-kpi-tile {
+		background: #f8fafc;
+		border: 1px solid #e2e8f0;
+		padding: 10px 16px;
+		min-width: 118px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+	.ws-kpi-tile.is-highlight {
+		background: #f0fdfa;
+		border-color: #99f6e4;
+	}
+	.ws-kpi-val {
+		font-family: 'Roboto', 'Open Sans', sans-serif;
+		font-size: 20px;
 		font-weight: 800;
-		color: #1e293b;
-		margin-bottom: 18px;
+		color: #0f172a;
+		line-height: 1.15;
+	}
+	.ws-kpi-tile.is-highlight .ws-kpi-val {
+		color: #0f766e;
+	}
+	.ws-kpi-label {
+		font-size: 10.5px;
+		font-weight: 700;
+		color: #64748b;
+		text-transform: uppercase;
+		letter-spacing: 0.4px;
+		margin-top: 3px;
+	}
+
+	/* Split Workspace 2-Column Layout */
+	.ws-split-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr);
+		gap: 18px;
+		align-items: start;
+	}
+	.ws-panel {
+		background: #ffffff;
+		border: 1px solid #e2e8f0;
+	}
+	.ws-panel-head {
+		padding: 13px 18px;
+		background: #f8fafc;
+		border-bottom: 1px solid #e2e8f0;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		flex-wrap: wrap;
+		gap: 10px;
+	}
+	.ws-panel-title {
+		font-size: 14px;
+		font-weight: 800;
+		color: #0f172a;
+		display: inline-flex;
+		align-items: center;
 		gap: 8px;
+		margin: 0;
 	}
-	.room-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-		gap: 20px;
-		margin-bottom: 25px;
+	.ws-panel-badge {
+		font-size: 11px;
+		font-weight: 700;
+		color: #0f766e;
+		background: #f0fdfa;
+		border: 1px solid #99f6e4;
+		padding: 2px 8px;
 	}
-	.room-card {
-		background: #ffffff;
-		border-radius: 0;
-		overflow: hidden;
-		border: 1px solid #e2e8f0;
-		box-shadow: 0 4px 12px rgba(0, 40, 120, 0.05);
-		transition: all 0.3s ease;
+
+	/* Horizontal Compact Room List */
+	.ws-room-list {
 		display: flex;
 		flex-direction: column;
 	}
-	.room-card:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 16px 32px -10px rgba(0, 89, 251, 0.18);
-		border-color: #0059fb;
+	.ws-room-row {
+		display: flex;
+		align-items: stretch;
+		gap: 16px;
+		padding: 14px 18px;
+		border-bottom: 1px solid #f1f5f9;
+		transition: background-color 0.16s ease;
 	}
-	/* Room Slider / Carousel */
+	.ws-room-row:last-child {
+		border-bottom: none;
+	}
+	.ws-room-row:hover {
+		background: #f8fafc;
+	}
+
+	/* Compact Thumbnail Slider inside Horizontal Row */
 	.room-slider {
-		height: 220px;
-		width: 100%;
+		width: 158px;
+		height: 106px;
+		flex-shrink: 0;
 		position: relative;
 		overflow: hidden;
-		background: #f8fafc;
-		border-radius: 0;
-		border-radius: 0;
+		background: #f1f5f9;
+		border: 1px solid #e2e8f0;
 		user-select: none;
 	}
 	.room-slider-track {
 		display: flex;
 		width: 100%;
 		height: 100%;
-		transition: transform 0.38s cubic-bezier(0.25, 1, 0.5, 1);
+		transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
 		will-change: transform;
 	}
 	.room-slide {
 		flex: 0 0 100%;
 		width: 100%;
 		height: 100%;
-		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -394,627 +220,670 @@
 		width: 100%;
 		height: 100%;
 		display: block;
-		transition: transform 0.4s ease;
 	}
 	.room-slide img.img-dummy {
 		object-fit: contain;
-		padding: 22px;
-		opacity: 0.8;
+		padding: 12px;
+		opacity: 0.82;
 	}
 	.room-slide img.img-real {
 		object-fit: cover;
 	}
-	.room-card:hover .room-slide img.img-real {
-		transform: scale(1.05);
-	}
-
-	/* Tombol Geser Prev & Next */
 	.room-slider-btn {
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
-		width: 28px;
-		height: 28px;
-		border-radius: 0;
-		background: rgba(255, 255, 255, 0.9);
-		backdrop-filter: blur(4px);
-		border: 1px solid rgba(226, 232, 240, 0.9);
-		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+		width: 24px;
+		height: 24px;
+		background: rgba(15, 23, 42, 0.72);
+		border: none;
+		color: #ffffff;
+		font-size: 10px;
+		cursor: pointer;
+		z-index: 12;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: #1e293b;
-		font-size: 11px;
-		cursor: pointer;
-		z-index: 12;
-		opacity: 0.75;
-		transition: all 0.2s ease;
+		opacity: 0;
+		transition: opacity 0.18s ease, background-color 0.18s ease;
 		padding: 0;
-		outline: none;
 	}
-	.room-slider-btn.prev-btn {
-		left: 8px;
-	}
-	.room-slider-btn.next-btn {
-		right: 8px;
-	}
-	.room-card:hover .room-slider-btn,
+	.room-slider-btn.prev-btn { left: 4px; }
+	.room-slider-btn.next-btn { right: 4px; }
+	.ws-room-row:hover .room-slider-btn,
 	.room-slider:hover .room-slider-btn {
 		opacity: 1;
-		background: #ffffff;
-		box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16);
 	}
 	.room-slider-btn:hover {
-		background: #0059fb !important;
-		color: #ffffff !important;
-		border-color: #0059fb !important;
-		transform: translateY(-50%) scale(1.12);
-		box-shadow: 0 4px 10px rgba(0, 89, 251, 0.35);
+		background: #0f766e;
 	}
-	.room-slider-btn:active {
-		transform: translateY(-50%) scale(0.95);
-	}
-
-	/* Counter Badge Kiri Atas (1/3) */
 	.room-photo-counter {
 		position: absolute;
-		top: 10px;
-		left: 10px;
-		background: rgba(15, 23, 42, 0.65);
-		backdrop-filter: blur(4px);
+		top: 5px;
+		left: 5px;
+		background: rgba(15, 23, 42, 0.75);
 		color: #ffffff;
-		padding: 3px 8px;
-		border-radius: 0;
-		font-size: 10.5px;
+		padding: 1px 6px;
+		font-size: 9.5px;
 		font-weight: 700;
-		letter-spacing: 0.5px;
 		z-index: 11;
 		pointer-events: none;
 		display: flex;
 		align-items: center;
 		gap: 3px;
 	}
-
-	/* Dots Navigation */
 	.room-slider-dots {
 		position: absolute;
-		bottom: 10px;
+		bottom: 6px;
 		left: 50%;
 		transform: translateX(-50%);
 		display: flex;
 		align-items: center;
-		gap: 5px;
+		gap: 4px;
 		z-index: 11;
 	}
 	.room-slider-dot {
-		width: 6px;
-		height: 6px;
-		border-radius: 0;
-		background: rgba(148, 163, 184, 0.6);
+		width: 5px;
+		height: 5px;
+		background: rgba(148, 163, 184, 0.7);
 		cursor: pointer;
-		transition: all 0.25s ease;
+		transition: all 0.2s ease;
 	}
 	.room-slider-dot.active {
-		width: 16px;
-		border-radius: 0;
-		background: #0059fb;
-		box-shadow: 0 1px 4px rgba(0, 89, 251, 0.4);
+		width: 12px;
+		background: #0d9488;
 	}
-	.room-slider-dot:hover:not(.active) {
-		background: #64748b;
-	}
-	@media (max-width: 768px) {
-		.room-slider-btn {
-			opacity: 0.85;
-		}
-	}
-	.room-tag {
-		position: absolute;
-		top: 12px;
-		right: 12px;
-		background: rgba(0, 89, 251, 0.88);
-		backdrop-filter: blur(4px);
-		color: #ffffff;
-		padding: 4px 11px;
-		border-radius: 0;
-		font-size: 11px;
-		font-weight: 700;
-	}
-	.room-body {
-		padding: 22px 22px 20px 22px;
-		flex-grow: 1;
+
+	/* Middle Info & Right CTA inside Room Row */
+	.ws-room-content {
+		flex: 1;
+		min-width: 0;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+		gap: 8px;
 	}
-	.room-name {
-		font-size: 18.5px;
+	.ws-room-top {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+	.ws-room-name {
+		font-size: 16px;
 		font-weight: 800;
-		color: #1e293b;
-		margin-bottom: 6px;
+		color: #0f172a;
+		margin: 0 0 3px 0;
 	}
-	.room-info {
-		font-size: 13px;
+	.ws-room-specs {
+		font-size: 12px;
 		color: #64748b;
-		margin-bottom: 20px;
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 10px;
 	}
-	.room-footer {
+	.ws-room-cap {
+		background: #f1f5f9;
+		color: #1e293b;
+		border: 1px solid #cbd5e1;
+		padding: 2px 8px;
+		font-size: 11px;
+		font-weight: 700;
+		white-space: nowrap;
+	}
+	.ws-room-bottom {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding-top: 14px;
-		border-top: 1px solid #f1f5f9;
+		gap: 12px;
+		flex-wrap: wrap;
+		padding-top: 6px;
+		border-top: 1px dashed #e2e8f0;
 	}
 	.room-status {
 		display: inline-flex;
 		align-items: center;
 		gap: 6px;
-		font-size: 13px;
+		font-size: 12px;
 		font-weight: 700;
 		color: #059669;
-		transition: all 0.25s ease;
+		background: #ecfdf5;
+		border: 1px solid #a7f3d0;
+		padding: 3px 9px;
 	}
 	.room-status.status-busy {
 		color: #dc2626;
+		background: #fef2f2;
+		border-color: #fecaca;
 	}
 	.room-status-dot {
-		width: 8px;
-		height: 8px;
-		border-radius: 0;
+		width: 7px;
+		height: 7px;
 		background: #10b981;
-		transition: all 0.25s ease;
 	}
 	.room-status-dot.dot-busy {
 		background: #ef4444;
-		box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
 	}
 	.btn-book {
-		background: #f0f6ff;
-		color: #0059fb;
-		border: 1px solid #bfdbfe;
-		padding: 7px 15px;
-		border-radius: 0;
-		font-size: 12.5px;
+		background: #0f172a;
+		color: #ffffff !important;
+		border: 1px solid #0f172a;
+		padding: 6px 14px;
+		font-size: 12px;
 		font-weight: 700;
 		text-decoration: none;
-		transition: all 0.2s;
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
+		transition: all 0.18s ease;
 	}
 	.btn-book:hover {
-		background: #0059fb;
-		border-color: #0059fb;
-		color: #ffffff;
+		background: #0f766e;
+		border-color: #0f766e;
+		color: #ffffff !important;
 		text-decoration: none;
 	}
 
-	/* Responsive Mobile & Tablet untuk Halaman Beranda */
-	@media (max-width: 767.98px) {
-		.beranda-hero {
-			padding: 18px 18px;
-			border-radius: 0;
-			margin-bottom: 18px;
-			gap: 16px;
-		}
-		.hero-text {
-			width: 100%;
-		}
-		.hero-text h2 {
-			font-size: 19px;
-			line-height: 1.3;
-		}
-		.hero-text p {
-			font-size: 12.5px;
-			margin-bottom: 14px;
-			line-height: 1.5;
-		}
-		.hero-actions {
-			width: 100%;
-			flex-direction: column;
-			align-items: stretch;
-			gap: 8px;
-		}
-		.hero-actions .btn-cta,
-		.hero-actions .btn-cta-outline {
-			width: 100%;
-			justify-content: center;
-			text-align: center;
-			padding: 10px 14px;
-			font-size: 12.5px;
-		}
-		.hero-stats {
-			width: 100%;
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 10px;
-		}
-		.stat-card {
-			min-width: 0;
-			padding: 12px 10px;
-		}
-		.stat-number {
-			font-size: 22px;
-		}
-		.stat-label {
-			font-size: 10px;
-		}
-		.analytics-grid {
-			gap: 14px;
-			margin-bottom: 22px;
-		}
-		.analytic-card {
-			padding: 16px;
-		}
-		.section-title {
-			font-size: 16px;
-			margin-bottom: 14px;
-			gap: 4px;
-		}
-		.section-title small {
-			width: 100%;
-			font-size: 11.5px;
-		}
-		.room-grid {
-			grid-template-columns: 1fr;
-			gap: 16px;
-		}
-		.room-slider {
-			height: 200px;
-		}
-		.room-slider-btn {
-			width: 32px;
-			height: 32px;
-			opacity: 0.92;
-		}
-		.room-body {
-			padding: 18px 18px 16px 18px;
-		}
-		.room-name {
-			font-size: 17px;
-		}
-		.mq-quest-strip {
-			padding: 18px 14px 20px 14px;
-			margin-top: 24px;
-		}
-		.mq-quest-heading {
-			font-size: 15px;
-		}
-		.mq-quest-img {
-			width: 64px;
-			height: 64px;
-		}
-		.mq-quest-text {
-			font-size: 10px;
-		}
+	/* Right Column Stack: Agenda Hari Ini + Admin Metrics */
+	.ws-side-stack {
+		display: flex;
+		flex-direction: column;
+		gap: 18px;
+	}
+	.ws-agenda-list {
+		display: flex;
+		flex-direction: column;
+	}
+	.ws-agenda-item {
+		padding: 12px 16px;
+		border-bottom: 1px solid #f1f5f9;
+		display: flex;
+		gap: 12px;
+		align-items: flex-start;
+	}
+	.ws-agenda-item:last-child {
+		border-bottom: none;
+	}
+	.ws-agenda-time {
+		background: #0f172a;
+		color: #5eead4;
+		font-family: 'Roboto', sans-serif;
+		font-size: 11.5px;
+		font-weight: 700;
+		padding: 5px 8px;
+		min-width: 64px;
+		text-align: center;
+		flex-shrink: 0;
+		line-height: 1.3;
+	}
+	.ws-agenda-time small {
+		display: block;
+		font-size: 9.5px;
+		color: #cbd5e1;
+		font-weight: 500;
+	}
+	.ws-agenda-info {
+		flex: 1;
+		min-width: 0;
+	}
+	.ws-agenda-room {
+		font-size: 13px;
+		font-weight: 800;
+		color: #0f172a;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 6px;
+	}
+	.ws-agenda-meta {
+		font-size: 11.5px;
+		color: #475569;
+		margin-top: 2px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.ws-agenda-desc {
+		font-size: 11.5px;
+		color: #64748b;
+		margin-top: 3px;
+	}
+	.ws-status-pill {
+		font-size: 10px;
+		font-weight: 700;
+		padding: 2px 6px;
+		text-transform: uppercase;
+		flex-shrink: 0;
+	}
+	.ws-status-pill.is-approved { background: #dcfce7; color: #166534; }
+	.ws-status-pill.is-pending { background: #fef3c7; color: #92400e; }
+	.ws-status-pill.is-done { background: #e2e8f0; color: #334155; }
+
+	.ws-panel-foot {
+		padding: 11px 16px;
+		background: #f8fafc;
+		border-top: 1px solid #e2e8f0;
+		text-align: right;
+	}
+	.ws-panel-foot a {
+		font-size: 12px;
+		font-weight: 700;
+		color: #0f766e;
 	}
 
-	@media (max-width: 576px) {
-		.mq-quest-grid .mq-quest-item:last-child {
-			grid-column: 1 / -1;
+	/* Compact Admin Analytics */
+	.ws-admin-body {
+		padding: 16px;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+	.ws-mini-heading {
+		font-size: 11.5px;
+		font-weight: 800;
+		color: #334155;
+		text-transform: uppercase;
+		letter-spacing: 0.4px;
+		margin-bottom: 8px;
+		display: flex;
+		justify-content: space-between;
+	}
+	.room-bar-list {
+		display: flex;
+		flex-direction: column;
+		gap: 9px;
+	}
+	.bar-meta {
+		display: flex;
+		justify-content: space-between;
+		font-size: 11.5px;
+		font-weight: 600;
+		color: #334155;
+		margin-bottom: 3px;
+	}
+	.bar-track {
+		height: 7px;
+		background: #f1f5f9;
+		overflow: hidden;
+	}
+	.bar-fill {
+		height: 100%;
+		background: #0d9488;
+	}
+	.ws-stat-row {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 6px;
+	}
+	.ws-stat-box {
+		background: #f8fafc;
+		border: 1px solid #e2e8f0;
+		padding: 8px 6px;
+		text-align: center;
+	}
+	.ws-stat-box strong {
+		display: block;
+		font-size: 15px;
+		font-weight: 800;
+		color: #0f172a;
+	}
+	.ws-stat-box span {
+		font-size: 10px;
+		font-weight: 700;
+		color: #64748b;
+		text-transform: uppercase;
+	}
+	.dept-item {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 6px 10px;
+		background: #f8fafc;
+		border: 1px solid #e2e8f0;
+		font-size: 12px;
+		margin-bottom: 6px;
+	}
+	.dept-item:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Responsive Breakpoints */
+	@media (max-width: 991.98px) {
+		.ws-split-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+	@media (max-width: 767.98px) {
+		.ws-overview-bar {
+			padding: 14px 16px;
+			gap: 14px;
+		}
+		.ws-overview-left h2 {
+			font-size: 17.5px;
+		}
+		.ws-overview-actions {
+			width: 100%;
+		}
+		.ws-btn-primary,
+		.ws-btn-secondary {
+			flex: 1 1 0;
+			justify-content: center;
+			text-align: center;
+			padding: 9px 10px;
+			font-size: 12px;
+		}
+		.ws-kpi-strip {
+			width: 100%;
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.ws-kpi-tile {
+			min-width: 0;
+			padding: 9px 12px;
+		}
+		.ws-room-row {
+			flex-direction: column;
+			gap: 12px;
+			padding: 14px;
+		}
+		.room-slider {
+			width: 100%;
+			height: 165px;
+		}
+		.room-slider-btn {
+			opacity: 0.9;
+			width: 30px;
+			height: 30px;
+		}
+		.ws-stat-row {
+			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 </style>
 
-<!-- Banner Hero Medquest -->
-<div class="beranda-hero">
-	<div class="hero-text">
+<!-- 1. TOP WORKSPACE OVERVIEW BAR -->
+<div class="ws-overview-bar">
+	<div class="ws-overview-left">
+		<span class="ws-overview-date">
+			<i class="far fa-calendar"></i> <?php echo $hari_ini_label; ?> &middot; <span id="ws-live-clock"><?php echo date('H:i'); ?></span> WIB
+		</span>
 		<?php if ($this->session->userdata('status-masuk') == 'masuk' && !empty($this->session->userdata('namalengkap'))): ?>
-		<h2>Selamat Datang, <?php echo htmlspecialchars($this->session->userdata('namalengkap')); ?></h2>
+		<h2>Workspace Booking &mdash; Halo, <?php echo htmlspecialchars($this->session->userdata('namalengkap')); ?></h2>
 		<?php else: ?>
-		<h2>Selamat Datang di Peminjaman Ruang Meeting</h2>
+		<h2>Workspace Reservasi Ruang Meeting</h2>
 		<?php endif; ?>
-		<p>Website Peminjaman Ruangan Meeting PT Medquest Jaya Global. Cek ketersediaan ruang meeting, sinkronkan ke kalender kerja, atau lakukan verifikasi check-in QR langsung.</p>
-		<div class="hero-actions">
-			<a href="<?php echo base_url('dashboard/ketersediaan-ruangan'); ?>" class="btn-cta">
-				<i class="far fa-calendar-alt" style="margin-right:7px;"></i> Cek Ketersediaan &amp; Booking Ruang
+		<p class="ws-overview-sub">Pantau status ruangan secara real-time, lihat agenda hari ini, dan reservasi slot jam meeting secara langsung.</p>
+		<div class="ws-overview-actions">
+			<a href="<?php echo base_url('dashboard/ketersediaan-ruangan'); ?>" class="ws-btn-primary">
+				<i class="far fa-calendar-plus"></i> Booking Ruangan
 			</a>
-			<a href="<?php echo base_url('dashboard/data-peminjaman'); ?>" class="btn-cta-outline">
-				<i class="fas fa-list-ul" style="margin-right:6px;"></i> Lihat Daftar Agenda
+			<a href="<?php echo base_url('dashboard/data-peminjaman'); ?>" class="ws-btn-secondary">
+				<i class="fas fa-table"></i> Data Peminjaman
 			</a>
 		</div>
 	</div>
-	<div class="hero-stats">
-		<div class="stat-card">
-			<div class="stat-number"><?php echo $total_ruangan; ?></div>
-			<div class="stat-label">Ruang Meeting</div>
+
+	<div class="ws-kpi-strip">
+		<div class="ws-kpi-tile is-highlight">
+			<div class="ws-kpi-val"><?php echo isset($rooms_available_now) ? $rooms_available_now : $total_ruangan; ?> / <?php echo $total_ruangan; ?></div>
+			<div class="ws-kpi-label">Ruang Tersedia</div>
 		</div>
-		<div class="stat-card">
-			<div class="stat-number"><?php echo $booking_hari_ini; ?></div>
-			<div class="stat-label">Meeting Hari Ini</div>
+		<div class="ws-kpi-tile">
+			<div class="ws-kpi-val"><?php echo $booking_hari_ini; ?></div>
+			<div class="ws-kpi-label">Meeting Hari Ini</div>
 		</div>
 		<?php if($this->session->userdata('level') == 'Admin'): ?>
-		<div class="stat-card">
-			<div class="stat-number"><?php echo isset($total_agenda) ? $total_agenda : 0; ?></div>
-			<div class="stat-label">Total Agenda</div>
+		<div class="ws-kpi-tile">
+			<div class="ws-kpi-val"><?php echo isset($total_agenda) ? $total_agenda : 0; ?></div>
+			<div class="ws-kpi-label">Total Arsip Agenda</div>
+		</div>
+		<?php else: ?>
+		<div class="ws-kpi-tile">
+			<div class="ws-kpi-val">08–17</div>
+			<div class="ws-kpi-label">Jam Operasional</div>
 		</div>
 		<?php endif; ?>
 	</div>
 </div>
 
-
-<?php if($this->session->userdata('level') == 'Admin'): ?>
-<!-- ========================================== -->
-<!-- BAGIAN ANALITIK & UTILISASI RUANG MEETING (KHUSUS ADMIN) -->
-<!-- ========================================== -->
-<div class="section-title">
-	<span><i class="fas fa-chart-pie" style="color:#0059fb; margin-right:6px;"></i> Analitik &amp; Utilisasi Ruang Meeting</span>
-	<small style="font-size:12px; color:#64748b; font-weight:normal;">Laporan metrik keterisian &amp; performa reservasi ruangan</small>
-</div>
-
-<div class="analytics-grid">
-	<!-- Card 1: Frekuensi Ruangan -->
-	<div class="analytic-card">
-		<div class="card-head">
-			<span class="card-head-title"><i class="fas fa-building" style="color:#0059fb;"></i> Utilisasi Ruangan</span>
-			<span class="card-head-badge">Total Booking</span>
+<!-- 2. SPLIT WORKSPACE: KIRI DAFTAR RUANGAN KOMPAK | KANAN AGENDA HARI INI (+ ANALITIK ADMIN) -->
+<div class="ws-split-grid">
+	<!-- KOLOM KIRI: LIST HORIZONTAL RUANGAN -->
+	<div class="ws-panel">
+		<div class="ws-panel-head">
+			<h3 class="ws-panel-title"><i class="fas fa-door-open" style="color:#0f766e;"></i> Daftar Ruang Meeting</h3>
+			<span class="ws-panel-badge"><?php echo $total_ruangan; ?> Ruangan</span>
 		</div>
-		<div class="room-bar-list">
+
+		<div class="ws-room-list">
 			<?php 
-				$maxVal = 1;
-				if (!empty($room_utilization)) {
-					foreach ($room_utilization as $ru) {
-						if ($ru['total_booking'] > $maxVal) $maxVal = $ru['total_booking'];
-					}
-				}
+				$roomGalleries = array(
+					'Pulau Jawa' => array(
+						'assets/img/rooms/pulau_jawa_1.png',
+						'assets/img/rooms/pulau_jawa_2.png',
+						'assets/img/rooms/pulau_jawa_3.png',
+					),
+					'Pulau Bali' => array(
+						'assets/img/rooms/pulau_bali_1.png',
+						'assets/img/rooms/pulau_bali_2.png',
+						'assets/img/rooms/pulau_bali_3.png',
+					),
+					'Pulau Papua' => array(
+						'assets/img/rooms/pulau_papua_1.png',
+						'assets/img/rooms/pulau_papua_2.png',
+						'assets/img/rooms/pulau_papua_3.png',
+					),
+					'Pulau Sumatra' => array(
+						'assets/img/rooms/pulau_sumatra_1.png',
+						'assets/img/rooms/pulau_sumatra_2.png',
+						'assets/img/rooms/pulau_sumatra_3.png',
+					),
+					'Pulau Kalimantan' => array(
+						'assets/img/rooms/pulau_kalimantan_1.png',
+						'assets/img/rooms/pulau_kalimantan_2.png',
+						'assets/img/rooms/pulau_kalimantan_3.png',
+					),
+				);
 			?>
-			<?php if(!empty($room_utilization)): ?>
-				<?php foreach($room_utilization as $ru): ?>
-				<?php 
-					$pct = round(($ru['total_booking'] / $maxVal) * 100);
-					if ($ru['total_booking'] == 0) $pct = 4;
-				?>
-				<div class="bar-item">
-					<div class="bar-meta">
-						<span><?php echo $ru['nama']; ?> <small style="color:#94a3b8; font-weight:normal;">(<?php echo $ru['kapasitas']; ?> Org)</small></span>
-						<span style="color:#0059fb; font-weight:700;"><?php echo $ru['total_booking']; ?> Agenda</span>
-					</div>
-					<div class="bar-track">
-						<div class="bar-fill" style="width: <?php echo $pct; ?>%;"></div>
-					</div>
-				</div>
-				<?php endforeach; ?>
-			<?php else: ?>
-				<div style="color:#94a3b8; font-size:12px; text-align:center; padding:20px;">Belum ada data utilisasi.</div>
-			<?php endif; ?>
-		</div>
-	</div>
-
-	<!-- Card 2: Status Distribusi & On-Time Check-In Donut -->
-	<div class="analytic-card">
-		<div class="card-head">
-			<span class="card-head-title"><i class="fas fa-chart-pie" style="color:#10b981;"></i> Tingkat Kehadiran &amp; Status</span>
-			<span class="card-head-badge">KPI</span>
-		</div>
-		<div class="donut-wrapper">
-			<!-- SVG Donut Chart -->
-			<?php
-				$totStatus = array_sum($status_counts);
-				if ($totStatus == 0) $totStatus = 1;
-				$cCircum = 251.2;
-				$pSelesai   = ($status_counts['selesai'] / $totStatus);
-				$pDisetujui = ($status_counts['disetujui'] / $totStatus);
-				$pMenunggu  = ($status_counts['menunggu'] / $totStatus);
-				$pBatal     = ($status_counts['batal'] / $totStatus);
-
-				$dashSelesai   = $pSelesai * $cCircum;
-				$dashDisetujui = $pDisetujui * $cCircum;
-				$dashMenunggu  = $pMenunggu * $cCircum;
-				$dashBatal     = $pBatal * $cCircum;
+			<?php foreach ($rooms as $r): ?>
+			<?php 
+				$roomName = $r['nama_ruangan'];
+				$photos = isset($roomGalleries[$roomName]) ? $roomGalleries[$roomName] : (
+					isset($roomGalleries[$r['id_ruangan']]) ? $roomGalleries[$r['id_ruangan']] : array(
+						'assets/img/rooms/default_1.png',
+						'assets/img/rooms/default_2.png',
+						'assets/img/rooms/default_3.png',
+					)
+				);
+				$totalPhotos = count($photos);
+				$isBusy = !empty($r['is_busy']);
+				$statusLabel = isset($r['status_realtime']) ? $r['status_realtime'] : $r['status'];
 			?>
-			<div style="position:relative; width:130px; height:130px;">
-				<svg width="130" height="130" viewBox="0 0 100 100" style="transform: rotate(-90deg);">
-					<circle cx="50" cy="50" r="40" fill="transparent" stroke="#f1f5f9" stroke-width="14"></circle>
-					<!-- Selesai (Green) -->
-					<circle cx="50" cy="50" r="40" fill="transparent" stroke="#10b981" stroke-width="14"
-						stroke-dasharray="<?php echo $dashSelesai; ?> <?php echo $cCircum - $dashSelesai; ?>"
-						stroke-dashoffset="0"></circle>
-					<!-- Disetujui (Medquest Blue) -->
-					<circle cx="50" cy="50" r="40" fill="transparent" stroke="#0059fb" stroke-width="14"
-						stroke-dasharray="<?php echo $dashDisetujui; ?> <?php echo $cCircum - $dashDisetujui; ?>"
-						stroke-dashoffset="-<?php echo $dashSelesai; ?>"></circle>
-					<!-- Menunggu (Amber) -->
-					<circle cx="50" cy="50" r="40" fill="transparent" stroke="#f59e0b" stroke-width="14"
-						stroke-dasharray="<?php echo $dashMenunggu; ?> <?php echo $cCircum - $dashMenunggu; ?>"
-						stroke-dashoffset="-<?php echo ($dashSelesai + $dashDisetujui); ?>"></circle>
-					<!-- Dibatalkan (Rose) -->
-					<circle cx="50" cy="50" r="40" fill="transparent" stroke="#f43f5e" stroke-width="14"
-						stroke-dasharray="<?php echo $dashBatal; ?> <?php echo $cCircum - $dashBatal; ?>"
-						stroke-dashoffset="-<?php echo ($dashSelesai + $dashDisetujui + $dashMenunggu); ?>"></circle>
-				</svg>
-				<div style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-					<span style="font-size:20px; font-weight:900; color:#0f172a; line-height:1;"><?php echo $checkin_rate; ?>%</span>
-					<span style="font-size:9px; color:#64748b; font-weight:700; text-transform:uppercase; margin-top:2px;">Check-In</span>
-				</div>
-			</div>
-			<!-- Legend -->
-			<div class="donut-legend">
-				<div class="legend-item">
-					<span class="legend-dot" style="background:#10b981;"></span>
-					<span>Selesai: <strong><?php echo $status_counts['selesai']; ?></strong></span>
-				</div>
-				<div class="legend-item">
-					<span class="legend-dot" style="background:#0059fb;"></span>
-					<span>Disetujui: <strong><?php echo $status_counts['disetujui']; ?></strong></span>
-				</div>
-				<div class="legend-item">
-					<span class="legend-dot" style="background:#f59e0b;"></span>
-					<span>Menunggu: <strong><?php echo $status_counts['menunggu']; ?></strong></span>
-				</div>
-				<div class="legend-item">
-					<span class="legend-dot" style="background:#f43f5e;"></span>
-					<span>Batal: <strong><?php echo $status_counts['batal']; ?></strong></span>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Card 3: Top Departemen Peminjam -->
-	<div class="analytic-card">
-		<div class="card-head">
-			<span class="card-head-title"><i class="fas fa-trophy" style="color:#f59e0b;"></i> Departemen Teraktif</span>
-			<span class="card-head-badge">Top 5</span>
-		</div>
-		<div class="dept-list">
-			<?php if(!empty($top_dept)): ?>
-				<?php $rank = 1; foreach($top_dept as $td): ?>
-				<?php 
-					$rankClass = ($rank == 1) ? 'dept-rank-1' : (($rank == 2) ? 'dept-rank-2' : (($rank == 3) ? 'dept-rank-3' : ''));
-				?>
-				<div class="dept-item">
-					<div>
-						<span class="dept-rank <?php echo $rankClass; ?>"><?php echo $rank++; ?></span>
-						<strong><?php echo htmlspecialchars($td['departemen_peminjam']); ?></strong>
+			<div class="ws-room-row">
+				<!-- Mini Thumbnail Slider -->
+				<div class="room-slider" data-room-id="<?php echo $r['id_ruangan']; ?>" data-current-index="0" data-total-slides="<?php echo $totalPhotos; ?>">
+					<div class="room-slider-track">
+						<?php foreach ($photos as $pIdx => $pPath): ?>
+						<?php $isDummy = (strpos($pPath, 'room_dummy') !== false || strpos($pPath, 'rooms/') !== false); ?>
+						<div class="room-slide">
+							<img src="<?php echo base_url($pPath); ?>" alt="<?php echo htmlspecialchars($r['nama_ruangan'] . ' - Foto ' . ($pIdx + 1)); ?>" class="<?php echo $isDummy ? 'img-dummy' : 'img-real'; ?>">
+						</div>
+						<?php endforeach; ?>
 					</div>
-					<span style="font-weight:700; color:#0059fb; background:#f0f6ff; padding:2px 9px; border-radius: 0; font-size:11px;">
-						<?php echo $td['total']; ?> Meeting
-					</span>
+					<div class="room-photo-counter"><i class="far fa-images" style="font-size:9px;"></i> <span class="counter-curr">1</span>/<span class="counter-total"><?php echo $totalPhotos; ?></span></div>
+					<button type="button" class="room-slider-btn prev-btn" aria-label="Foto Sebelumnya" onclick="slideRoomPhoto(this, -1, event)"><i class="fas fa-chevron-left"></i></button>
+					<button type="button" class="room-slider-btn next-btn" aria-label="Foto Selanjutnya" onclick="slideRoomPhoto(this, 1, event)"><i class="fas fa-chevron-right"></i></button>
+					<div class="room-slider-dots">
+						<?php for ($d = 0; $d < $totalPhotos; $d++): ?>
+						<span class="room-slider-dot <?php echo $d === 0 ? 'active' : ''; ?>" data-slide-index="<?php echo $d; ?>" onclick="goToRoomPhoto(this, <?php echo $d; ?>, event)"></span>
+						<?php endfor; ?>
+					</div>
 				</div>
-				<?php endforeach; ?>
-			<?php else: ?>
-				<div style="color:#94a3b8; font-size:12px; text-align:center; padding:20px;">Belum ada data departemen.</div>
-			<?php endif; ?>
+
+				<!-- Detail & Status Ruangan -->
+				<div class="ws-room-content">
+					<div class="ws-room-top">
+						<div>
+							<h4 class="ws-room-name"><?php echo htmlspecialchars($r['nama_ruangan']); ?></h4>
+							<div class="ws-room-specs">
+								<span><i class="fas fa-tv" style="color:#0f766e; margin-right:3px;"></i> Smart TV</span>
+								<span><i class="fas fa-chalkboard" style="color:#0f766e; margin-right:3px;"></i> Whiteboard</span>
+								<span><i class="fas fa-video" style="color:#0f766e; margin-right:3px;"></i> Video Conf</span>
+							</div>
+						</div>
+						<span class="ws-room-cap"><i class="fas fa-users" style="margin-right:4px;"></i> <?php echo $r['kapasitas']; ?> Orang</span>
+					</div>
+
+					<div class="ws-room-bottom">
+						<div class="room-status <?php echo $isBusy ? 'status-busy' : ''; ?>" data-room-id="<?php echo $r['id_ruangan']; ?>" data-room-name="<?php echo htmlspecialchars($r['nama_ruangan']); ?>">
+							<span class="room-status-dot <?php echo $isBusy ? 'dot-busy' : ''; ?>"></span>
+							<span class="room-status-text"><?php echo $statusLabel; ?></span>
+						</div>
+						<a href="<?php echo base_url('dashboard/ketersediaan-ruangan?ruangan=' . rawurlencode($r['nama_ruangan'])); ?>" class="btn-book">
+							Pilih Slot &rarr;
+						</a>
+					</div>
+				</div>
+			</div>
+			<?php endforeach; ?>
 		</div>
 	</div>
-</div>
-<?php endif; ?>
 
-<!-- Katalog Ruangan Meeting Pilihan -->
-<div class="section-title">
-	<span><i class="fas fa-door-open" style="color:#0059fb; margin-right:6px;"></i> Pilihan Ruang Meeting Kantor</span>
-	<small style="font-size:12px; color:#64748b; font-weight:normal;">Dilengkapi fasilitas Smart TV, Whiteboard &amp; Video Conference</small>
-</div>
+	<!-- KOLOM KANAN: AGENDA HARI INI + ANALITIK ADMIN -->
+	<div class="ws-side-stack">
+		<!-- Panel Agenda Hari Ini -->
+		<div class="ws-panel">
+			<div class="ws-panel-head">
+				<h3 class="ws-panel-title"><i class="far fa-clock" style="color:#0f766e;"></i> Agenda Hari Ini</h3>
+				<span class="ws-panel-badge"><?php echo date('d/m/Y'); ?></span>
+			</div>
 
-<div class="room-grid">
-	<?php 
-		// Mapping galeri foto per ruangan (masing-masing 3 foto)
-		// Jika nanti sudah ada foto asli ruangan, cukup letakkan file di assets/img/rooms/ atau ubah path di bawah ini:
-		$roomGalleries = array(
-			'Pulau Jawa' => array(
-				'assets/img/rooms/pulau_jawa_1.png',
-				'assets/img/rooms/pulau_jawa_2.png',
-				'assets/img/rooms/pulau_jawa_3.png',
-			),
-			'Pulau Bali' => array(
-				'assets/img/rooms/pulau_bali_1.png',
-				'assets/img/rooms/pulau_bali_2.png',
-				'assets/img/rooms/pulau_bali_3.png',
-			),
-			'Pulau Papua' => array(
-				'assets/img/rooms/pulau_papua_1.png',
-				'assets/img/rooms/pulau_papua_2.png',
-				'assets/img/rooms/pulau_papua_3.png',
-			),
-			'Pulau Sumatra' => array(
-				'assets/img/rooms/pulau_sumatra_1.png',
-				'assets/img/rooms/pulau_sumatra_2.png',
-				'assets/img/rooms/pulau_sumatra_3.png',
-			),
-			'Pulau Kalimantan' => array(
-				'assets/img/rooms/pulau_kalimantan_1.png',
-				'assets/img/rooms/pulau_kalimantan_2.png',
-				'assets/img/rooms/pulau_kalimantan_3.png',
-			),
-		);
-	?>
-	<?php foreach ($rooms as $r): ?>
-	<?php 
-		$roomName = $r['nama_ruangan'];
-		$photos = isset($roomGalleries[$roomName]) ? $roomGalleries[$roomName] : (
-			isset($roomGalleries[$r['id_ruangan']]) ? $roomGalleries[$r['id_ruangan']] : array(
-				'assets/img/rooms/default_1.png',
-				'assets/img/rooms/default_2.png',
-				'assets/img/rooms/default_3.png',
-			)
-		);
-		$totalPhotos = count($photos);
-	?>
-	<div class="room-card">
-		<div class="room-slider" data-room-id="<?php echo $r['id_ruangan']; ?>" data-current-index="0" data-total-slides="<?php echo $totalPhotos; ?>">
-			<div class="room-slider-track">
-				<?php foreach ($photos as $pIdx => $pPath): ?>
-				<?php 
-					$isDummy = (strpos($pPath, 'room_dummy') !== false || strpos($pPath, 'rooms/') !== false);
-				?>
-				<div class="room-slide">
-					<img src="<?php echo base_url($pPath); ?>" alt="<?php echo htmlspecialchars($r['nama_ruangan'] . ' - Foto ' . ($pIdx + 1)); ?>" class="<?php echo $isDummy ? 'img-dummy' : 'img-real'; ?>">
+			<div class="ws-agenda-list">
+				<?php if(!empty($today_schedules)): ?>
+					<?php foreach($today_schedules as $sch): ?>
+					<?php
+						$jamMulai = substr($sch['jam_meeting'], 0, 5);
+						$jamSelesai = date('H:i', strtotime($sch['jam_meeting']) + 3600);
+						$st = $sch['status_pinjam'];
+						$stClass = ($st == 'Disetujui') ? 'is-approved' : (($st == 'Menunggu') ? 'is-pending' : 'is-done');
+						$peminjamLabel = !empty($sch['nama_peminjam']) ? $sch['nama_peminjam'] : $sch['peminjam'];
+					?>
+					<div class="ws-agenda-item">
+						<div class="ws-agenda-time">
+							<?php echo $jamMulai; ?>
+							<small>s/d <?php echo $jamSelesai; ?></small>
+						</div>
+						<div class="ws-agenda-info">
+							<div class="ws-agenda-room">
+								<span><?php echo htmlspecialchars($sch['ruangan_dipinjam']); ?></span>
+								<span class="ws-status-pill <?php echo $stClass; ?>"><?php echo $st; ?></span>
+							</div>
+							<div class="ws-agenda-meta">
+								<strong><?php echo htmlspecialchars($peminjamLabel); ?></strong>
+								<?php if(!empty($sch['departemen_peminjam'])): ?>
+									&middot; <?php echo htmlspecialchars($sch['departemen_peminjam']); ?>
+								<?php endif; ?>
+							</div>
+							<?php if(!empty($sch['keterangan'])): ?>
+							<div class="ws-agenda-desc"><?php echo htmlspecialchars($sch['keterangan']); ?></div>
+							<?php endif; ?>
+						</div>
+					</div>
+					<?php endforeach; ?>
+				<?php else: ?>
+					<div style="padding:28px 18px; text-align:center; color:#64748b; font-size:12.5px;">
+						<i class="far fa-calendar-check" style="font-size:24px; color:#94a3b8; display:block; margin-bottom:8px;"></i>
+						Belum ada jadwal meeting terdaftar untuk hari ini.
+					</div>
+				<?php endif; ?>
+			</div>
+
+			<div class="ws-panel-foot">
+				<a href="<?php echo base_url('dashboard/data-peminjaman?periode=hari_ini'); ?>">Lihat Detail Peminjaman &rarr;</a>
+			</div>
+		</div>
+
+		<?php if($this->session->userdata('level') == 'Admin'): ?>
+		<!-- Panel Ringkasan Analitik Khusus Admin -->
+		<div class="ws-panel">
+			<div class="ws-panel-head">
+				<h3 class="ws-panel-title"><i class="fas fa-chart-bar" style="color:#0f766e;"></i> Analitik Admin</h3>
+				<span class="ws-panel-badge">Check-In <?php echo $checkin_rate; ?>%</span>
+			</div>
+
+			<div class="ws-admin-body">
+				<div>
+					<div class="ws-mini-heading"><span>Distribusi Status</span><span>Total <?php echo isset($total_agenda) ? $total_agenda : 0; ?></span></div>
+					<div class="ws-stat-row">
+						<div class="ws-stat-box"><strong><?php echo $status_counts['selesai']; ?></strong><span>Selesai</span></div>
+						<div class="ws-stat-box"><strong><?php echo $status_counts['disetujui']; ?></strong><span>Setuju</span></div>
+						<div class="ws-stat-box"><strong><?php echo $status_counts['menunggu']; ?></strong><span>Tunggu</span></div>
+						<div class="ws-stat-box"><strong><?php echo $status_counts['batal']; ?></strong><span>Batal</span></div>
+					</div>
 				</div>
-				<?php endforeach; ?>
-			</div>
 
-			<!-- Tag Kapasitas (Kanan Atas) -->
-			<div class="room-tag"><i class="fas fa-users" style="margin-right:4px;"></i> <?php echo $r['kapasitas']; ?> Orang</div>
-
-			<!-- Counter Foto (Kiri Atas) -->
-			<div class="room-photo-counter"><i class="far fa-images" style="font-size:9.5px;"></i> <span class="counter-curr">1</span>/<span class="counter-total"><?php echo $totalPhotos; ?></span></div>
-
-			<!-- Tombol Navigasi Geser (Prev & Next) -->
-			<button type="button" class="room-slider-btn prev-btn" aria-label="Foto Sebelumnya" onclick="slideRoomPhoto(this, -1, event)">
-				<i class="fas fa-chevron-left"></i>
-			</button>
-			<button type="button" class="room-slider-btn next-btn" aria-label="Foto Selanjutnya" onclick="slideRoomPhoto(this, 1, event)">
-				<i class="fas fa-chevron-right"></i>
-			</button>
-
-			<!-- Indikator Dots -->
-			<div class="room-slider-dots">
-				<?php for ($d = 0; $d < $totalPhotos; $d++): ?>
-				<span class="room-slider-dot <?php echo $d === 0 ? 'active' : ''; ?>" data-slide-index="<?php echo $d; ?>" onclick="goToRoomPhoto(this, <?php echo $d; ?>, event)"></span>
-				<?php endfor; ?>
-			</div>
-		</div>
-		<div class="room-body">
-			<div>
-				<div class="room-name"><?php echo $r['nama_ruangan']; ?></div>
-				<div class="room-info">PT Medquest Jaya Global &middot; Lantai Operasional</div>
-			</div>
-			<div class="room-footer">
-				<?php 
-					$isBusy = !empty($r['is_busy']);
-					$statusLabel = isset($r['status_realtime']) ? $r['status_realtime'] : $r['status'];
-				?>
-				<div class="room-status <?php echo $isBusy ? 'status-busy' : ''; ?>" data-room-id="<?php echo $r['id_ruangan']; ?>" data-room-name="<?php echo htmlspecialchars($r['nama_ruangan']); ?>">
-					<span class="room-status-dot <?php echo $isBusy ? 'dot-busy' : ''; ?>"></span>
-					<span class="room-status-text"><?php echo $statusLabel; ?></span>
+				<div>
+					<div class="ws-mini-heading"><span>Utilisasi Ruangan</span><span>Booking</span></div>
+					<div class="room-bar-list">
+						<?php 
+							$maxVal = 1;
+							if (!empty($room_utilization)) {
+								foreach ($room_utilization as $ru) {
+									if ($ru['total_booking'] > $maxVal) $maxVal = $ru['total_booking'];
+								}
+							}
+						?>
+						<?php if(!empty($room_utilization)): ?>
+							<?php foreach($room_utilization as $ru): ?>
+							<?php $pct = ($ru['total_booking'] == 0) ? 4 : round(($ru['total_booking'] / $maxVal) * 100); ?>
+							<div>
+								<div class="bar-meta">
+									<span><?php echo htmlspecialchars($ru['nama']); ?></span>
+									<span style="color:#0f766e; font-weight:700;"><?php echo $ru['total_booking']; ?>x</span>
+								</div>
+								<div class="bar-track">
+									<div class="bar-fill" style="width: <?php echo $pct; ?>%;"></div>
+								</div>
+							</div>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					</div>
 				</div>
-				<a href="<?php echo base_url('dashboard/ketersediaan-ruangan?ruangan=' . rawurlencode($r['nama_ruangan'])); ?>" class="btn-book">
-					Pilih Slot &rarr;
-				</a>
+
+				<?php if(!empty($top_dept)): ?>
+				<div>
+					<div class="ws-mini-heading"><span>Departemen Teraktif</span><span>Top 5</span></div>
+					<?php $rank = 1; foreach($top_dept as $td): ?>
+					<div class="dept-item">
+						<span><strong>#<?php echo $rank++; ?></strong> <?php echo htmlspecialchars($td['departemen_peminjam']); ?></span>
+						<span style="color:#0f766e; font-weight:700;"><?php echo $td['total']; ?>x</span>
+					</div>
+					<?php endforeach; ?>
+				</div>
+				<?php endif; ?>
 			</div>
 		</div>
-	</div>
-	<?php endforeach; ?>
-</div>
-
-<!-- Medquest Core Values (Q.U.E.S.T) Section ala medquest.co.id (Paling Bawah Sebelum Footer) -->
-<div class="mq-quest-strip">
-	<div class="mq-quest-separator">
-		<span class="mq-quest-line"></span>
-		<h4 class="mq-quest-heading">Core Values</h4>
-		<span class="mq-quest-line"></span>
-	</div>
-	<div class="mq-quest-grid">
-		<div class="mq-quest-item">
-			<img src="<?php echo base_url('assets/img/quest_q.png'); ?>" class="mq-quest-img" alt="Q - Quality First">
-			<div class="mq-quest-text">QUALITY FIRST</div>
-		</div>
-		<div class="mq-quest-item">
-			<img src="<?php echo base_url('assets/img/quest_u.png'); ?>" class="mq-quest-img" alt="U - Understanding Business & Partner's Need">
-			<div class="mq-quest-text">UNDERSTANDING BUSINESS &amp; PARTNER'S NEED</div>
-		</div>
-		<div class="mq-quest-item">
-			<img src="<?php echo base_url('assets/img/quest_e.png'); ?>" class="mq-quest-img" alt="E - Enhance Continuous Improvement">
-			<div class="mq-quest-text">ENHANCE CONTINUOUS IMPROVEMENT</div>
-		</div>
-		<div class="mq-quest-item">
-			<img src="<?php echo base_url('assets/img/quest_s.png'); ?>" class="mq-quest-img" alt="S - Strive For Excellence">
-			<div class="mq-quest-text">STRIVE FOR EXCELLENCE</div>
-		</div>
-		<div class="mq-quest-item">
-			<img src="<?php echo base_url('assets/img/quest_t.png'); ?>" class="mq-quest-img" alt="T - Thankful Attitude">
-			<div class="mq-quest-text">THANKFUL ATTITUDE</div>
-		</div>
+		<?php endif; ?>
 	</div>
 </div>
 
 <script>
+// Jam Live WIB di Workspace Overview Bar
+(function() {
+	var clockEl = document.getElementById('ws-live-clock');
+	if (clockEl) {
+		setInterval(function() {
+			var now = new Date();
+			var wib = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
+			var hh = String(wib.getHours()).padStart(2, '0');
+			var mm = String(wib.getMinutes()).padStart(2, '0');
+			clockEl.textContent = hh + ':' + mm;
+		}, 15000);
+	}
+})();
+
 // Navigasi Slider Foto Ruangan
 window.slideRoomPhoto = function(btn, direction, event) {
 	if (event) {
@@ -1029,9 +898,9 @@ window.slideRoomPhoto = function(btn, direction, event) {
 
 	var nextIndex = currentIndex + direction;
 	if (nextIndex < 0) {
-		nextIndex = totalSlides - 1; // loop ke slide terakhir
+		nextIndex = totalSlides - 1;
 	} else if (nextIndex >= totalSlides) {
-		nextIndex = 0; // loop kembali ke slide pertama
+		nextIndex = 0;
 	}
 
 	updateRoomSliderPosition(slider, nextIndex);
@@ -1055,13 +924,11 @@ function updateRoomSliderPosition(slider, index) {
 		track.style.transform = 'translateX(-' + (index * 100) + '%)';
 	}
 
-	// Update counter (1/3, 2/3, 3/3)
 	var currCounter = slider.querySelector('.counter-curr');
 	if (currCounter) {
 		currCounter.textContent = (index + 1);
 	}
 
-	// Update active dot
 	var dots = slider.querySelectorAll('.room-slider-dot');
 	dots.forEach(function(d, dIdx) {
 		if (dIdx === index) {
@@ -1073,9 +940,8 @@ function updateRoomSliderPosition(slider, index) {
 }
 
 (function() {
-	// Auto-slide saat kursor (mouse) diarahkan ke area foto
-	var HOVER_FIRST_DELAY = 600;   // jeda sebelum geser pertama (ms)
-	var HOVER_INTERVAL    = 1800;  // jeda antar geser selanjutnya (ms)
+	var HOVER_FIRST_DELAY = 600;
+	var HOVER_INTERVAL    = 1800;
 
 	function autoNext(slider) {
 		var curr  = parseInt(slider.getAttribute('data-current-index') || '0', 10);
@@ -1100,13 +966,11 @@ function updateRoomSliderPosition(slider, index) {
 	document.querySelectorAll('.room-slider').forEach(function(slider) {
 		slider.addEventListener('mouseenter', function() { startHoverSlide(slider); });
 		slider.addEventListener('mouseleave', function() { stopHoverSlide(slider); });
-		// Jika user klik tombol/dot saat hover, reset timer agar tidak langsung geser lagi
 		slider.addEventListener('click', function() {
 			if (slider.matches(':hover')) startHoverSlide(slider);
 		}, true);
 	});
 
-	// Dukungan swipe layar sentuh (mobile/tablet)
 	document.querySelectorAll('.room-slider').forEach(function(slider) {
 		var startX = 0;
 		slider.addEventListener('touchstart', function(e) {
@@ -1131,7 +995,6 @@ function updateRoomSliderPosition(slider, index) {
 		}, { passive: true });
 	});
 
-	// Sinkronisasi status ruangan real-time
 	function syncRealtimeRoomStatus() {
 		fetch('<?php echo base_url("dashboard/status-ruangan-realtime"); ?>')
 			.then(function(res) { return res.json(); })
@@ -1158,7 +1021,6 @@ function updateRoomSliderPosition(slider, index) {
 			.catch(function(err) {});
 	}
 
-	// Update berkala setiap 30 detik untuk mendeteksi perubahan jadwal real-time
 	setInterval(syncRealtimeRoomStatus, 30000);
 })();
 </script>

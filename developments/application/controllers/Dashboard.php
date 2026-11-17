@@ -151,12 +151,23 @@ class Dashboard extends CI_Controller
 		}
 		unset($r);
 
+		$rooms_available_now = 0;
+		foreach ($rooms as $r_check) {
+			if ($r_check['status'] == 'Tersedia' && empty($r_check['is_busy'])) {
+				$rooms_available_now++;
+			}
+		}
+
 		$halaman['rooms'] = $rooms;
 		$halaman['total_ruangan'] = count($rooms);
-		$halaman['booking_hari_ini'] = $this->db
-			->where('tanggal_meeting', date('Y-m-d'))
+		$halaman['rooms_available_now'] = $rooms_available_now;
+		$halaman['today_schedules'] = $this->db
+			->where('tanggal_meeting', $today)
 			->where('status_pinjam !=', 'Dibatalkan')
-			->count_all_results('tb_peminjaman');
+			->order_by('jam_meeting', 'ASC')
+			->get('tb_peminjaman')
+			->result_array();
+		$halaman['booking_hari_ini'] = count($halaman['today_schedules']);
 
 		// Analytics - Total Semua Peminjaman
 		$halaman['total_agenda'] = $this->db->count_all_results('tb_peminjaman');

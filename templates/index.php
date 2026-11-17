@@ -7,15 +7,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title><?php echo $hal; ?> · Peminjaman Ruang Meeting - PT Medquest Jaya Global</title>
+	<title><?php echo $hal; ?> &middot; RoomSpace MDQ</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap-datepicker.min.css'); ?>">
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/style.css'); ?>?v=4.0">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/style.css'); ?>?v=5.0">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/linearicons.min.css'); ?>">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> 
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo base_url('assets/img/favicon-32x32.png'); ?>">
 	<link rel="icon" type="image/png" sizes="192x192" href="<?php echo base_url('assets/img/favicon-192x192.png'); ?>">
 	<link rel="apple-touch-icon" sizes="180x180" href="<?php echo base_url('assets/img/favicon-180x180.png'); ?>">
@@ -26,55 +26,39 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<script src="<?php echo base_url('assets/js/bootstrap-datepicker.min.js'); ?>"></script>
 </head>
 <body>
-	<!-- Top Utility Bar ala medquest.co.id (#top-header) -->
-	<div id="top-header" class="mq-top-header">
-		<div class="mq-container">
-			<div class="mq-top-left">
-				<span class="mq-top-item"><i class="fas fa-phone-volume"></i> +62 21 39842961</span>
-				<a href="mailto:info@medquest.co.id" class="mq-top-item"><i class="fas fa-envelope"></i> info@medquest.co.id</a>
-				<span class="mq-top-item mq-hide-mobile"><i class="fas fa-map-marker-alt"></i> Menara Salemba 6th Fl Zone 1, Jakarta Pusat</span>
-			</div>
-			<div class="mq-top-right">
-				<span class="mq-hotline-pill"><i class="fas fa-headset"></i> Hotline 24h: +62-21-29260000</span>
-				<div class="mq-top-socials">
-					<a href="https://www.facebook.com/MedquestID" target="_blank" rel="noopener" title="Facebook Medquest"><i class="fab fa-facebook-f"></i></a>
-					<a href="https://twitter.com/medquest_id" target="_blank" rel="noopener" title="X / Twitter Medquest"><i class="fab fa-twitter"></i></a>
-					<a href="https://www.instagram.com/medquest_id/" target="_blank" rel="noopener" title="Instagram Medquest"><i class="fab fa-instagram"></i></a>
-					<a href="https://medquest.co.id/" target="_blank" rel="noopener" title="Website Resmi medquest.co.id"><i class="fas fa-globe"></i></a>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Main Navigation Header ala medquest.co.id (#main-header) -->
-	<header id="main-header" class="menubar-bg">
-		<div class="mq-container mq-navbar-inner">
-			<div class="mq-brand">
-				<a href="<?php echo base_url('dashboard'); ?>" class="mq-logo-link">
-					<img src="<?php echo base_url('assets/img/logo_medquest.png'); ?>" alt="PT Medquest Jaya Global" class="mq-logo-img">
-					<span class="mq-brand-divider"></span>
-					<span class="mq-brand-subtitle">Room Booking</span>
+	<!-- Slim Internal Workspace Topbar (Dark Slate + Teal Accent) -->
+	<header id="ws-header" class="ws-topbar">
+		<div class="ws-container ws-topbar-inner">
+			<div class="ws-brand">
+				<a href="<?php echo base_url('dashboard'); ?>" class="ws-brand-link">
+					<span class="ws-brand-mark"><i class="fas fa-th-large"></i></span>
+					<span class="ws-brand-text">
+						<span class="ws-brand-name">RoomSpace</span>
+						<span class="ws-brand-sub">MDQ Workspace</span>
+					</span>
 				</a>
 			</div>
+
 			<nav class="menubar"><?php echo $menubar; ?></nav>
-			<div class="mq-user-area"><?php echo $dropdown; ?></div>
+
+			<div class="ws-user-area"><?php echo $dropdown; ?></div>
 		</div>
 	</header>
 
-	<div class="container-fluid mq-page-wrapper">
-		<!-- Baris Judul (hanya tampil jika bukan halaman Beranda) -->
-		<?php if($hal != "Beranda"): ?>
-		<div class="row">
-			<div class="col-sm-1 col-sm-1-offset"></div>
-			<div class="col-sm-10 title-pg">
+	<main class="ws-page-wrapper">
+		<div class="ws-container">
+			<!-- Baris Judul Halaman (tampil jika bukan Beranda) -->
+			<?php if($hal != "Beranda"): ?>
+			<div class="title-pg">
 				<div class="main-title">
-					<div class="mq-page-heading"><?php echo $hal; ?></div>
+					<span class="ws-page-kicker">Internal Meeting Room System</span>
+					<div class="ws-page-heading"><?php echo $hal; ?></div>
 				</div>
 
-				<div class="mq-title-actions">
+				<div class="ws-title-actions">
 					<?php if($hal == "Kelola Data Ruangan" && $this->session->userdata('level') == "Admin"): ?>
 					<div class="button-add">
-						<a href="" data-toggle="modal" data-target="#buatruangan" data-backdrop="static"><i class="fas fa-plus-circle" style="margin-right:6px;"></i> Tambah Ruangan</a>
+						<a href="" data-toggle="modal" data-target="#buatruangan" data-backdrop="static"><i class="fas fa-plus" style="margin-right:6px;"></i> Tambah Ruangan</a>
 					</div>
 					<?php endif; ?>
 
@@ -86,7 +70,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<?php endif; ?>
 
 						<div class="button-add">
-							<a href="" data-toggle="modal" data-target="#ajukanpinjam" data-backdrop="static"><i class="fas fa-plus-circle" style="margin-right:6px;"></i> Ajukan Peminjaman</a>
+							<a href="" data-toggle="modal" data-target="#ajukanpinjam" data-backdrop="static"><i class="fas fa-plus" style="margin-right:6px;"></i> Ajukan Peminjaman</a>
 						</div>
 					<?php endif; ?>
 
@@ -107,80 +91,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<?php endif; ?>
 				</div>
 			</div>
-		</div>
-		<?php endif; ?>
+			<?php endif; ?>
 
-		<!-- Baris Konten -->
-		<div class="row" style="<?php if($hal == 'Beranda') echo 'margin-top: 22px;'; ?>">
-			<div class="col-sm-1 col-sm-1-offset"></div>
-			<div class="col-sm-10 outer-main" style="<?php if($hal == 'Beranda') echo 'padding-top: 0;'; ?>">
+			<!-- Konten Utama -->
+			<div class="outer-main <?php if($hal == 'Beranda') echo 'outer-main-beranda'; ?>">
 				<div class="main <?php if($hal == 'Beranda') echo 'main-beranda'; ?>"><?php echo $content; ?></div>
 			</div>
 		</div>
-	</div>
+	</main>
 
-	<!-- Corporate Footer ala medquest.co.id (et_pb_section_0_tb_footer) -->
-	<footer class="mq-footer">
-		<div class="mq-footer-main">
-			<div class="mq-container mq-footer-grid">
-				<!-- Kolom 1: Logo, Profil Perusahaan & Kontak -->
-				<div class="mq-footer-col mq-footer-about">
-					<div class="mq-footer-logo-box">
-						<img src="<?php echo base_url('assets/img/logo_medquest.png'); ?>" alt="PT Medquest Jaya Global">
-					</div>
-					<p class="mq-footer-desc">
-						PT. Medquest Jaya Global since its establishment in 2004 concentrating in distributing medical device and pharmaceutical, by promoting innovation and latest technology. We currently distribute more than 30 leading brands in the world, which includes the equipment in the field of blood bank, diagnostics, research and industry.
-					</p>
-					<ul class="mq-footer-contacts">
-						<li><i class="fas fa-phone-volume"></i> <span>+62-21 39842961</span></li>
-						<li><i class="fas fa-envelope"></i> <a href="mailto:info@medquest.co.id">info@medquest.co.id</a></li>
-						<li><i class="fas fa-map-marker-alt"></i> <span>Menara Salemba 6th Fl Zone 1, Jl. Salemba Raya No. 5 - 5A, Jakarta Pusat 10440</span></li>
-					</ul>
-					<div class="mq-iso-badges">
-						<span class="mq-iso-pill"><i class="fas fa-certificate"></i> ISO 9001:2015 SGS Certified</span>
-						<span class="mq-iso-pill"><i class="fas fa-shield-alt"></i> ISO 37001:2016 Anti-Bribery</span>
-					</div>
-				</div>
-
-				<!-- Kolom 2: Explore & Navigasi Cepat -->
-				<div class="mq-footer-col mq-footer-links">
-					<h4 class="mq-footer-title">Explore</h4>
-					<ul>
-						<li><a href="<?php echo base_url('dashboard'); ?>">Beranda Portal</a></li>
-						<li><a href="<?php echo base_url('dashboard/ketersediaan-ruangan'); ?>">Ketersediaan Ruang Meeting</a></li>
-						<li><a href="<?php echo base_url('dashboard/data-peminjaman'); ?>">Data & Agenda Peminjaman</a></li>
-						<li><a href="<?php echo base_url('dashboard/panduan'); ?>">Buku Panduan Sistem</a></li>
-						<li><a href="https://medquest.co.id/" target="_blank" rel="noopener">Official Website (medquest.co.id)</a></li>
-						<li><a href="https://medquest.co.id/products/" target="_blank" rel="noopener">Products & Calibration</a></li>
-						<li><a href="https://medquest.co.id/whistle-blowing-system/" target="_blank" rel="noopener">Whistle Blowing System (WBS)</a></li>
-					</ul>
-				</div>
-
-				<!-- Kolom 3: Hotline 24 Hours & Media Sosial -->
-				<div class="mq-footer-col mq-footer-hotline">
-					<h4 class="mq-footer-title">Customer & Internal Support</h4>
-					<div class="mq-hotline-card">
-						<div class="mq-hotline-icon"><i class="fas fa-headset"></i></div>
-						<div>
-							<div class="mq-hotline-label">Hotline Service 24 Hours</div>
-							<div class="mq-hotline-number">+62-21-29260000</div>
-						</div>
-					</div>
-					<div class="mq-footer-socials">
-						<a href="https://www.instagram.com/medquest_id/" target="_blank" rel="noopener" title="Instagram"><i class="fab fa-instagram"></i></a>
-						<a href="https://www.facebook.com/MedquestID" target="_blank" rel="noopener" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-						<a href="https://twitter.com/medquest_id" target="_blank" rel="noopener" title="X / Twitter"><i class="fab fa-twitter"></i></a>
-						<a href="https://medquest.co.id/contact-us/" target="_blank" rel="noopener" title="Contact Us"><i class="fas fa-external-link-alt"></i></a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="mq-footer-bottom">
-			<div class="mq-container">
-				&copy; <?php echo date('Y'); ?> <strong>PT Medquest Jaya Global</strong> &middot; Sistem Manajemen &amp; Peminjaman Ruang Meeting Terintegrasi. All Rights Reserved.
-			</div>
+	<!-- Slim Internal App Footer (Tanpa profil website utama) -->
+	<footer class="ws-footer">
+		<div class="ws-container ws-footer-inner">
+			<span>&copy; <?php echo date('Y'); ?> RoomSpace &middot; Sistem Reservasi Ruang Meeting Internal PT Medquest Jaya Global</span>
+			<span class="ws-footer-meta">Zona Waktu: WIB (Asia/Jakarta)</span>
 		</div>
 	</footer>
+
 	<script>
 	$(document).ready(function () {
 		$('.modal').appendTo('body');

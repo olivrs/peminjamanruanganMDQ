@@ -39,7 +39,7 @@
 			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 		}
 		.print-btn {
-			background: #0284c7;
+			background: #0f766e;
 			color: #ffffff;
 			border: none;
 			padding: 9px 20px;
@@ -54,7 +54,7 @@
 			transition: all 0.2s;
 		}
 		.print-btn:hover {
-			background: #0369a1;
+			background: #115e59;
 		}
 		.back-btn {
 			background: rgba(255, 255, 255, 0.15);
@@ -85,7 +85,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			border-bottom: 3px double #0284c7;
+			border-bottom: 3px double #0f766e;
 			padding-bottom: 16px;
 			margin-bottom: 20px;
 			gap: 20px;
@@ -115,7 +115,7 @@
 		}
 		.brand-sub {
 			font-size: 11px;
-			color: #0284c7;
+			color: #0f766e;
 			font-weight: 700;
 			letter-spacing: 1.2px;
 			text-transform: uppercase;
@@ -208,7 +208,7 @@
 			text-transform: uppercase;
 		}
 		.badge-success { background: #dcfce7; color: #166534; }
-		.badge-primary { background: #e0f2fe; color: #0369a1; }
+		.badge-primary { background: #ccfbf1; color: #115e59; }
 		.badge-warning { background: #fef3c7; color: #92400e; }
 		.badge-danger  { background: #fee2e2; color: #991b1b; }
 		.signature-section {
@@ -340,7 +340,7 @@
 							<span style="color:#64748b; font-size:10.5px;">Pukul <?php echo !empty($row['jam_meeting']) ? substr($row['jam_meeting'], 0, 5) : '-'; ?> WIB</span>
 						</td>
 						<td>
-							<strong style="color:#0284c7;"><?php echo $row['ruangan_dipinjam']; ?></strong>
+							<strong style="color:#0f766e;"><?php echo $row['ruangan_dipinjam']; ?></strong>
 						</td>
 						<td>
 							<?php echo htmlspecialchars($row['keterangan']); ?>
